@@ -272,4 +272,3 @@ admin.add_view(MySubmissionModelView(models.Submission, db.session))
 admin.add_view(Add_HDOJ_Problem_View(name='Add HDOJ Problem', category='Problem'))
 admin.add_view(Add_PKUOJ_Problem_View(name='Add PKU OJ Problem', category='Problem'))
 
-        

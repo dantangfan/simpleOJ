@@ -8,52 +8,9 @@ import json
 import collections
 import math
 from datetime import datetime
-import urllib2,urllib 
-import cookielib,re
 from hashlib import md5
 import clean_xss
     
-
-'''
-def SCPC_LOGIN(username, password):
-    #login_url = "http://acm.swust.edu.cn:8080/"
-    #login_action = "http://acm.swust.edu.cn:8080/user/ajaxlogin/"
-    login_url = "http://127.0.0.1:5000/"
-    login_action = "http://127.0.0.1:5000/user/ajaxlogin/"
-    #cookie处理器
-    cookieJar = cookielib.LWPCookieJar()  
-    cookie_support = urllib2.HTTPCookieProcessor(cookieJar)  
-    opener = urllib2.build_opener(cookie_support, urllib2.HTTPHandler)  
-    urllib2.install_opener(opener)  
-
-    #打开登录主页面
-    text = urllib2.urlopen(login_url).read()
-    match = re.compile('action=\"\/user\/login/\".*?csrfmiddlewaretoken.*?value.*?\'(.*?)\'', re.M | re.S)
-    token = match.findall(text)[0]
-
-    #header  
-    headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1', 'Referer' : '******'}  
-
-    #Post数据 
-    postData = {'username' : username, 'password' : password, 'csrfmiddlewaretoken' : token}   
-    postData = urllib.urlencode(postData)  
-
-    # Login
-    request = urllib2.Request(login_action, postData, headers)  
-    response = urllib2.urlopen(request) 
-    text= response.read()
-    result = {}
-    result['result'] = json.loads(text)['canlogin']
-    if result['result'] == True:
-        #email_url = "http://acm.swust.edu.cn:8080/user/juserinfo/?operation=profile"
-        email_url = "http://127.0.0.1:5000/user/juserinfo/?operation=profile"
-        request = urllib2.Request(email_url, None, headers)
-        response = urllib2.urlopen(request)
-        text = response.read()
-        result['email'] = json.loads(text)['email']
-    return result
-'''
-
 
 @lm.user_loader
 def load_user(id):
@@ -89,8 +46,7 @@ def login(action):
                     login_user(u)
                     return json.dumps({"result" : "ok", "username" : g.user.username})
         except Exception, e:
-            #raise e
-            print e
+            raise e
             db.session.rollback()
         return json.dumps({"result" : "failed"})
         

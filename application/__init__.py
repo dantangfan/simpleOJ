@@ -14,7 +14,8 @@ db = SQLAlchemy(app)
 
 # Login Manager instance
 lm = LoginManager()
-lm.setup_app(app)
+#lm.setup_app(app)
+lm.init_app(app)
 
 # Cache
 cache = Cache(app)
