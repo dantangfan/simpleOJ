@@ -1,0 +1,1380 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8" />
+<title>Stardom - A Responsive  Admin UI Template Theme</title>
+<meta name="keywords" content="Bootstrap 3 Template" />
+<meta name="description" content="Stardom - A Responsive HTML5 Admin UI Template Theme" />
+<meta name="author" content="Holladay" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Font CSS  -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css" />
+
+<!-- Core CSS -->
+<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="../fonts/glyphicons_pro/glyphicons.min.css" />
+<link rel="stylesheet" type="text/css" href="../fonts/icomoon/style.css" />
+
+<!-- Plugin CSS -->
+<link rel="stylesheet" type="text/css" href="../css/animate.css" />
+<link rel="stylesheet" type="text/css" href="vendor/highlight/styles/github.css" />
+<link rel="stylesheet" type="text/css" href="../vendor/plugins/prettify/prettify.css" />
+<link rel="stylesheet" type="text/css" href="../vendor/plugins/datatables/css/datatables.css" />
+
+<!-- Theme CSS -->
+<link rel="stylesheet" type="text/css" href="css/theme.css" />
+<link rel="stylesheet" type="text/css" href="css/css.css" />
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="img/favicon.ico" />
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+
+<body data-spy="scroll" data-target="#docs-sidebar" data-offset="20">
+<a href="../dashboard.html" id="return-arrow"> <i class="fa fa-arrow-circle-left fa-3x text-red2"></i> <span> Return <br />
+to Theme </span> </a>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3" id="docs-sidebar">
+      <ul class="nav docs-nav">
+        <li class="docs-nav-logo"><img src="img/logo.png" class="img-responsive" /></li>
+        <li class="active"> <a href="#intro1">Intro</a>
+          <ul class="nav">
+            <li class="active"><a href="#intro1">Author & Contact</a></li>
+            <li><a href="#intro2">Bootstrap Changes</a></li>
+            <li><a href="#intro3">The Basics</a></li>
+            <li><a href="#intro4">Grid System</a></li>
+            <li><a href="#intro5">Helper Classes</a></li>
+            <li><a href="#intro6">Color System</a></li>
+          </ul>
+        </li>
+        <li> <a href="#buttons">Buttons</a>
+          <ul class="nav">
+            <li><a href="#buttons">Bootstrap</a></li>
+            <li><a href="#buttons-structure">HTML Structure</a></li>
+          </ul>
+        </li>
+        <li> <a href="#panels">Panels</a>
+          <ul class="nav">
+            <li><a href="#panels">The Basics</a></li>
+            <li><a href="#panels-structure">HTML Structure</a></li>
+          </ul>
+        </li>
+        <li> <a href="#elements">Theme Elements</a>
+          <ul class="nav">
+            <li><a href="#elements">Tabs</a></li>
+            <li><a href="#elements-accord">Accordions</a></li>
+          </ul>
+        </li>
+        <li> <a href="#icons">Icons</a>
+          <ul class="nav">
+            <li><a href="#icons">Font Icons</a></li>
+            <li><a href="#icons-usage">Included Libraries</a></li>
+          </ul>
+        </li>
+        <li> <a href="#animation">Animations</a>
+          <ul class="nav">
+            <li><a href="#animation">The Basics</a></li>
+            <li><a href="#animation-types">Animation Types</a></li>
+          </ul>
+        </li>
+        <li> <a href="#layout">Page Layout</a>
+          <ul class="nav">
+            <li><a href="#layout">Layout Options</a></li>
+          </ul>
+        </li>
+        <li> <a href="#plugins">3rd Party Plugins</a>
+          <ul class="nav">
+            <li><a href="#plugins">Plugin Library</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div id="docs-content">
+        <h2 id="intro1" class="page-header margin-top-none">Stardom Admin UI Documentation </h2>
+        <p>The Stardom Admin UI theme was designed to be one of the most balanced, well structured, and ideal solutions available to developers. Please feel free to contact as if you have any further questions regarding this theme. We're here to help!</p>
+        <div class="bg-logo well well-sm padding-top margin-top-lg">
+          <address>
+          <strong>Author:</strong> AdminDesigns.com<br />
+          Developing the best admin themes on the net<br />
+          Updated: 24/04/2013<br />
+          </address>
+          <address>
+          <strong>Website: </strong> <a target="_blank" href="http://admindesigns.com">AdminDesigns.com</a> <br />
+          <strong>Contact: </strong> <a href="mailto:support@admindesigns.com">Support@AdminDesigns.com</a> <br />
+          </address>
+        </div>
+        <h3 id="intro2" class="page-header"> Important Bootstrap Changes </h3>
+        <p>The Stardom theme is currently updated for use with<b class="text-red2"> Bootstrap 3.03</b>. However, to accommodate the full-width nature of Admin themes the default Bootstrap package was modified. Please take great note of this if you plan on updating the theme on your own.</p>
+        <hr class="alt short" />
+        <h4 class="margin-top text-light6"><b> Bootstrap core changes are:</b></h4>
+        <p class="margin-bottom"> <b>Container Class Change - Via theme.css</b><br />
+          - ".container" was modified from default 1170px to <code>width: 100%;</code><br />
+          <br />
+          <b>Default Font Size Change - Via theme.css</b><br />
+          - "body" font-size was modified from default 14px to <code>font-size: 13px;</code><br />
+        </p>
+        <h3 id="intro3" class="page-header"> Mastering the Basics </h3>
+        <p>The Stardom UI theme was developed using several libraries and platforms. It's vital that you understand a great deal about these technologies as it will allow you to fully understand the techniques, methodologies, and structures found in this theme. Fully understanding Bootstrap and the other platforms listed below is vital. </p>
+        <br />
+        <div class="row text-center">
+          <div class="col-xs-4"> <i class="fa fa-check fa-2x text-green  margin-bottom"></i>
+            <h5><b>Bootstrap Documentation</b></h5>
+            <a href="http://getbootstrap.com/css/"> http://getbootstrap.com/css/</a> </div>
+          <div class="col-xs-4"> <i class="fa fa-check fa-2x text-green  margin-bottom"></i>
+            <h5><b>JQuery API Documentation</b></h5>
+            <a href="http://api.jquery.com/"> http://api.jquery.com/</a> </div>
+          <div class="col-xs-4"> <i class="fa fa-check fa-2x text-green margin-bottom"></i>
+            <h5><b>HTML and CSS Basics</b></h5>
+            <a href="https://developer.mozilla.org/en-US/learn/html">https://developer.mozilla.org</a> </div>
+        </div>
+        <h3 id="intro4" class="page-header"> Grid System </h3>
+        <p>Stardom includes a Bootstrap powered responsive, mobile first fluid grid system that appropriately scales up to 12 columns as the device or viewport size increases. It includes predefined classes for easy layout options, as well as powerful mixins for generating more semantic layouts.</p>
+        <p>Grid systems are used for creating page layouts through a series of rows and columns that house your content. Here's how the Bootstrap grid system works:</p>
+        <ul>
+          <li>Rows must be placed within a <code>.container</code> for proper alignment and padding.</li>
+          <li>Use rows to create horizontal groups of columns.</li>
+          <li>Content should be placed within columns, and only columns may be immediate children of rows.</li>
+          <li>Predefined grid classes like <code>.row</code> and <code>.col-xs-4</code> are available for quickly making grid layouts. LESS mixins can also be used for more semantic layouts.</li>
+          <li>Columns create gutters (gaps between column content) via <code>padding</code>. That padding is offset in rows for the first and last column via negative margin on <code>.row</code>s.</li>
+          <li>Grid columns are created by specifying the number of twelve available columns you wish to span. For example, three equal columns would use three <code>.col-xs-4</code>.</li>
+        </ul>
+        <hr class="alt short" />
+        You can learn more about the Grid System that the Stardom Theme uses by visiting the official bootstrap website. Found here <a href="http://getbootstrap.com/css/#grid">http://getbootstrap.com/css/#grid</a>
+        <h3 id="intro5" class="page-header"> HTML Helper Classes</h3>
+        <p />Helper classes can assist you in changing the appearance of an element quickly and easily directly through its HTML, rather than CSS. This prevents having to create endless custom classes when making routine changes such as Padding, Margin, or Borders.
+        <div class="well">
+          <h5><b>Examples of common Helper Classes:</b></h5>
+          <code> .padding-none{padding:0 !important}<br />
+          .padding{padding:10px !important}<br />
+          .padding-sm{padding:5px !important}<br />
+          <br />
+          .margin-none{margin:0 !important}<br />
+          .margin{margin:14px !important}<br />
+          .margin-sm{margin:5px !important}<br />
+          <br />
+          .margin-none{margin:0 !important}<br />
+          .margin{margin:14px !important}<br />
+          .margin-sm{margin:5px !important}<br />
+          </code>
+          <hr class="alt short" />
+          <h5>For a complete list of helper HTML Helper Classes please visit the themes primary CSS file - <a class="helper-modal-btn" data-toggle="modal" data-target="#helperModal"> Or Click Here!</a></h5>
+        </div>
+        <h3 id="intro6" class="page-header"> Stardoms Color System </h3>
+        <p>Stardom adds another level of customizability and sophistication to Bootstraps already outstanding color system. It makes great strides to improve the overall appearance of Bootstraps buttons, text, widgets and so on.</p>
+        <p> For those wishing to extensively use the Stardom theme we recommend that you become very familiar with not only Bootstraps color system but ours as well. Don't worry they are almost identical!</p>
+        <h5 class="margin-top-lg">Example of <b>Bootstrap Color</b> Setup:</h5>
+        <pre class="prettyprint linenums lang-html">
+                        &lt;button class="btn btn-info" type="button"&gt;..&lt;/button&gt;
+                        &lt;button class="btn btn-primary" type="button"&gt;..&lt;/button&gt;
+                     </pre>
+        <h5> Outputs: </h5>
+        <p>
+          <button class="btn btn-info margin-right-sm">Primary Btn</button>
+          <button class="btn btn-primary">Danger Btn</button>
+        </p>
+        <hr class="alt short" />
+        <h5>Example of <b>Stardoms Color</b> System:</h5>
+        <pre class="prettyprint linenums lang-html">
+                        &lt;button class="btn btn-blue" type="button"&gt;..&lt;/button&gt;
+                        &lt;button class="btn btn-blue2" type="button"&gt;..&lt;/button&gt;
+                        &lt;button class="btn btn-blue3" type="button"&gt;..&lt;/button&gt;
+                        &lt;button class="btn btn-blue4" type="button"&gt;..&lt;/button&gt;
+                     </pre>
+        <h5> Outputs: </h5>
+        <p>
+          <button class="btn btn-blue margin-right-sm">Blue Btn</button>
+          <button class="btn btn-blue3 margin-right-sm">Blue2 Btn</button>
+          <button class="btn btn-blue2 margin-right-sm">Blue3 Btn</button>
+          <button class="btn btn-blue4">Blue4 Btn</button>
+        </p>
+        <hr class="alt short" />
+        <h4><b>So what does all of this mean?</b></h4>
+        <p>It means two wonderful things. You can continue using the Bootstrap way of styling that you know and love. And that by following a near identical html/class structure you can add an additional <b>30+ colors</b> to your color tool belt. All you have to do is replace <b>.btn-danger</b> with <code>.btn-red</code> or <b>.btn-success</b> with <code>.btn-green</code></p>
+        <br />
+        <h4><b>Do they all have gradients?</b></h4>
+        <p>You bet! All 30+ colors have a gradient and hover style. We even added custom gradients for the 6 default Bootstrap colors: <span class="text-primary">primary</span>, <span class="text-info">info</span>, <span class="text-success">success</span>, <span class="text-warning">warning</span>, <span class="text-danger">danger</span>, and default.</p>
+        <br />
+        <h4><b>Great! Did you add any additional colors to Bootstrap?</b></h4>
+        <p class="small">We added one color/class to the default Bootstrap way of styling. This can be accessed with the class Alert. For example - <code> .btn-alert</code>. The class was designed to flow perfectly with Bootstraps existing color scheme.</p>
+        <br />
+        <h4><b>Can I use these colors anywhere?</b></h4>
+        <p>You sure can! We conformed to Bootstraps naming convention of ".btn-color", ".text-color", and so on. However, all Stardom colors were designed to use only one style (color/background-color) which allows them to be used absolutely anywhere! </p>
+        <p>For example <code>.text-blue</code> is perfect for using not just on text but font-icons! And <code>.btn-green</code> can be used as background color anywhere because it carries no other style attributes like borders, shadows, etc (it gets those elsewhere, like .btn).</p>
+        <h3 id="buttons" class="page-header"> Buttons</h3>
+        <h4> Based on Bootstrap</h4>
+        <p>Buttons follow the default Bootstrap 3 structure and formatting. It's important that you become very familiar with Bootstraps structure as it will be reflected in not only this theme but most.</p>
+        <h4 id="buttons-structure" class="margin-top-lg"> HTML Structure and Classes</h4>
+        <div class="well">
+          <h6 class="margin-bottom-sm">Recommended Elements</h6>
+          <code>&lt;a&gt; &lt;button&gt; &lt;input&gt;</code>
+          <h6 class="margin-bottom-sm margin-top"> Required Class</h6>
+          <code>.btn</code>
+          <h6 class="margin-bottom-sm margin-top"> Bootstrap Color Classes</h6>
+          <code>.btn-warning .btn-info .btn-default .btn-primary .btn-success .btn-alert</code>
+          <h6 class="margin-bottom-sm margin-top">Stardom Color Classes</h6>
+          <code>.btn-blue .btn-blue2 .btn-blue3 .btn-blue4 .btn-blue5 .btn-blue6 .btn-blue7<br />
+          .btn-green .btn-green2 .btn-green3 .btn-green4 .btn-green5<br />
+          .btn-red .btn-red2 .btn-red3 .btn-red4<br />
+          .btn-orange .btn-orange2 .btn-orange3 .btn-orange4<br />
+          .btn-purple .btn-purple2 .btn-purple3 .btn-purple4<br />
+          .btn-creme .btn-creme2 .btn-brown .btn-brown2 .btn-brown3<br />
+          .btn-dark .btn-dark2 .btn-dark3 .btn-dark4 .btn-dark5<br />
+          .btn-light .btn-light2 .btn-light3 .btn-light4 .btn-light5 .btn-light6 .btn-light7<br />
+          </code>
+          <h6 class="margin-bottom-sm margin-top">Button Gradient</h6>
+          <code>.btn-gradient</code>
+          <h6 class="margin-bottom-sm margin-top">Button Sizes</h6>
+          <code>.btn-sm .btn-lg</code>
+          <h6 class="margin-bottom-sm margin-top">Example When Combined</h6>
+          <button class="btn btn-orange btn-gradient btn-sm">Orange Btn</button>
+          <code>&lt;button class="btn btn-orange btn-gradient btn-sm"&gt;..&lt;/button&gt;</code> </div>
+        <h3 id="panels" class="page-header"> Panels </h3>
+        <h4> A Vital Theme Element</h4>
+        <p>Panels or "Portlets" are one of Stardoms most <b>important</b> theme elements. They have been created using Bootstraps native "panel" system. However, Stardom adds a great deal of extra functionality to the Bootstrap panel system. As a result panels are used on virtually every page and are the ideal element to create widgets and present data. It's recommended that you become very familiar with their structure and functionality.</p>
+        <h4 class="margin-top-lg"> Panel Structure - Basic Addons</h4>
+        <pre class="prettyprint linenums lang-html">
+                        &lt;div class="panel"&gt;..&lt;/button&gt;
+                            &lt;div class="panel-heading"&gt;...&lt;/div&gt;
+                            &lt;div class="panel-body"&gt;...&lt;/div&gt;
+                        &lt;/div&gt;
+                     </pre>
+        <h4 class="margin-top-lg"> Panel Structure - All Addons</h4>
+        <pre class="prettyprint linenums lang-html">
+                        &lt;div class="panel"&gt;..&lt;/button&gt;
+                            &lt;div class="panel-heading"&gt;...&lt;/div&gt;
+                            &lt;div class="panel-menu"&gt;...&lt;/div&gt; &lt;!-- Extra Stardom Addon --&gt;
+                            &lt;div class="panel-sidemenu"&gt;...&lt;/div&gt; &lt;!-- Extra Stardom Addon --&gt;
+                            &lt;div class="panel-body"&gt;...&lt;/div&gt;
+                            &lt;div class="panel-footer"&gt;...&lt;/div&gt;  &lt;!-- Extra Stardom Addon --&gt;
+                        &lt;/div&gt;
+                     </pre>
+        <h4 id="panels-structure" class="margin-top-lg"> Understanding Each Addon</h4>
+        <div class="well">
+          <div class="panel-example-btn">
+            <button class="btn btn-primary btn-gradient btn-sm pull-right margin-top-sm margin-right-sm" data-toggle="modal" data-target="#panelModal"> Full Example Please!</button>
+          </div>
+          <ul class="nav well-tabs pull-left">
+            <li class="active"><a href="#tab-panel" data-toggle="tab">Panel</a></li>
+            <li><a href="#tab-panel-heading" data-toggle="tab">Heading</a></li>
+            <li><a href="#tab-panel-menu" data-toggle="tab">Menu</a></li>
+            <li><a href="#tab-panel-body" data-toggle="tab">Body</a></li>
+            <li><a href="#tab-panel-sidemenu" data-toggle="tab">Sidemenu</a></li>
+            <li><a href="#tab-panel-footer" data-toggle="tab">Footer</a></li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="tab-content padding-top-none padding-bottom-none border-none">
+            <div class="tab-pane active" id="tab-panel">
+              <h6 class="margin-bottom-sm margin-top-lg">Html</h6>
+              <code>&lt;div class="panel"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Purpose</h6>
+              <p> This is the wrapper which encases the entire content of the panel. It applies a box-shadow and background-color to the entire element.</p>
+              <h6 class="margin-bottom-sm margin-top-lg">Extra Helper Classes</h6>
+              <code>&lt;div class="panel .panel-visible"&gt;</code>
+              <p> By default panels have their overflown hidden. You can apply the ".panel-visible" class for instances which you would prefer the panels overflow to be visible.</p>
+            </div>
+            <div class="tab-pane" id="tab-panel-heading">
+              <h6 class="margin-bottom-sm margin-top-lg">Html</h6>
+              <code>&lt;div class="panel-heading"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Purpose</h6>
+              <p> This panel addon has a gradient background and is often used to house the panel title and icon or any additionally desired header elements (buttons, toolbars etc). See <a href="file:///C:/Users/Anon/Desktop/ui%20admin/portlets.html">Stardom Portlets for examples</a> of different header elements. </p>
+              <h6 class="margin-top-lg"><b>Heading Structure</b></h6>
+              <pre class="prettyprint linenums lang-html prettyprinted">
+                            &lt;div class="panel-heading"&gt;
+                            
+                                &lt;!-- Panel Title - Icon added before text via font icon "i.fa" --&gt;
+                                &lt;div class="panel-title"&gt;&lt;i class="fa fa-pencil"&gt;&lt;/i&gt;Example Title&lt;/div&gt;
+                                
+                                &lt;!-- Panel Tray - Div used only to house and align elements right --&gt;
+                                &lt;div class="pull-right"&gt;
+                                    &lt;button class="btn btn-blue" type="button"&gt;Blue Btn&lt;/button&gt;
+                                &lt;/div&gt;
+                                
+                            &lt;/div&gt;
+                            </pre>
+              <hr class="alt short" />
+              <h6 class="margin-bottom">Results In:</h6>
+              <div class="panel-heading example">
+                <div class="panel-title"><i class="fa fa-pencil"></i> Example Title</div>
+                <div class="panel-tray pull-right">
+                  <button class="btn btn-blue3 btn-gradient">Blue Btn</button>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab-panel-menu">
+              <h6 class="margin-bottom-sm margin-top-lg">Html</h6>
+              <code>&lt;div class="panel-menu"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Purpose</h6>
+              <p> This panel addon has a solid background and is great for housing any element underneath the panel-heading/title. See the <a href="file:///C:/Users/Anon/Desktop/ui%20admin/gallery.html">Stardom Gallery Page</a> for a site example. </p>
+              <h6 class="margin-top-lg"><b>Heading Structure</b></h6>
+              <pre class="prettyprint linenums lang-html prettyprinted">
+                            &lt;div class="panel-menu"&gt;
+                            
+                                &lt;!-- Button 1 - Inside Menu --&gt;
+                                &lt;button class="btn btn-default" type="button"&gt;Default Btn&lt;/button&gt;
+                                
+                                &lt;!-- Button 2 - Inside Menu --&gt;
+                                &lt;button class="btn btn-default" type="button"&gt;Default Btn&lt;/button&gt;
+                                
+                            &lt;/div&gt;
+                            </pre>
+              <hr class="alt short" />
+              <h6 class="margin-bottom">Results In:</h6>
+              <div class="panel-heading example">
+                <div class="panel-title"><i class="fa fa-hand-o-down"></i> Hey Look a Menu!</div>
+                <div class="panel-tray pull-right">
+                  <button class="btn btn-blue3 btn-gradient">Blue Btn</button>
+                </div>
+              </div>
+              <div class="panel-menu example">
+                <button class="btn btn-default btn-gradient margin-right-sm">Default Btn</button>
+                <button class="btn btn-default btn-gradient">Default Btn</button>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab-panel-sidemenu">
+              <h6 class="margin-bottom-sm margin-top-lg">Html</h6>
+              <code>&lt;div class="panel-submenu"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Purpose</h6>
+              <p> This panel addon has a solid background and is typically used for creating a list or menu that is related to the content found in the panel-body.</p>
+              <h6 class="margin-top-lg"><b>Heading Structure</b></h6>
+              <pre class="prettyprint linenums lang-html prettyprinted">
+                            &lt;div class="panel-sidemenu"&gt;
+                               &lt;ul class="nav"&gt;
+                                
+                                 &lt;!-- Nav Title --&gt;
+                                 &lt;li class="nav-title"&gt;..&lt;/li&gt;
+                                  
+                                 &lt;!-- Nav Items --&gt;
+                                 &lt;li&gt;..&lt;/li&gt;&lt;li&gt;..&lt;/li&gt;
+                                  
+                               &lt;/ul&gt;  
+                            &lt;/div&gt;
+                            </pre>
+              <hr class="alt short" />
+              <h6 class="margin-bottom">Results In:</h6>
+              <div class="panel-heading example">
+                <div class="panel-title"><i class="fa fa-hand-o-down"></i> Hey Look a sidebar-menu!</div>
+                <div class="panel-tray pull-right">
+                  <button class="btn btn-blue3 btn-gradient">Blue Btn</button>
+                </div>
+              </div>
+              <div class="panel-sidemenu example">
+                <ul class="nav">
+                  <li class="nav-title">Nav Title</li>
+                  <li class="active"><a><i class="fa fa-print"></i> Item 1</a></li>
+                  <li><a><i class="fa fa-trash-o"></i> Item 2</a></li>
+                </ul>
+              </div>
+              <div class="panel-body example"></div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="tab-pane" id="tab-panel-body">
+              <h6 class="margin-bottom-sm margin-top-lg">Html</h6>
+              <code>&lt;div class="panel-body"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Purpose</h6>
+              <p> This panel addon has a solid white background and will typically be used to house all of the panels content. </p>
+              <h6 class="margin-top-lg"><b>Panel Body Structure</b></h6>
+              <pre class="prettyprint linenums lang-html prettyprinted">
+                            &lt;div class="panel-body"&gt;
+                                &lt;p&gt; Put all the content you can dream of here...&lt;/p&gt;
+                            &lt;/div&gt;
+                            </pre>
+              <hr class="alt short" />
+              <h6 class="margin-bottom">Results In:</h6>
+              <div class="panel-heading example">
+                <div class="panel-title"><i class="fa fa-hand-o-down"></i> Hey Look a Panel Body!</div>
+                <div class="panel-tray pull-right">
+                  <button class="btn btn-blue3 btn-gradient">Blue Btn</button>
+                </div>
+              </div>
+              <div class="panel-body example2">
+                <p> Put all the content you can dream of here... </p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="tab-pane" id="tab-panel-footer">
+              <h6 class="margin-bottom-sm margin-top-lg">Html</h6>
+              <code>&lt;div class="panel-footer"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Purpose</h6>
+              <p> This panel addon has a solid background and is great for adding buttons or a final message to the panel. For example - An item you would commonly find in the panel-footer are form submit/cancel buttons.</p>
+              <h6 class="margin-top-lg"><b>Footer Structure</b></h6>
+              <pre class="prettyprint linenums lang-html prettyprinted">
+                            &lt;div class="panel-footer"&gt;
+                            	
+                              &lt;!-- Desired Footer Content - Often Floated --&gt;
+                              &lt;span class="panel-title-sm pull-left"&gt; A Panel Footer! &lt;/span&gt;
+                              &lt;button class="btn btn-warning pull-right"&gt; A Footer Btn &lt;/button&gt; 
+                              
+                              &lt;!-- Clear Floats --&gt;
+                              &lt;div class="clearfix"&gt;&lt;/div&gt; 
+                              
+                            &lt;/div&gt;
+                            </pre>
+              <hr class="alt short" />
+              <h6 class="margin-bottom">Results In:</h6>
+              <div class="panel-heading example">
+                <div class="panel-title"><i class="fa fa-hand-o-down"></i> Hey Look Down There, A Panel Footer!</div>
+              </div>
+              <div class="panel-body example2">
+                <p> Keep going the footer is below me...</p>
+              </div>
+              <div class="panel-footer example"> <span class="panel-title-sm pull-left" style="padding-top: 7px;"><a> A Panel Footer!</a></span>
+                <button class=" btn btn-warning btn-gradient pull-right" type="button">A Footer Btn</button>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+.tab-content {
+	min-height: 80px;
+}
+
+</style>
+        <h3 id="elements" class="page-header"> Elements </h3>
+        <h4> Tabs and Accordions</h4>
+        <p>Tabs and accordions are animated widgets built with <b>Bootstrap Panels</b> and are great for organizing large amounts of content. You can learn about their various styles, structures, and options below!</p>
+        <h4 class="margin-top-lg" id="elements-tabs"> Tabs - Basic Structure</h4>
+        <pre class="prettyprint linenums lang-html">
+                    &lt;div class="tab-block"&gt;
+                    
+                        &lt;!-- Tabs Navigation --&gt;
+                        &lt;ul class="nav nav-tabs"&gt;
+                           &lt;li&gt;&lt;a href="#tab1"&gt;Tab1&lt;/a&gt;&lt;/li&gt;
+                           &lt;li&gt;&lt;a href="#tab2"&gt;Tab2&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                        
+                        &lt;!-- Tab Content --&gt;
+                        &lt;div class="tab-content"&gt;
+                           &lt;div id="tab1" class="tab-pane"&gt;..&lt;/div&gt;
+                           &lt;div id="tab2" class="tab-pane"&gt;..&lt;/div&gt;
+                        &lt;/div&gt;
+                            
+                     &lt;/div&gt;
+                     </pre>
+        <h4 id="panels-structure" class="margin-top-lg"> Tabs - Navigation Positions</h4>
+        <div class="well">
+          <ul class="nav well-tabs pull-left">
+            <li class="active"><a href="#tabs-style-1" data-toggle="tab">Top Nav</a></li>
+            <li><a href="#tabs-style-2" data-toggle="tab">Bottom Nav</a></li>
+            <li><a href="#tabs-style-3" data-toggle="tab">Left Nav</a></li>
+            <li><a href="#tabs-style-4" data-toggle="tab">Nav Styles</a></li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="tab-content padding-top-none padding-bottom-none border-none">
+            <div class="tab-pane active" id="tabs-style-1">
+              <h6 class="margin-bottom-sm margin-top-lg">Top Navigation - HTML</h6>
+              <code>&lt;ul class="nav nav-tabs"&gt;..&lt;/ul&gt;</code> <br />
+              <code>&lt;div class="tab-content"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Top Navigation - Application</h6>
+              <p /> Top navigation is the default setup for the tabs widget. It requires that the navigation list(ul) is placed <b>BEFORE</b> the content(tab-content). The classes required are the default ".nav" class and the ".nav-tabs" class.
+              <p />
+              <hr class="alt" />
+              <div class="tab-block margin-top">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#style-1-tab1" data-toggle="tab">Tab One</a></li>
+                  <li><a href="style-1-tab2" data-toggle="tab">Tab Two</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div id="style-1-tab1" class="tab-pane active">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                  </div>
+                  <div id="style-1-tab1" class="tab-pane">
+                    <p>Anim accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="tabs-style-2">
+              <h6 class="margin-bottom-sm margin-top-lg">Bottom Navigation - HTML</h6>
+              <code>&lt;div class="tab-content"&gt;..&lt;/div&gt;</code><br />
+              <code>&lt;ul class="nav tabs-below"&gt;..&lt;/ul&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Bottom Navigation - Application</h6>
+              <p /> Bottom navigation requires that the navigation list(ul) is placed <b>AFTER</b> the content(tab-content). It requires the default ".nav" class and the ".tabs-below" class.
+              <p />
+              <hr class="alt" />
+              <div class="tab-block margin-top">
+                <div class="tab-content">
+                  <div id="style-2-tab1" class="tab-pane active">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                  </div>
+                  <div id="style-2-tab1" class="tab-pane">
+                    <p>Anim accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                  </div>
+                </div>
+                <ul class="nav tabs-below">
+                  <li class="active"><a href="#style-2-tab1" data-toggle="tab">Tab One</a></li>
+                  <li><a href="style-2-tab2" data-toggle="tab">Tab Two</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="tab-pane" id="tabs-style-1">
+              <h6 class="margin-bottom-sm margin-top-lg">Html</h6>
+              <code>&lt;div class="panel-body"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Purpose</h6>
+              <p> This panel addon has a solid white background and will typically be used to house all of the panels content. </p>
+              <h6 class="margin-top-lg"><b>Panel Body Structure</b></h6>
+              <pre class="prettyprint linenums lang-html prettyprinted">
+                            &lt;div class="panel-body"&gt;
+                                &lt;p&gt; Put all the content you can dream of here...&lt;/p&gt;
+                            &lt;/div&gt;
+                            </pre>
+              <hr class="alt short" />
+              <h6 class="margin-bottom">Results In:</h6>
+              <div class="panel-heading example">
+                <div class="panel-title"><i class="fa fa-hand-o-down"></i> Hey Look a Panel Body!</div>
+                <div class="panel-tray pull-right">
+                  <button class="btn btn-blue3 btn-gradient">Blue Btn</button>
+                </div>
+              </div>
+              <div class="panel-body example2">
+                <p> Put all the content you can dream of here... </p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="tab-pane" id="tabs-style-3">
+              <h6 class="margin-bottom-sm margin-top-lg">Left Side Navigation - HTML</h6>
+              <code>&lt;ul class="nav tabs-left"&gt;..&lt;/ul&gt;</code><br />
+              <code>&lt;div class="tab-content"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Left Side Navigation - Application</h6>
+              <p /> Left Side navigation requires that the navigation list(ul) is placed <b>BEFORE</b> the content(tab-content).. It requires the default ".nav" class and the ".tabs-left" class.
+              <p />
+              <hr class="alt" />
+              <div class="tab-block margin-top">
+                <ul class="nav tabs-left">
+                  <li class="active"><a href="#style-3-tab1" data-toggle="tab">Tab One</a></li>
+                  <li><a href="style-3-tab2" data-toggle="tab">Tab Two</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div id="style-3-tab1" class="tab-pane active">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                  </div>
+                  <div id="style-3-tab2" class="tab-pane">
+                    <p>Anim accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="tabs-style-4">
+              <h6 class="margin-bottom-sm margin-top-lg">Default - #1</h6>
+              <code>&lt;div class="nav nav-tabs tabs-border"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Solid Line - #2</h6>
+              <code>&lt;div class="nav nav-tabs tabs-border"&gt;..&lt;/div&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Background - #3</h6>
+              <code>&lt;div class="nav nav-tabs tabs-bg"&gt;..&lt;/div&gt;</code>
+              <p class="margin-top"><small><b>Note:</b> Style #3 is not available on Left Navigation Tab Widgets</small></p>
+              <hr class="alt" />
+              <div class="tab-block margin-bottom-lg">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#style-4-tab1" data-toggle="tab">Tab One</a></li>
+                  <li><a href="#style-4-tab2" data-toggle="tab">Tab Two</a></li>
+                  <li class="pull-right"> <span class="panel-title-sm">Alt Styles:</span>
+                    <div class="btn-group toggle-tab-style padding-top-sm">
+                      <button type="button" class="btn btn-sm btn-default tab-style-option active" opt="tabs-default">1</button>
+                      <button type="button" class="btn btn-sm btn-default tab-style-option" opt="tabs-border">2</button>
+                      <button type="button" class="btn btn-sm btn-default tab-style-option" opt="tabs-bg">3</button>
+                    </div>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div id="style-4-tab1" class="tab-pane active">
+                    <p>Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                  </div>
+                  <div id="style-4-tab2" class="tab-pane">
+                    <p>Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="alt" />
+        <h4 class="margin-top-lg" id="elements-accord"> Accordion - Basic Structure</h4>
+        <pre class="prettyprint linenums lang-html">
+                        &lt;div class="panel-group accordion" id="example1"&gt;
+                        
+                            &lt;!-- Panel Item 1 - With Example Contents --&gt;
+                            &lt;div class="panel" id="panel-item1"&gt;
+                               &lt;div class="panel-heading"&gt;..&lt;/div&gt;
+                               &lt;div class="panel-collapse collapse"&gt;
+                                  &lt;div class="panel-body"&gt;Content Here&lt;/div&gt;
+                               &lt;/div&gt;
+                            &lt;/div&gt;
+                            
+                            &lt;!-- Panel Item 2 --&gt;
+                            &lt;div class="panel" id="panel-item2"&gt;..&lt;/div&gt;
+                                
+                         &lt;/div&gt;
+                         </pre>
+        <h4 id="panels-structure" class="margin-top-lg"> Accordion - Styles</h4>
+        <div class="well">
+          <ul class="nav well-tabs pull-left">
+            <li class="active"><a href="#accord-style-1" data-toggle="tab">Default</a></li>
+            <li><a href="#accord-style-2" data-toggle="tab">Minimal</a></li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="tab-content padding-top-none padding-bottom border-none">
+            <div class="tab-pane active" id="accord-style-1">
+              <h6 class="margin-bottom-sm margin-top-lg">Accordion Style - Minimal</h6>
+              <code>&lt;div class="panel-group accordion" id="example1"&gt;..&lt;/div&gt;</code>
+              <hr class="alt" />
+              <div class="panel-group accordion" id="accordion">
+                <div class="panel">
+                  <div class="panel-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panelOne">
+                    <div class="accordion-toggle-icon"> <i class="fa fa-minus-square-o"></i> <i class="fa fa-plus-square-o"></i> </div>
+                    Panel Item #1 </a> </div>
+                  <div id="panelOne" class="panel-collapse collapse in">
+                    <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. </div>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-heading"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#panelThree">
+                    <div class="accordion-toggle-icon"> <i class="fa fa-minus-square-o"></i> <i class="fa fa-plus-square-o"></i> </div>
+                    Panel Item #2 </a> </div>
+                  <div id="panelThree" class="panel-collapse collapse">
+                    <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="accord-style-2">
+              <h6 class="margin-bottom-sm margin-top-lg">Accordion Style - Minimal</h6>
+              <code>&lt;div class="panel-group accordion accordion-alt" id="example1"&gt;..&lt;/div&gt;</code>
+              <hr class="alt" />
+              <div class="panel-group accordion accordion-alt" id="accordion2">
+                <div class="panel">
+                  <div class="panel-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#accord2-1">
+                    <div class="accordion-toggle-icon"> <i class="fa fa-minus-square-o"></i> <i class="fa fa-plus-square-o"></i> </div>
+                    Panel Item #1 </a> </div>
+                  <div id="accord2-1" class="panel-collapse collapse in">
+                    <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. </div>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-heading"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#accord2-2">
+                    <div class="accordion-toggle-icon"> <i class="fa fa-minus-square-o"></i> <i class="fa fa-plus-square-o"></i> </div>
+                    Panel Item #2 </a> </div>
+                  <div id="accord2-2" class="panel-collapse collapse">
+                    <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h3 id="icons" class="page-header"> Icons </h3>
+        <h4>Understanding Font Based Icons</h4>
+        <p>All of the icons used in Stardom were created using <b>font based icon libraries</b>. The icons are created with small html snippets rather than with the use of an &lt;img&gt; tag. This allows you to select from hundreds of icons by simply changing a class name. Another great feature of font icons is that you can style the icons using common text based styling. Such as color, font-size, etc. Stardom includes <b>three</b> separate font-icon libraries.</p>
+        <h6 id="icons-usage" class="margin-top-lg">Available Icon Libraries</h6>
+        <div class="well"> <i class="fa fa-flask pull-right text-blue3" style="font-size: 26px;"></i>
+          <ul class="nav well-tabs pull-left">
+            <li class="active"><a href="#tab-icons-1" data-toggle="tab">Glyphicons Pro</a></li>
+            <li><a href="#tab-icons-2" data-toggle="tab">Glyphicons</a></li>
+            <li><a href="#tab-icons-3" data-toggle="tab">Font Awesome</a></li>
+            <li><a href="#tab-icons-4" data-toggle="tab">Ico Moon</a></li>
+            <li><a href="#tab-icons-5" data-toggle="tab">Zocial</a></li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="tab-content padding-top-none padding-bottom-none border-none">
+            
+            <div class="tab-pane active" id="tab-icons-1">
+              <h6 class="margin-bottom-sm margin-top-lg">A Generous Library Free of Charge</h6>
+              <p> The Stardom UI theme includes the entire Glyphicon PRO icon set, a $59 value, free of charge! The Glyphicon PRO icon set expands on the popular Halfling set by including over 500 detailed icons. However, one must consider the large file size before commiting them to a project.
+                <br /><br />
+                <b> Note:</b> If you choose this library as your primary icon set you should consider removing the Glyphicons Halfling set included in Bootstrap 3. </p>
+              <h6 class="margin-bottom-sm margin-top-lg">Stylesheet Requirements</h6>
+              <code>&lt;link href="fonts/glyphicons_pro/glyphicons.css" type="text/css"&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Usage</h6>
+              <code>&lt;span class="glyphicons glypicons-pencil&gt;&lt;/span&gt;</code><small class="text-muted">- Basic</small><br />
+              <code>&lt;span class="glyphicons glypicons-pencil text-green&gt;&lt;/span&gt;</code><small class="text-muted">- With text color</small><br />
+              <h6 class="margin-bottom-sm margin-top-lg">Helper Classes</h6>
+              <small><b>Sizes </b></small><code>.glyphicon-2x .glyphicon-3x .glyphicon-4x .glyphicon-5x .glyphicon-lg</code><br />
+              <small class="text-dark5">".fa-lg" makes the font 33% larger relative to the icon container</small> <br />
+              <br />
+              <small><b>Colors </b></small><code>.text-orange .text-green .text-purple .text-blue etc</code><br />
+              <small class="text-dark5">An example of how to use Stardoms Color System. Any color can be used, not just the ones above.</small>
+              <hr class="alt short" />
+              <a href="http://glyphicons.com/">http://www.glyphicons.com/</a> </div>
+			<div class="tab-pane" id="tab-icons-2">
+              <h6 class="margin-bottom-sm margin-top-lg">Bootstrap 3 Library of choice</h6>
+              <p> Most Stardom icon styling was done specifically for Glyphicons Pro and Glyphicons Hafling(Bootstraps icon set). The primary reason for this is because Glyphicon icons were created in 1:1 proportions. Meaning that if an icon has a width of 32px it will always have a length of 32px, and vica-versa. This makes them the ideal icon when creating size sensitive items because there values can be so easily predicted. </p>
+              <h6 class="margin-bottom-sm margin-top-lg">Stylesheet Requirements</h6>
+              <p> The Glyphicon Icon library is included in Bootstrap 3 which helps maintain fast loading times as less file request are having to be made. </p>
+              <h6 class="margin-bottom-sm margin-top-lg">Usage</h6>
+              <code>&lt;span class="glyphicon glypicon-pencil&gt;&lt;/span&gt;</code><small class="text-muted">- Basic</small><br />
+              <code>&lt;span class="glyphicon glypicon-pencil text-green&gt;&lt;/span&gt;</code><small class="text-muted">- With text color</small><br />
+              <h6 class="margin-bottom-sm margin-top-lg">Helper Classes</h6>
+              <small><b>Sizes </b></small><code>.glyphicons-2x .glyphicons-3x .glyphicons-4x .glyphicons-5x .glyphicons-lg</code><br />
+              <small class="text-dark5">".fa-lg" makes the font 33% larger relative to the icon container</small> <br />
+              <br />
+              <small><b>Colors </b></small><code>.text-orange .text-green .text-purple .text-blue etc</code><br />
+              <small class="text-dark5">An example of how to use Stardoms Color System. Any color can be used, not just the ones above.</small>
+              <hr class="alt short" />
+              <a href="http://getbootstrap.com/components/#glyphicons-glyphs">http://getbootstrap.com/components/#glyphicons-glyphs </a> </div>
+            <div class="tab-pane" id="tab-icons-3">
+              <h6 class="margin-bottom-sm margin-top-lg">Great Icon Library</h6>
+              <p> You will find Font Awesome Icons used through out the Stardom UI. They are found in abundance in buttons and panel titles as they are lightweight, flexible, and offer a great selection of icons to choose from. However, for vital theme elements Glyphicons were used. An explanation can be found in the Glyphicon Tab.
+              <br /><br />
+                <b> Note:</b> To quicken page loading times the Font Awesome Icon Library is pulled from Bootstraps CDN. This means less page requests and a high cached chance. If you prefer to host these files yourself you will need to alter alter the file urls in your pages header (CSS option #2 below). </p>
+              <h6 class="margin-bottom-sm margin-top-lg">Stylesheet Requirements</h6>
+              <code>&lt;link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"&gt;</code><small> - CDN</small> <code>&lt;link href="fonts/font-awesome/css/font-awesome.min.css" type="text/css"&gt;</code><small> - Only use one</small>
+              <h6 class="margin-bottom-sm margin-top-lg">Usage</h6>
+              <code>&lt;i class="fa fa-pencil&gt;&lt;/i&gt;</code><small class="text-muted">- Basic</small><br />
+              <code>&lt;i class="fa fa-pencil fa-3x text-green&gt;&lt;/i&gt;</code><small class="text-muted">- With Helper Classes</small><br />
+              <h6 class="margin-bottom-sm margin-top-lg">Helper Classes</h6>
+              <small><b>Sizes </b></small><code>.fa-2x .fa-3x .fa-4x .fa-5x .fa-lg</code><br />
+              <small class="text-dark5">".fa-lg" makes the font 33% larger relative to the icon container</small> <br />
+              <br />
+              <small><b>Colors </b></small><code>.text-orange .text-green .text-purple .text-blue etc</code><br />
+              <small class="text-dark5">An example of how to use Stardoms Color System. Any color can be used, not just the ones above.</small>
+              <hr class="alt short" />
+              <a href="http://fortawesome.github.io/Font-Awesome/">http://fortawesome.github.io/Font-Awesome/ </a> </div>
+            <div class="tab-pane" id="tab-icons-4">
+              <h6 class="margin-bottom-sm margin-top-lg">Large But Fantastic Library</h6>
+              <p> Icomoon is another fantastic library for admin icons. They were created using pixel perfect 1:1 ratios and contain great detail. The files required are a little large and have no public CDN method of delivery. For this reason they are used rarely, and included more as a convenience.</p>
+              <h6 class="margin-bottom-sm margin-top-lg">Stylesheet Requirements</h6>
+              <code>&lt;link href="fonts/icomoon/style.css" type="text/css"&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Usage</h6>
+              <code>&lt;span class="imoon icon-pencil&gt;&lt;/span&gt;</code><small class="text-muted">- Basic</small><br />
+              <code>&lt;span class="imoon icon-pencil text-green&gt;&lt;/span&gt;</code><small class="text-muted">- With text color</small><br />
+              <h6 class="margin-bottom-sm margin-top-lg">Helper Classes</h6>
+              <small><b>Sizes </b></small><code>.imoon-2x .imoon-3x .imoon-4x .imoon-5x .imoon-lg</code><br />
+              <small class="text-dark5">".fa-lg" makes the font 33% larger relative to the icon container</small> <br />
+              <br />
+              <small><b>Colors </b></small><code>.text-orange .text-green .text-purple .text-blue etc</code><br />
+              <small class="text-dark5">An example of how to use Stardoms Color System. Any color can be used, not just the ones above.</small>
+              <hr class="alt short" />
+              <a href="http://icomoon.io/">http://icomoon.io/</a> </div>
+            <div class="tab-pane" id="tab-icons-5">
+              <h6 class="margin-bottom-sm margin-top-lg">Social Media Icons Done Right!</h6>
+              <p> Zocail is a Font Icon set which provides us with a great, and very complete set of social media buttons and icons. You can find a full example of their included icons on the <a href="../buttons.html">buttons.html page</a></p>
+              <h6 class="margin-bottom-sm margin-top-lg">Stylesheet Requirements</h6>
+              <code>&lt;link href="fonts/zocial/style.css" type="text/css"&gt;</code>
+              <h6 class="margin-bottom-sm margin-top-lg">Usage</h6>
+              <code>&lt;button class="zocial twitter&gt; Twitter &lt;/button&gt;</code><small class="text-muted">- Full Text Button</small><br />
+              <code>&lt;button class="zocial icon twitter&gt; Twitter &lt;/button&gt;</code><small class="text-muted">- Just Icon Button</small><br />
+              <br />
+              <hr class="alt short" />
+              <a href="http://zocial.smcllns.com/">http://www.zocial.smcllns.com/</a> </div>
+          </div>
+        </div>
+        <h3 id="animation" class="page-header"> Animations </h3>
+        <h4>You're Gonna Love Them</h4>
+        <p>Stardom includes a CSS based animation library which allows a developer to easily add transitions and effects to virtually <b>any html element</b>. Simply include the required CSS stylesheet on the page you desire animations and then follow some incredibly simple and frustration-free syntax.</p>
+        <h6 class="margin-bottom-sm margin-top-lg">Developers Website</h6>
+        <a href="https://daneden.me/animate/">https://daneden.me/animate/</a>
+        <h6 id="animation-types" class="margin-bottom-sm margin-top-lg">Stylesheet Requirements</h6>
+        <code>&lt;link href="css/animate.css" type="text/css"&gt;</code>
+        <hr class="alt short" />
+        <div class="panel-group accordion accordion-alt" id="accordion5">
+          <div class="panel">
+            <div class="panel-heading"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion5" href="#accord5-1">
+              <div class="accordion-toggle-icon"> <i class="fa fa-minus-square-o"></i> <i class="fa fa-plus-square-o"></i> </div>
+              Animations - On Page Load </a> </div>
+            <div id="accord5-1" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p>Animations are fired immeditiely when the page loads and are a great way to introduce new content. Javascript will be required for dynamic animations, such as on hover or click.</p>
+                <h6 class="margin-bottom-sm margin-top-lg">Adding an Animation to an Element</h6>
+                <code>&lt;div class="panel animated fadeIn"&gt;..&lt;/div&gt;</code><br />
+                <hr class="alt short" />
+                <h6 class="margin-bottom-sm margin-top-lg">What The Classes Mean</h6>
+                <p><b>"panel"</b> - Is an example of the type of element you wish to animate. It can be virtually anything!</p>
+                <p><b>"animated"</b> - Is required on all elements which you choose to animate on load.</p>
+                <p><b>"fadeIn"</b> - Is an example of the type of animation you wish to see performed on the element. <a href="../animations.html">Click Here</a> for a full list of animations.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-heading"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion5" href="#accord5-2">
+              <div class="accordion-toggle-icon"> <i class="fa fa-minus-square-o"></i> <i class="fa fa-plus-square-o"></i> </div>
+              Animations - With Delay </a> </div>
+            <div id="accord5-2" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p>Animations by default are fired immeditiely when the page loads. You can add a delay to an animation by following the syntas below. This is a great way to introduce content in a specific order, or to create a unique and fun visual effect.</p>
+                <h6 class="margin-bottom-sm margin-top-lg">Adding a Delayed Animation to an Element</h6>
+                <code>&lt;div class="panel animated-delay fadeIn" data-delay="1500"&gt;..&lt;/div&gt;</code><br />
+                <h5 class="margin-bottom-sm margin-top-lg">Note: delayed animations require <span class="text-red">main.js</span> to properly function</h5>
+                <hr class="alt short" />
+                <h6 class="margin-bottom-sm margin-top-lg">What The Classes Mean</h6>
+                <p><b>"panel"</b> - Is an example of the type of element you wish to animate. It can be virtually anything!</p>
+                <p><b>"animated-delay"</b> - Is always required. Take note this uses <b>"animated-delay"</b> NOT <b>"animated"</b></p>
+                <p><b>"fadeIn"</b> - Is an example of the type of animation you wish to see performed on the element. <a href="../animations.html">Click Here</a> for a full list of animations.</p>
+                <p><b>"data-delay=1500"</b> - A data attribute whichs sets the duration of the delay in miliseconds. For example - this animation will play 1.5 seconds after the page has loaded.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-heading"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion5" href="#accord5-3">
+              <div class="accordion-toggle-icon"> <i class="fa fa-minus-square-o"></i> <i class="fa fa-plus-square-o"></i> </div>
+              Animations - Via Javascript </a> </div>
+            <div id="accord5-3" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p>Animations can easily be added dynamically via Javascript. However, this requires the formulation of code which means it's up to the developer to create these events. The code below is simply an example of how one could dynamically add an animation to an element.</p>
+                <h6 class="margin-bottom-sm margin-top-lg">Animation on Click</h6>
+                <pre class="prettyprint linenums lang-js prettyprinted">
+               // Execute on button click
+               $('#example-button').click(function() {
+               
+                  // On button click add required CSS classes. Remove classes upon animation complete
+                  $(this).addClass('animated fadeIn').one('webkitAnimationEnd oAnimationEnd', function() {
+                     $(this).removeClass('animated fadeIn');
+                  });
+                  
+               });
+                </pre>
+                <hr class="alt short" />
+                <h6 class="margin-bottom">What do the classes used in the example above mean?</h6>
+                <p><b>"animated"</b> - Is required on all elements which you choose to animate.</p>
+                <p><b>"fadeIn"</b> - Is an example of the type of animation you wish to see performed on the element. <a href="../animations.html">Click Here</a> for a full list of animations.</p>
+                <hr class="alt short" />
+                <h6 class="margin-bottom-sm margin-top-lg">Why do you remove the classes after the animation?</h6>
+                <p>To be able to re-run the animation you must remove the classes as the animation does not loop. Therefor it must be reinitiated each time by re-adding the classes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h3 id="layout" class="page-header"> Page Options </h3>
+        <ul class="nav well-tabs">
+          <li class="active"><a href="#tab-layout-1" data-toggle="tab">Page Layouts</a></li>
+          <li><a href="#tab-layout-2" data-toggle="tab">Header</a></li>
+          <li><a href="#tab-layout-3" data-toggle="tab">SideBar</a></li>
+          <li><a href="#tab-layout-4" data-toggle="tab">Breadcrumbs</a></li>
+        </ul>
+        <div class="tab-content border-none">
+          <div class="tab-pane active" id="tab-layout-1">
+            <h4 class="margin-top">Layout - Fullwidth</h4>
+            <code>&lt;body class=""&gt;..&lt;/body&gt;</code><span class="text-muted small"> - No class required. Default layout</span>
+            <h4 class="margin-top-lg">Layout - Boxed</h4>
+            <code>&lt;body class="boxed-layout"&gt;..&lt;/body&gt;</code><span class="text-muted small"> - Requires "boxed-layout" class</span>
+            <p class="margin-top-lg"><b> Note: </b> The boxed-layout class will completely alter the appeareance of every page in the theme. It will be required for most pages that content is <b>rearranged</b> as avaliable space has been drastically reduced. This will most likely result in the use of primarily <b>fullwidth columns</b> (from col-md-12, col-md-8, etc).</p>
+          </div>
+          <div class="tab-pane" id="tab-layout-2">
+            <h4 class="margin-top">Header - Fixed </h4>
+            <code>&lt;nav class="navbar navbar-fixed-top"&gt;..&lt;/nav&gt;</code><span class="text-muted small"> - Requires class "navbar-fixed-top"</span>
+            <h4 class="margin-top-lg">Header - Static</h4>
+            <code>&lt;nav class="navbar"&gt;..&lt;/nav&gt;</code><span class="text-muted small"> - Remove class "navbar-fixed-top"</span> </div>
+          <div class="tab-pane" id="tab-layout-3">
+            <h4 class="margin-top">SideBar - Static</h4>
+            <code>&lt;aside id="sidebar"&gt;..&lt;/aside&gt;</code><span class="text-muted small"> - Default sidebar style</span>
+            <h4 class="margin-top-lg">SideBar - Fixed</h4>
+            <code>&lt;aside id="sidebar" class="affix"&gt;..&lt;/aside&gt;</code><span class="text-muted small"> - Requires "affix" class</span>
+            <hr class="alt short" />
+            <h4 class="margin-top-lg">SideBar - Search Form Hidden</h4>
+            <code>&lt;div class="sidebar-search hidden"&gt;..&lt;/div&gt;</code><span class="text-muted small"> - Requires "hidden" class</span>
+            <p class="margin-top-lg"><b> Note: </b> To hide this clement you can also remove all of its HTML, or grant it the style "display: none" in custom.css</p>
+          </div>
+          <div class="tab-pane" id="tab-layout-4">
+            <h4 class="margin-top">Breadcrumbs - Static</h4>
+            <code>&lt;aside id="sidebar"&gt;..&lt;/aside&gt;</code><span class="text-muted small"> - Default sidebar style</span>
+            <h4 class="margin-top-lg">Breadcrumbs - Fixed</h4>
+            <code>&lt;aside id="sidebar" class="affix"&gt;..&lt;/aside&gt;</code><span class="text-muted small"> - Requires "affix" class</span>
+            <hr class="alt short" />
+            <h4 class="margin-top-lg">Breadcrumbs - Hidden</h4>
+            <code>&lt;div class="topbar hidden"&gt;..&lt;/div&gt;</code><span class="text-muted small"> - Requires "hidden" class</span>
+            <p class="margin-top-lg"><b> Note: </b> To hide this clement you can also remove all of its HTML, or grant it the style "display: none" in custom.css</p>
+          </div>
+        </div>
+        <h3 id="plugins" class="page-header"> 3rd Party Plugin Resources </h3>
+        <h4>A Full List of Theme Plugins!</h4>
+        <p>With how many great plugins there are avaliable to developers it can become difficult to keep track of them all. Use this list to sort, find, and better your understanding of each plugin. You can never have enough good reference sheets.</p>
+        <table class="table table-striped dataTable" id="plugin_table">
+          <thead>
+            <tr>
+              <th>Plugin</th>
+              <th>Website</th>
+              <th>Author</th>
+              <th>Pages Used</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Chosen</td>
+              <td><a href="https://github.com/harvesthq/chosen">https://github.com/chosen</a></td>
+              <td>Patrick Filler</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>Color Picker</td>
+              <td><a href="http://www.eyecon.ro/bootstrap-colorpicker/">http://www.eyecon.ro/</a></td>
+              <td>Eye Con</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Date Picker</td>
+              <td><a href="http://www.eyecon.ro/bootstrap-datepicker/">http://www.eyecon.ro/</a></td>
+              <td>Eye Con</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Date Range Picker</td>
+              <td><a href="http://www.dangrossman.info/2012/08/20/a-date-range-picker-for-twitter-bootstrap/">http://www.dangrossman.info/<a></a></a></td>
+              <td>Dan Grossman</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Dropzone</td>
+              <td><a href="http://www.dropzonejs.com/">http://www.dropzonejs.com/</a></td>
+              <td>Matias Meno </td>
+              <td>Uploads</td>
+            </tr>
+            <tr>
+              <td>Form Switches</td>
+              <td><a href="http://www.bootstrap-switch.org/">http://www.bootstrap-switch.org/</a></td>
+              <td>Mattia Larentis</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>JCrop</td>
+              <td><a href="http://github.com/tapmodo/Jcrop">http://github.com/tapmodo/Jcrop</a></td>
+              <td>Kelly Hallman</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Elevate Zoom</td>
+              <td><a href="www.elevateweb.co.uk/image-zoom">www.elevateweb.co.uk/image-zoom</a></td>
+              <td>Andrew Eades</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Jquery Knob</td>
+              <td><a href="http://anthonyterrien.com/knob/">http://anthonyterrien.com/knob/</a></td>
+              <td>Anthony Terrien</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Masked Input</td>
+              <td><a href="http://digitalbush.com/projects/masked-input-plugin/">http://digitalbush.com/</a></td>
+              <td>Josh Bush</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>Jquery Upload</td>
+              <td><a href="https://github.com/blueimp/jQuery-File-Upload">https://github.com/jQueryUpload</a></td>
+              <td>Sebastian Tschan</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Prettify</td>
+              <td><a href="https://code.google.com/p/google-code-prettify/">https://code.google.com/prettify/</a></td>
+              <td>Google</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Jquery RangeSlider</td>
+              <td><a href="http://ghusse.github.io/jQRangeSlider/">http://ghusse.github.io/jQRangeSlider/<a></a></a></td>
+              <td>Guillaume Gautreau</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Tags Manager</td>
+              <td><a href="http://welldonethings.com/tags/manager">http://welldonethings.com/manager</a></td>
+              <td>Max Favilli</td>
+              <td>Uploads</td>
+            </tr>
+            <tr>
+              <td>Timepicker</td>
+              <td><a href="http://jdewit.github.io/bootstrap-timepicker/">http://github.io/timepicker/</a></td>
+              <td>Joris de Wit</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Uniform</td>
+              <td><a href="http://uniformjs.com/">http://uniformjs.com/</a></td>
+              <td>PixelMatrix</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>Jquery Validate</td>
+              <td><a href="http://docs.jquery.com/Plugins/Validation">http://docs.jquery.com/Validation</a></td>
+              <td>Jörn Zaefferer</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Ckeditor</td>
+              <td><a href="http://ckeditor.com/">http://ckeditor.com/</a></td>
+              <td>Frederico Knabben</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>SummerNote</td>
+              <td><a href="http://hackerwins.github.io/summernote/">http://github.io/summernote/</a></td>
+              <td>Alan Hong</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>Xeditable</td>
+              <td><a href="http://github.com/vitalets/x-editable">http://github.com/x-editable</a></td>
+              <td>Vitaliy Potapov</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Ladda</td>
+              <td><a href="http://lab.hakim.se/ladda">http://lab.hakim.se/ladda</a></td>
+              <td>Hakim El Hattab</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>JQuery ScrollTo</td>
+              <td><a href="http://flesler.blogspot.com/2007/10/jqueryscrollto.html">http://flesler.blogspot.com/</a></td>
+              <td>Ariel Flesler</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>JQuery Globalize</td>
+              <td><a href="http://github.com/jquery/globalize">http://github.com/globalize</a></td>
+              <td>Vitaliy Potapov</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Calendar</td>
+              <td><a href="http://arshaw.com/fullcalendar/">http://arshaw.com/fullcalendar/</a></td>
+              <td>Adam Shaw</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Countdown</td>
+              <td><a href="https://code.google.com/p/jquery-countdown/">https://google.com/countdown/</a></td>
+              <td>Martin Donell</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>DataTables</td>
+              <td><a href="http://datatables.net/">http://datatables.net/</a></td>
+              <td>Vitaliy Potapov</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Elfinder</td>
+              <td><a href="http://elfinder.org">http://elfinder.org</a></td>
+              <td>Adam Shaw</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Form Wizard</td>
+              <td><a href="http://github.com/VinceG/twitter-bootstrap-wizard">http://github.com/VinceG/wizard</a></td>
+              <td>Vincent Gabriel</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>Generate File</td>
+              <td><a href="http://tutorialzine.com/2011/05/generating-files-javascript-php/">http://generating-files-javascript-php/</a></td>
+              <td>Martin Angelov</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>JQuery Map</td>
+              <td><a href="http://code.google.com/p/jquery-ui-map/">http://code.google.com/p/jquery-ui-map/</a></td>
+              <td>Johan Larsson</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Gritter</td>
+              <td><a href="http://www.boedesign.com/">http://www.boedesign.com/</a></td>
+              <td>Jordan Boesch</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>Isotope</td>
+              <td><a href="http://isotope.metafizzy.co">http://isotope.metafizzy.co</a></td>
+              <td>Metafizzy</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>JQuery Flot</td>
+              <td><a href="http://www.flotcharts.org/">http://www.flotcharts.org/</a></td>
+              <td>Ole Laursen</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Gmap</td>
+              <td><a href="http://hpneo.github.com/gmaps/">http://hpneo.github.com/gmaps/</a></td>
+              <td>Gustavo Leon</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>MF Popup</td>
+              <td><a href="http://dimsemenov.com/plugins/magnific-popup/">http://dimsemenov.com/magnific/</a></td>
+              <td>Dmitry Semenov</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Mix It Up</td>
+              <td><a href="http://mixitup.io">http://mixitup.io</a></td>
+              <td>Patrick Kunka</td>
+              <td>Site Wide</td>
+            </tr>
+            <tr>
+              <td>WPaint</td>
+              <td><a href="http://wpaint.websanova.com/">http://wpaint.websanova.com/</a></td>
+              <td>Websanova</td>
+              <td>Forms</td>
+            </tr>
+            <tr>
+              <td>Sparkline</td>
+              <td><a href="http://omnipotent.net/jquery.sparkline/">http://omnipotent.net/jquery.sparkline/</a></td>
+              <td>Gareth Watts</td>
+              <td>Forms</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="helperModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title text-center">Stardom HTML Helpers</h4>
+      </div>
+      <div class="modal-body">
+        <pre class="css">
+            .padding-none {padding:0}
+            .padding {padding:10px}
+            .padding-sm {padding:5px}
+            .padding-lg {padding:22px}
+            
+            .padding-top-none {padding-top:0}
+            .padding-top {padding-top:14px}
+            .padding-top-sm {padding-top:5px}
+            .padding-top-lg {padding-top:22px}
+            
+            .padding-right-none {padding-right:0}
+            .padding-right {padding-right:14px}
+            .padding-right-sm {padding-right:5px}
+            .padding-right-lg {padding-right:22px}
+            
+            .padding-bottom-none {padding-bottom:0}
+            .padding-bottom {padding-bottom:14px}
+            .padding-bottom-sm {padding-bottom:5px}
+            .padding-bottom-lg {padding-bottom:22px}
+            
+            .padding-left-none {padding-left:0}
+            .padding-left {padding-left:14px}
+            .padding-left-sm {padding-left:5px}
+            .padding-left-lg {padding-left:22px}
+            
+            .margin-none {margin:0}
+            .margin {margin:14px}
+            .margin-sm {margin:5px}
+            .margin-lg {margin:22px}
+            
+            .margin-top-none {margin-top:0}
+            .margin-top {margin-top:14px}
+            .margin-top-lg {margin-top:22px}
+            .margin-top-sm {margin-top:5px}
+            
+            .margin-right-none {margin-right:0}
+            .margin-right {margin-right:14px}
+            .margin-right-lg {margin-right:22px}
+            .margin-right-sm {margin-right:5px}
+            
+            .margin-bottom-none {margin-bottom:0}
+            .margin-bottom {margin-bottom:14px}
+            .margin-bottom-lg {margin-bottom:22px}
+            .margin-bottom-sm {margin-bottom:5px}
+            
+            .margin-left-none {margin-left:0}
+            .margin-left {margin-left:14px}
+            .margin-left-lg {margin-left:22px}
+            .margin-left-sm {margin-left:5px}
+            
+            .border-left-none {border-left:none}
+            .border-right-none {border-right:none}
+            .border-bottom-none {border-bottom:none}
+            .border-top-none {border-top:none}
+            .border-none {border:none}
+            </pre>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="panelModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h6><b>Panel Structure</b></h6>
+        <pre class="prettyprint linenums lang-html prettyprinted">
+            &lt;div class="panel"&gt;
+            
+                &lt;!-- Panel-Heading --&gt;
+                &lt;div class="panel-heading"&gt;...&lt;/div&gt;
+  
+                &lt;!-- Panel-Menu --&gt;
+                &lt;div class="panel-menu"&gt;&lt;...&lt;/div&gt;
+                
+                &lt;!-- Panel-Sidemenu --&gt;
+                &lt;div class="panel-sidemenu"&gt;...&lt;/div&gt;
+                
+                &lt;!-- Panel-Body --&gt;
+                &lt;div class="panel-body"&gt;&lt;...&lt;/div&gt;
+                
+                &lt;!-- Panel-Footer --&gt;
+                &lt;div class="panel-footer"&gt;&lt;...&lt;/div&gt;
+                
+            &lt;/div&gt;
+            </pre>
+        <hr class="alt short" />
+        <h6 class="margin-bottom">Results In:</h6>
+        <div class="panel">
+          <div class="panel-heading">
+            <div class="panel-title"><i class="fa fa-info"></i> A Panel Title</div>
+            <div class="panel-tray pull-right">
+              <button class="btn btn-danger btn-gradient">A Title Btn</button>
+            </div>
+          </div>
+          <div class="panel-sidemenu">
+            <ul class="nav">
+              <li class="nav-title">A Sidemenu</li>
+              <li class="active"><a><i class="fa fa-print"></i> Item 1</a></li>
+              <li><a><i class="fa fa-pencil"></i> Item 3</a></li>
+              <li><a><i class="fa fa-trash-o"></i> Item 2</a></li>
+            </ul>
+          </div>
+          <div class="panel-body">
+            <h4> This is the Panel Body</h4>
+            <p> You can put all kinds of good juicy content here </p>
+          </div>
+          <div class="clearfix"></div>
+          <div class="panel-footer">
+            <button class=" btn btn-warning btn-gradient pull-right" type="button">A Footer Btn</button>
+            <span class="panel-title-sm pull-right margin-right" style="padding-top: 7px;">A Panel Footer!</span>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Core Javascript - via CDN --> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
+
+<!-- Plugins --> 
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../vendor/plugins/datatables/js/datatables.js"></script> 
+<script type="text/javascript" src="../vendor/plugins/fitvids/jquery.fitvids.js"></script> 
+<script type="text/javascript" src="../vendor/plugins/prettify/prettify.min.js"></script> 
+<script src="/static/vendor/highlight/highlight.pack.js"></script> 
+<script type="text/javascript" src="/static/js/main.js"></script> 
+<script>
+jQuery(document).ready(function() {
+	
+	// Init Fit Vids
+	$(".vendor").fitVids();
+	
+	// Init Datatables
+	$('#plugin_table').dataTable( {
+	  "aoColumnDefs": [{ 'bSortable': false, 'aTargets': [ -1 ] }],
+	  "oLanguage": { "oPaginate": {"sPrevious": "", "sNext": ""} },
+	  "iDisplayLength": 15,
+	  "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+	});	
+	
+	// Init Prettyprint
+	$('pre').prettyPre();
+	prettyPrint();
+	
+	// Google Pretty Print is only initiated once on page load
+	// This causes issues on dynamic content and tab content
+	// These are simply fixes for that - Trash JS
+	$('.well-tabs li').one('click', function() {
+		var Item = $($(this).find('a').attr('href')).find('pre');		
+		if ($(Item).length) {
+			$(Item).removeClass('prettyprinted');
+				
+			var timeout = setTimeout(function() {
+				$(Item).prettyPre();
+				prettyPrint();
+			},100);
+		}
+	});
+	
+	$('.accordion-toggle').one('click', function() {
+		var Item = $($(this).parents('.panel-heading').next()).find('pre');		
+		if ($(Item).length) {
+			$(Item).removeClass('prettyprinted');
+				
+			var timeout = setTimeout(function() {
+				$(Item).prettyPre();
+				prettyPrint();
+			},100);
+		}
+	});
+	
+	$('.panel-example-btn').click(function() {
+		var Item = $('#panelModal .modal-body').find('pre');		
+		if ($(Item).length) {
+			$(Item).removeClass('prettyprinted');
+				
+			var timeout = setTimeout(function() {
+				$(Item).prettyPre();
+				prettyPrint();
+			},500);
+		}
+	});
+	
+	$('.helper-modal-btn').click(function() {
+		var Item = $('#helperModal .modal-body').find('pre');		
+		if ($(Item).length) {
+			$(Item).removeClass('prettyprinted');
+				
+			var timeout = setTimeout(function() {
+				$('pre.css').each(function(i, e) {hljs.highlightBlock(e)});
+			},500);
+		}
+	});
+	
+	// Changes theme style on Tabs - Trash function 
+	var tabOptions = [];
+	var tabToggle = $(".toggle-tab-style .tab-style-option");
+	var tabCount = $(tabToggle).length;	
+	
+	$(tabToggle).each(function (index, element){
+		var optionVal = $(element).attr('opt');
+
+		// gather options and push to array
+		tabOptions.push(optionVal);
+		
+		// on last loop filter for uniqueness
+		if (index == tabCount - 1) {
+		 	jQuery.unique(tabOptions);
+		}
+	});
+	
+	$(tabToggle).click(function () {
+		var tabStyle = $(this).attr('opt');
+		var Options = tabOptions.join(" ");		
+		
+		// garbage js - left tab navigation  has styles widget outside of its menu.
+		// Requires slightly different class detection
+		if ($(this).parent().hasClass('tab-style-left')) {
+			$(this).parents("div.tab-block").children("ul").removeClass(Options).addClass(tabStyle); 	
+		}
+		else {
+			// Assign option to parent of clicked tab widget. Remove all other options
+			$(this).parents("ul").removeClass(Options).addClass(tabStyle); 
+		}
+		// remove active class from options and add
+		// the class to the newly clicked option
+		$(this).siblings().removeClass("active");
+		$(this).addClass("active");
+		
+	});
+
+});
+</script>
+</body>
+</html>

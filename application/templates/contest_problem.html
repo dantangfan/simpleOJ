@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8" />
+    <title>{{site_name}}</title>
+    <meta name="keywords" content="SCPC Training System" />
+    <meta name="description" content="SCPC Training System" />
+    <meta name="author" content="Chen&Liu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font CSS  -->
+    <!--<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />-->
+    <!-- Core CSS  -->
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.0.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/fonts/glyphicons_pro/glyphicons.min.css" />
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/plugins/calendar/fullcalendar.css" />
+    <link rel="stylesheet" type="text/css" href="/static/vendor/plugins/datatables/css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/animate.css" />
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/pages.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/plugins.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/responsive.css" />
+    <!-- Demonstration CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
+    <!-- Your Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+    <body class="boxed-layout">
+        <!-- Start: Header -->
+        <header class="navbar navbar-fixed-top">
+            <div class="pull-left">
+                <a class="navbar-brand" href="/">
+                    <div class="navbar-logo">
+                        <img src="/static/img/logos/logo-red.png" class="img-responsive" alt="logo" />
+                    </div>
+                </a>
+            </div>
+            <div class="pull-right header-btns" id="user-area">
+            </div>
+        </header>
+        <!-- End: Header -->
+        <!-- Start: Main -->
+        <div id="main">
+            <!-- Start: Content -->
+            <section id="contest_section">
+                <div class="container" style="padding-bottom: 30px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel" style="margin-bottom: 0px;">
+                                <div class="panel-heading">
+                                    <div class="panel-title">
+                                        <i class="glyphicons glyphicons-crown"></i>
+                                        <span>&nbsp;{{contest.title}}</span>
+                                    </div>
+                                    <ul class="nav panel-tabs">
+                                        <li>
+                                            <a href="../../">Problems</a>
+                                        </li>
+                                        <li>
+                                            <a href="../../submissions">Submissions</a>
+                                        </li>
+                                        <li>
+                                            <a href="../../ranklist">Ranklist</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body container" style="padding-bottom: 30px;">
+                                    <div class="tab-content padding-none border-none">
+                                        <div id="tab1" class="tab-pane active">
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <h1>{{problem.title|safe}}</h1>
+                                                    <b>Time Limit:</b><span>{{problem.time_limit|safe}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Memory Limit:</b><span>{{problem.memory_limit|safe}}</span>
+                                                </div>
+                                            </div>
+                                            <hr class="short" />
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="tab-block margin-bottom-lg">
+                                                        <div class="tab-content">
+                                                            <div id="tab-problem" class="tab-pane active">
+                                                                <h3>Description</h3>
+                                                                <div class="well">
+                                                                    <div id="tab-problem-content">
+                                                                        {{problem.description|safe}}
+                                                                    </div>
+                                                                </div>
+                                                                <h3>Input</h3>
+                                                                <div class="well">
+                                                                    <div id="tab-problem-content">
+                                                                        {{problem.input|safe}}
+                                                                    </div>
+                                                                </div>
+                                                                <h3>Output</h3>
+                                                                <div class="well">
+                                                                    <div id="tab-problem-content">
+                                                                        {{problem.output|safe}}
+                                                                    </div>
+                                                                </div>
+                                                                <h3>Sample Input</h3>
+                                                                <div class="well">
+                                                                    <div id="tab-problem-content">
+                                                                        {{problem.sample_input|safe}}
+                                                                    </div>
+                                                                </div>
+                                                                <h3>Sample Output</h3>
+                                                                <div class="well">
+                                                                    <div id="tab-problem-content">
+                                                                        {{problem.sample_output|safe}}
+                                                                    </div>
+                                                                </div>
+                                                                <h3>Hint</h3>
+                                                                <div class="well">
+                                                                    <div id="tab-problem-content">
+                                                                        {{problem.hint|safe}}
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button" id="btn-submit" class="btn btn-light6 btn-gradient">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- End: Content -->
+        </div>
+        <!-- End: Main -->
+        <div class="clearfix"></div>
+        <hr class="short">
+        <footer class="footer">
+            <p style="text-align: center">Copyright 2014.</p>
+        </footer>
+        <div class="clearfix"></div>
+        <!-- Core Javascript - via CDN
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    -->
+    <script type="text/javascript" src="/static/vendor/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/bootstrap.min.js"></script>
+        <!-- Plugins - Via CDN
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.min.js"></script>
+    -->
+    <!-- Plugins - Via Local Storage -->
+    <script type="text/javascript" src="/static/vendor/plugins/jqueryflot/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/calendar/fullcalendar.min.js"></script>
+    <!-- Plugins -->
+    <script type="text/javascript" src="/static/vendor/plugins/calendar/gcal.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/jquerydial/jquery.knob.js"></script>
+    <!-- Calendar Addon -->
+    <script type="text/javascript" src="/static/vendor/plugins/jqueryflot/jquery.flot.resize.min.js"></script>
+    <!-- Flot Charts Addon -->
+    <script type="text/javascript" src="/static/vendor/plugins/datatables/js/datatables.js"></script>
+    <!-- Datatable Bootstrap Addon -->
+    <script type="text/javascript" src="/static/vendor/bootstrap/paginator/src/bootstrap-paginator.js"></script>
+    <!-- Theme Javascript -->
+    <script type="text/javascript" src="/static/js/uniform.min.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
+    <!--<script type="text/javascript" src="/static/js/plugins.js"></script>-->
+    <script type="text/javascript" src="/static/js/custom.js"></script>
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+      
+            // Init Theme Core    
+            Core.init();
+            SCPC();
+
+            $('#btn-submit').click(function(){
+                $.getJSON("/user/login_status", function(data){
+                    if(data.login_status == false){
+                        alert('Please login first.');
+                    }else{
+                        $('#wnd-submit').modal();
+
+                        var current_height = $(window).height()*3/5;
+                        var current_width = $(window).width()*3/5;
+                        $('#code_to_submit').height(current_height);
+                        $('#code_to_submit').width(current_width);
+                        $('.modal-dialog').width(current_width+40)
+                        $('#code_to_submit').css("minHeight", current_height);
+                        $('#code_to_submit').css("maxHeight", current_height);
+                        $('#code_to_submit').css("maxWidth", current_width);
+                        $('#code_to_submit').css("minWidth", current_width);
+                    }
+                });
+            });
+
+            $('#btn-submit-confirm').click(function(){
+                $('#btn-submit-confirm').attr('disabled',"true")
+                $.ajax({
+                  url: '/submit',
+                  method: 'POST',
+                  data: {
+                    code:$('#code_to_submit').val(),
+                    problem_id:{{problem.id}},
+                    compiler:$('#selected_compiler').val(),
+                    contest:{{contest.id}}
+                },
+                success: function(data){
+                    data = $.parseJSON(data);
+                    if(data.result == "ok"){
+                        window.location.href = "../../submissions";
+                    }else{
+                        alert('Submit failed. Responding message: [' + data.result + "]");
+                        $('#btn-submit-confirm').removeAttr("disabled"); 
+                    }
+                },
+                type: 'json'
+            });
+            });
+
+        });
+</script>
+<div class="modal fade" id="wnd-submit" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div id="news_window_content">
+            <div id="tab-problem-submit" class="tab-pane">
+                <textarea class="form-control" id="code_to_submit"></textarea>
+                <br/>
+                <div class='col-md-3'>
+                    <select class="form-control" width='72px' id="selected_compiler">
+                        <option value='gcc'>gcc</option>
+                        <option value='g++'>g++</option>
+                        <option value='java'>java</option>
+                    </select>
+                </div>
+                <div class='col-md-3'>
+                    <button type="button" id="btn-submit-confirm" class="btn btn-light6 btn-gradient">Confirm</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

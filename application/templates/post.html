@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{site_name}}</title>
+    <meta name="keywords" content="SCPC Training System" />
+    <meta name="description" content="SCPC Training System" />
+    <meta name="author" content="Chen&Liu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.0.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/fonts/glyphicons_pro/glyphicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/vendor/plugins/datatables/css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/pages.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/plugins.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/vendor/plugins/prettify/prettify.css" />
+
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body class="boxed-layout">
+    <!-- Start: Header -->
+    <header class="navbar navbar-fixed-top">
+        <div class="pull-left">
+            <a class="navbar-brand" href="/">
+                <div class="navbar-logo">
+                    <img src="/static/img/logos/logo-red.png" class="img-responsive" alt="logo" />
+                </div>
+            </a>
+        </div>
+        <div class="pull-right header-btns" id="user-area">
+        </div>
+    </header>
+    <!-- End: Header -->
+    <!-- Start: Main -->
+    <div id="main">
+        <!-- Start: Sidebar -->
+        <aside id="sidebar">
+            <div id="sidebar-search">
+                <form role="search" />
+                <input type="text" class="search-bar form-control" placeholder="Search" />
+                <i class="fa fa-search field-icon-right"></i>
+                <button type="submit" class="btn btn-default hidden"></button>
+                </form>
+                <div class="sidebar-toggle">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </div>
+            <div id="sidebar-menu">
+                <ul class="nav sidebar-nav">
+                    <li>
+                        <a href="/">
+                            <span class="glyphicons glyphicons-sort"></span>
+                            <span class="sidebar-title">Index</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/problems">
+                            <span class="glyphicons glyphicons-globe"></span>
+                            <span class="sidebar-title">Problem</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/contests">
+                            <span class="glyphicons glyphicons-globe"></span>
+                            <span class="sidebar-title">Contest</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/road">
+                            <span class="glyphicons glyphicons-globe"></span>
+                            <span class="sidebar-title">The Road</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/submissions">
+                            <span class="glyphicons glyphicons-globe"></span>
+                            <span class="sidebar-title">Submission</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/forum">
+                            <span class="glyphicons glyphicons-globe"></span>
+                            <span class="sidebar-title">Forum</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <!-- End: Sidebar -->
+        <!-- Start: Content -->
+        <section id="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" style="padding-left:20px;">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div>
+                                    <table width="100%;">
+                                        <tr>
+                                            <td>
+                                                <h1>{{post.title}}</h1>
+                                                <strong class="SCPC_USER">{{post.user.username}}</strong>
+                                                <span style="color: #939191;">• {{post.last_update_time}}</span>
+                                            </td>
+                                            <td width="75px;" class="pull-right">
+                                                <img src="http://gravatar.duoshuo.com/avatar/{{email_hash}}?s=75&d=mm" class="avatar" border="0" align="default">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <hr class="short" />
+                                <div style="font-size:16px;">{{post.content|safe}}</div>
+                            </div>
+                            <div class="panel-footer">
+                                <button type="button" id="btn-create" class="btn btn-default btn-gradient">Reply</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="padding-left:10px;">
+                        <div class="col-md-12">
+                            <table class='table'>
+                                <tbody>
+                                    {% for p in replys %}
+                                    <tr style="border-top: 1px solid  #DDD;">
+                                        <td width="50px">
+                                            <img src="http://gravatar.duoshuo.com/avatar/{{p.user.email.split("|")[1]}}?s=50&d=mm" class="avatar" border="0" align="default">
+                                        </td>
+                                        <td>
+                                            <p class="SCPC_USER" style="font-size: 15px;">{{p.user.username}}&nbsp;&nbsp;
+                                                <span style="color: #939191;font-size:12px;">{{p.last_update_time}}</span>
+                                            </p>
+                                            <div style='color:black;font-size:14px;'>{{p.content|safe}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <ul id="paginator-problem-list"></ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- End: Content -->
+        <div class="clearfix"></div>
+    </div>
+    <!-- End: Main -->
+    <div class="clearfix"></div>
+    <hr class="short">
+    <footer class="footer">
+        <p style="text-align: center">Copyright 2014.</p>
+    </footer>
+    <div class="clearfix"></div>
+
+    <script type="text/javascript" src="/static/vendor/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/datatables/js/datatables.js"></script>
+    <script type="text/javascript" src="/static/vendor/bootstrap/paginator/src/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="/static/js/uniform.min.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
+    <script type="text/javascript" src="/static/js/custom.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/static/vendor/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/static/vendor/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="/static/vendor/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/prettify/prettify.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+                // Init Theme Core    
+                Core.init();
+                SCPC();
+                $('pre').addClass('prettyprint');
+                prettyPrint();
+
+                var options = {
+                    currentPage: {{current_page}},
+                    totalPages: {{total_page}},
+                    shouldShowPage:function(type, page, current){
+                        switch(type)
+                        {
+                            case "first":
+                            case "last":
+                                return true;
+                            default:
+                                return true;
+                        }
+                    },
+                    onPageChanged: function(e,oldPage,newPage){
+                        if({{current_page}} != newPage){
+                            window.location.href = '/forum/post/{{post.id}}/' + newPage;
+                        }
+                    }
+                }
+                // init paginator
+                $('#paginator-problem-list').bootstrapPaginator(options);
+    
+                $('#btn-create').click(function(){
+                    $.getJSON("/user/login_status", function(data){
+                        if(data.login_status == false){
+                            alert('Please login first.');
+                        }else{
+                            var current_width = $(window).width()*3/5;
+                            $('.modal-dialog').width(current_width+40);
+                            $('#editor-post').width(current_width);
+                            //-55-44
+                            var current_height = $(window).height()*2/5;
+                            $('#tab-reply').height(current_height);
+                            $('#editor').height(current_height-44);
+                            $('#editor-post').height(current_height-99);
+                            $('#wnd-reply').modal();
+                            if(Object.keys(UE.instants).length == 0){
+                                UE.getEditor('editor-post');
+                                $('.edui-default').css('z-index','1090');
+                                //UE.getEditor('editor-post').setHeight(current_height-99);
+                            }
+                            
+                        }
+                    });
+                });
+    
+                $('#btn-reply-confirm').click(function(){
+                    $('#btn-reply-confirm').attr('disabled',"true")
+                    $.ajax({
+                      url: '/forum/submit',
+                      method: 'POST',
+                      data: {
+                        content:UE.getEditor('editor-post').getContent(),
+                        title:$('#editor-title').val(),
+                        father_node:{{post.id}}
+                      },
+                      success: function(data){
+                        data = $.parseJSON(data);
+                        if(data.result == "ok"){
+                            window.location.href = window.location.href;
+                        }else{
+                            alert('Submit failed. Responding message: [' + data.result + "]");
+                            $('#btn-reply-confirm').removeAttr("disabled"); 
+                        }
+                      },
+                      type: 'json'
+                    });
+                });
+
+                $('.SCPC_USER').each(function(v){
+                var username = $(this).text();
+                if(username.indexOf("_SCPC_")>=0){
+                    username = username.replace('_SCPC_', "<img src='/static/img/logos/scpc-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;");
+                    $(this).html(username);
+                }
+            });
+            
+            
+            });
+    </script>
+
+    <div class="modal fade" id="wnd-reply" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="news_window_content">
+                        <div id="tab-reply" class="tab-pane">
+                            <div class="row">
+                                <div id="editor" class='col-md-12' style="padding-top:10px;">
+                                    <script id="editor-post" type="text/plain"></script>
+                                </div>
+                                <div class='col-md-3'>
+                                    <button type="button" style="margin-top: 10px;" id="btn-reply-confirm" class="btn btn-light6 btn-gradient">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

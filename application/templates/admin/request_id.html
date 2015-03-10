@@ -1,0 +1,18 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+    <p>Please input the problem id:</p>
+    <input id='problem_id' />&nbsp;<button id='submit_id'>Submit</button>
+    
+{% endblock %}
+{% block tail %}
+    <script type="text/javascript">
+        
+        jQuery(document).ready(function() {
+              
+            $('#submit_id').click(function(){
+                window.location.href = 'request/'+$('#problem_id').val()
+            });
+
+        });
+    </script>
+{% endblock %}

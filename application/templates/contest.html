@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{{site_name}}</title>
+    <meta name="keywords" content="SCPC Training System" />
+    <meta name="description" content="SCPC Training System" />
+    <meta name="author" content="Chen&Liu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Core CSS  -->
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.0.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/fonts/glyphicons_pro/glyphicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/vendor/plugins/datatables/css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/pages.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/plugins.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body class="boxed-layout">
+    <!-- Start: Header -->
+    <header class="navbar navbar-fixed-top">
+        <div class="pull-left">
+            <a class="navbar-brand" href="/">
+                <div class="navbar-logo">
+                    <img src="/static/img/logos/logo-red.png" class="img-responsive" alt="logo" />
+                </div>
+            </a>
+        </div>
+        <div class="pull-right header-btns" id="user-area">
+        </div>
+    </header>
+    <!-- End: Header -->
+    <!-- Start: Main -->
+    <div id="main">
+        <!-- Start: Content -->
+        <section id="contest_section">
+            <div class="container" style="padding-bottom: 30px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel" style="margin-bottom: 0px;">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <i class="glyphicons glyphicons-crown"></i>
+                                    <span>&nbsp;{{title}}</span>
+                                </div>
+                                <ul class="nav panel-tabs">
+                                    <li class="active">
+                                        <a href="submissions" data-toggle="tab">Problems</a>
+                                    </li>
+                                    <li>
+                                        <a href="submissions">Submissions</a>
+                                    </li>
+                                    <li>
+                                        <a href="ranklist">Ranklist</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-body container" style="padding-bottom: 30px;">
+                                <div class="tab-content padding-none border-none">
+                                    <div id="tab1" class="tab-pane active">
+                                        <div class="row">
+                                            <div class="col-md-10 col-md-offset-1" style="background-color:#fbfafa">
+                                                <div class="col-md-2">
+                                                    <input id="knob-clock" />
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <table style="margin-top:10px">
+                                                        <tr>
+                                                            <td>
+                                                                <b>Start Time:</b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>{{start_time}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <b>End Time:</b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>{{end_time}}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-7" style="padding-top:10px;">
+                                                    {{description|safe}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="short" />
+                                        <table class="table table-hover table-striped1 text-center">
+                                            <thead>
+                                                <tr style="background-color:#43a5ad;color:white">
+													<td>ID</td>
+                                                    <td>Title</td>
+                                                    <td width="15%">Solved?</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+												{%  for  num in number_list %}
+                                                <tr>
+                                                    <td>{{idlist[num]}}</td>
+													<td>
+                                                        <a href="problem/{{idlist[num]}}">{{problems[num].title}}</a>
+                                                    </td>
+                                                    <td>
+                                                        {% if solved[num] == True%}
+                                                        YES
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {%  endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End: Content -->
+
+    </div>
+    <!-- End: Main -->
+    <div class="clearfix"></div>
+    <hr class="short">
+    <footer class="footer">
+        <p style="text-align: center">Copyright 2014.</p>
+    </footer>
+    <div class="clearfix"></div>
+
+    <script type="text/javascript" src="/static/vendor/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/jquerydial/jquery.knob.js"></script>
+    <script type="text/javascript" src="/static/vendor/plugins/datatables/js/datatables.js"></script>
+    <script type="text/javascript" src="/static/vendor/bootstrap/paginator/src/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="/static/js/uniform.min.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
+    <script type="text/javascript" src="/static/js/custom.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+        	Core.init();
+            SCPC();
+            $("#knob-clock").knob({
+                width: 100,
+                max:{{totaltime}},
+                height: 100,
+                readOnly: true,
+                displayInput: true,
+                thickness: ".3",
+                fgColor: '#4cbcf7',
+                bgColor: '#ff6767'
+            });
+	        $("#knob-clock").val({{havetime}}).trigger('change');
+        });
+    </script>
+</body>
+</html>

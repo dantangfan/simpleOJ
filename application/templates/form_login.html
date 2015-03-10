@@ -1,0 +1,38 @@
+<div class="modal fade in" id="LoginModal" tabindex="-1" role="dialog" aria-hidden="false" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Login</h4>
+            </div>
+            <div class="modal-body">
+                <form class="cmxform" action="/user/login" id="loginForm" method="post">
+                    {{form.hidden_tag()}}
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            {{form.username(class='form-control phone', autocomplete='off', placeholder='User Name')}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-key"></i>
+                            </span>
+                            {{form.password(class='form-control product',  autocomplete='off', placeholder='Password',type='password')}}
+                        </div>
+                    </div>
+                    <span class="panel-title-sm pull-left" style="padding-top: 7px;">
+                    SCPC OJ Account?&nbsp;{{form.scpc_oj()}}
+                </span>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-login">Login</button>
+            </div>
+        </div>
+    </div>
+</div>

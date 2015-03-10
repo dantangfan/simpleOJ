@@ -1,0 +1,118 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+<!-- Start: Content -->
+<div class="cal-md-10">
+        <div>
+            <div class="col-md-12 text-center">
+                <h1 id="content_title" contenteditable="true">{{problem.title}}</h1>
+                <b>Time Limit:</b><span id="content_time_limit" contenteditable="true">{{problem.time_limit}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Memory Limit:</b><span id="content_memory_limit" contenteditable="true">{{problem.memory_limit}}</span>
+            </div>
+        </div>
+        <hr class="short" />
+
+        <div>
+            <div class="col-md-12">
+                <div class="tab-block margin-bottom-lg">
+                    <div class="tab-content">
+                        <div id="tab-problem" class="tab-pane active">
+                            <h3>Description</h3>
+                            <div class="well">
+                                <div id="content_description" contenteditable="true">
+                                    {{problem.description|safe}}
+                                </div>
+                            </div>
+
+                            <h3>Input</h3>
+                            <div class="well">
+                                <div id="content_input" contenteditable="true">
+                                    {{problem.input|safe}}
+                                </div>
+                            </div>
+
+                            <h3>Output</h3>
+                            <div class="well">
+                                <div id="content_output" contenteditable="true">
+                                    {{problem.output|safe}}
+                                </div>
+                            </div>
+
+                            <h3>Sample Input</h3>
+                            <div class="well">
+                                <div id="content_sample_input" contenteditable="true">
+                                    {{problem.sample_input|safe}}
+                                </div>
+                            </div>
+
+                            <h3>Sample Output</h3>
+                            <div class="well">
+                                <div id="content_sample_output" contenteditable="true">
+                                    {{problem.sample_output|safe}}
+                                </div>
+                            </div>
+
+                            <h3>Hint</h3>
+                            <div class="well">
+                                <div id="content_hint" contenteditable="true">
+                                    {{problem.hint|safe}}
+                                </div>
+                            </div>
+                            <select id="selected_contest">
+                                <option value='-1'>no in contest</option>
+                                {% for c in contests %}
+                                <option value='{{c.id}}'>{{c.title}}</option>
+                                {% endfor %}
+                            </select>
+                            <br />
+                            <button type="button" id="btn-submit" class="btn btn-light6 btn-gradient">Submit</button>
+                            <br />
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+</div>
+<!-- End: Content -->
+    
+{% endblock %}
+{% block tail %}
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
+    <script type="text/javascript">
+        
+        jQuery(document).ready(function() {
+            //p = Problem(None, None, u"HDOJ", u"1000", u"A + B Problem " + str(i), u"128k", u"1s", u"description", u"input", u"output", u"sample_input", u"sample_output", u"hint")
+            $('#btn-submit').click(function(){
+                $.ajax({
+                  url: '../submit',
+                  method: 'POST',
+                  data: {
+                    original_oj:'{{problem.original_oj}}',
+                    original_oj_id:{{problem.original_oj_id}},
+                    title:$('#content_title').html(),
+                    time_limit:$('#content_time_limit').html(),
+                    memory_limit:$('#content_memory_limit').html(),
+                    description:$('#content_description').html(),
+                    input:$('#content_input').html(),
+                    output:$('#content_output').html(),
+                    sample_input:$('#content_sample_input').html(),
+                    sample_output:$('#content_sample_output').html(),
+                    hint:$('#content_hint').html(),
+                    selected_contest:$('#selected_contest').val()
+                  },
+                  success: function(data){
+                    data = $.parseJSON(data);
+                    if(data.result == "ok"){
+                        window.location.href = "/admin";
+                    }else{
+                        alert('Submit failed. Responding message: [' + data.result + "]");
+                    }
+                  },
+                  type: 'POST'
+                });
+            });
+
+        });
+    </script>
+{% endblock %}
+
+

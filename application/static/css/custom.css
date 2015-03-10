@@ -1,0 +1,43 @@
+/* Author: Louis Holladay
+ * Website: AdminDesigns.com
+ * Last Updated: 01/01/14 
+ 
+ * This file is reserved for changes made by the user 
+ * as it's often a good idea to seperate your work from 
+ * the theme. It makes modifications, and future theme
+ * updates much easier 
+ *
+ */
+
+/* These styles have been placed here for
+* convience as they have a high chance of being
+* changed if one decides to modify the header
+-----------------------------------------------*/
+
+.header-btns > div > button:focus {
+    color: #666;
+}
+/* Place custom styles below this line 
+---------------------------------------*/
+
+#content {
+    background-color: rgb(255, 255, 255) !important;
+    background-image: none;
+}
+.table-striped1>tbody>tr:nth-child(odd)>td,
+.table-striped1>tbody>tr:nth-child(odd)>th {
+    background-color: rgb(225, 234, 253);
+}
+.table-striped1>tbody>tr:nth-child(even)>td,
+.table-striped1>tbody>tr:nth-child(even)>th {
+    background-color: rgb(239, 240, 242);
+}
+.table-striped-color-green a{
+    color:rgb(32, 130, 213);
+}
+.panel-title {
+    font-size: 16px;
+}
+.panel-title .fa {
+    font-size: 17px;
+}
