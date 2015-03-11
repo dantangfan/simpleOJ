@@ -30,6 +30,10 @@ create table news (
     content text
 );
 
+/*
+mv owner_road_id owner_user_id
+rm original_oj
+*/
 create table problem (
     id integer primary key auto_increment,
     owner_contest_id integer,
@@ -58,6 +62,11 @@ create table contest (
     ranklist text
 );
 
+
+/*
+add language
+rm original_oj
+*/
 create table submission (
     id integer primary key auto_increment,
     user_id integer not null,

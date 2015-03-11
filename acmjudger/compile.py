@@ -1,49 +1,68 @@
 #!/usr/bin/env python
-# coding=utf-8
-from protect import low_level,dblock
-import config
-import subprocess
-import os
+# -*- coding:utf-8 -*-
 
-def compile(solution_id, language):
-    low_level()
-    '''将程序编译成可执行文件'''
+import os
+import logging
+from db import db
+
+
+build_cmd = {
+    "gcc":
+    "gcc %s -o %s ",
+    "g++": "g++ %s -O2 -Wall -lm --static -DONLINE_JUDGE -o %s",
+    "java": "javac %s.java",
+    "ruby": "reek %s.rb",
+    "perl": "perl -c %s.pl",
+    "pascal": 'fpc %s.pas -O2 -Co -Ct -Ci',
+    "go": '/opt/golang/bin/go build -ldflags "-s -w" %s.go',
+    "lua": 'luac -o main %s.lua',
+    "python2": 'python2 -m py_compile %s.py',
+    "python3": 'python3 -m py_compile %s.py',
+    "haskell": "ghc -o main %s.hs",
+}
+
+subnames = {
+    'gcc':'c',
+    'g++':'c++',
+    'java':'java',
+    'ruby':'rb',
+    'perl':'pl',
+    'pascal':'pas',
+    'go':'go',
+    'lua':'lua',
+    'python2':'py',
+    'python3':'py',
+    'haskell':'hs'
+}
+
+def compile(user_id, submission_id, language):
     language = language.lower()
-    dir_work = os.path.join(config.work_dir, str(solution_id))
-    build_cmd = {
-        "gcc":
-        "gcc main.c -o main -Wall -lm -O2 -std=c99 --static -DONLINE_JUDGE",
-        "g++": "g++ main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o main",
-        "java": "javac Main.java",
-        "ruby": "reek main.rb",
-        "perl": "perl -c main.pl",
-        "pascal": 'fpc main.pas -O2 -Co -Ct -Ci',
-        "go": '/opt/golang/bin/go build -ldflags "-s -w"  main.go',
-        "lua": 'luac -o main main.lua',
-        "python2": 'python2 -m py_compile main.py',
-        "python3": 'python3 -m py_compile main.py',
-        "haskell": "ghc -o main main.hs",
-    }
     if language not in build_cmd.keys():
         return False
-    p = subprocess.Popen(
-        build_cmd[language],
-        shell=True,
-        cwd=dir_work,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE)
-    out, err = p.communicate()  # 获取编译错误信息
-    err_txt_path = os.path.join(config.work_dir, str(solution_id), 'error.txt')
-    f = file(err_txt_path, 'w')
-    f.write(err)
-    f.write(out)
-    f.close()
-    if p.returncode == 0:  # 返回值为0,编译成功
-        return True
-    dblock.acquire()
-    update_compile_info(solution_id, err + out)  # 编译失败,更新题目的编译错误信息
-    dblock.release()
-    return False
+    if not get_code(submission_id, user_id, language):
+        return False
+    exe_name = str(user_id)+'_'+str(submission_id)
+    file_name = exe_name+'.'+subnames[language]
+    if language=="gcc" or language=="g++":
+        os.system(build_cmd[language] % (file_name, exe_name))
+    elif language=="python":
+        os.system(build_cmd[language] % (file_name))
+        os.system('mv %s.pyc %s',(exe_name, exe_name))
+    os.remove(file_name)
+    return True
 
-def update_compile_info(solution_id, msg):
-    pass
+#file name is user_id+_+submission_id.*
+def get_code(submission_id, user_id, language):
+    sql = "select code, judger_status from submission where id = %s"
+    info = db.get(sql, submission_id)
+    code = info['code']
+    status = info['judger_status']
+    if 0 != status:
+        return False
+    sub = subnames[language]
+    f = open('%s_%s.%s' % (user_id, submission_id, sub), 'w' )
+    f.write(code)
+    f.close()
+    return True
+
+

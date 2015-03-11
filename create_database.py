@@ -15,7 +15,7 @@ db.create_all()
 print 'adding user'
 users = []
 for i in range(20):
-    email = u'admin%s@mrchenyi.com' % str(i)
+    email = u'admin%s@dantangfan.com' % str(i)
     email_hash = md5()
     email_hash.update(email)
     email_hash = email_hash.hexdigest()
