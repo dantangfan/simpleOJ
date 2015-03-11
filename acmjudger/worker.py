@@ -3,10 +3,12 @@
 
 from judger import judger
 from dbmanager import db, redis_q
-
-def run(submission_id):
-    rst = judger(submission_id)
-    write_back(submission_id, rst)
+from config import submission_queue_key
+def run():
+    while True:
+        submission_id = redis_q.brpop(submission_queue_key, 0)
+        rst = judger(submission_id)
+        write_back(submission_id, rst)
 
 
 def write_back(submission_id, rst):
@@ -18,3 +20,5 @@ def write_back(submission_id, rst):
     else:
         sql = "update submission set result = %s where id = %s limit 1"
         db.execute(sql, rst['result'], submission_id)
+
+run()

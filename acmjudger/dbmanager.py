@@ -4,7 +4,7 @@
 import logging
 import torndb
 from redisClient import RedisClient
-from config import mysql_db_name,mysql_host,mysql_password,mysql_user,redis_servre,redis_port
+from config import mysql_db_name,mysql_host,mysql_password,mysql_user,redis_server,redis_port
 
 while 1:
     try:
@@ -15,4 +15,4 @@ while 1:
 
 db.execute("set names utf8")
 
-redis_q = RedisClient(redis_servre=redis_servre,redis_port=redis_port,db=0)
+redis_q = RedisClient(host=redis_server,port=redis_port,db=0)

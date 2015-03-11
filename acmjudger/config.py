@@ -8,7 +8,8 @@ mysql_user = "root"
 mysql_password = "374610406"
 mysql_db_name = "HJ_OJ"
 
-redis_servre = "127.0.0.1"
-redis_port = 16379
+redis_server = "127.0.0.1"
+redis_port = 6379
+submission_queue_key = "submission_queue"
 
 problem_dir="problems"

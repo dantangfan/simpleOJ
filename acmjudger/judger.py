@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 
 import os
-import sys
 import lorun
 import logging
 from compile import compile
@@ -32,6 +31,8 @@ RESULT_STR = [
 def judger(submission_id):
     sql = "select user_id, compiler, problem_id from submission where id=%s"
     info = db.get(sql, submission_id)
+    if not info:
+        return {'result':RESULT_STR[7]}
     user_id = info['user_id']
     language = info['compiler']
     problem_id = info['problem_id']

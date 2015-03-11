@@ -4,8 +4,7 @@
 import redis
 import logging
 
-from srvconf import redis_server
-from srvconf import redis_port
+from config import redis_server,redis_port
 
 
 """
