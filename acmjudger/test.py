@@ -1,4 +1,5 @@
 from judger import judger
-from db import db
-print judger(7)
+from worker import run
+from dbmanager import db
+print run(6)
 db.close()

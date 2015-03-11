@@ -3,7 +3,8 @@
 
 import logging
 import torndb
-from config import mysql_db_name,mysql_host,mysql_password,mysql_port,mysql_user
+from redisClient import RedisClient
+from config import mysql_db_name,mysql_host,mysql_password,mysql_user,redis_servre,redis_port
 
 while 1:
     try:
@@ -13,3 +14,5 @@ while 1:
         logging.error("SQL connection error")
 
 db.execute("set names utf8")
+
+redis_q = RedisClient(redis_servre=redis_servre,redis_port=redis_port,db=0)

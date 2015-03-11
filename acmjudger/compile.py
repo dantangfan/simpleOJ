@@ -3,7 +3,7 @@
 
 import os
 import logging
-from db import db
+from dbmanager import db
 
 
 build_cmd = {
@@ -57,8 +57,8 @@ def get_code(submission_id, user_id, language):
     info = db.get(sql, submission_id)
     code = info['code']
     status = info['judger_status']
-    if 0 != status:
-        return False
+    #if status==-1:
+    #    return False
     sub = subnames[language]
     f = open('%s_%s.%s' % (user_id, submission_id, sub), 'w' )
     f.write(code)

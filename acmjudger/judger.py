@@ -6,7 +6,7 @@ import sys
 import lorun
 import logging
 from compile import compile
-from db import db
+from dbmanager import db
 import config
 '''
 try:
@@ -49,8 +49,8 @@ def judger(submission_id):
             print 'testdata:%s incompleted' % i
             os.remove(exe_name)
             return {'result':RESULT_STR[8]}
-    return rst
     os.remove(exe_name)
+    return rst
 
 run_cmd = {
     'gcc':'./%s',
