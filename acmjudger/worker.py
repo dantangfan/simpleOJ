@@ -6,7 +6,7 @@ from dbmanager import db, redis_q
 from config import submission_queue_key
 def run():
     while True:
-        submission_id = redis_q.brpop(submission_queue_key, 0)
+        submission_id = redis_q.brpop(submission_queue_key, 0)[1]
         rst = judger(submission_id)
         write_back(submission_id, rst)
 
