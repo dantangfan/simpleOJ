@@ -9,5 +9,5 @@ int main() {
     printf("%d\n", a + b);
     // open("asdf", O_CREAT);
     
-    return 0
+    return 0;
 }

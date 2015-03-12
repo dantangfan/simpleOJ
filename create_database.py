@@ -34,9 +34,9 @@ password = u'123456'
 password_hash = md5()
 password_hash.update(password)
 password_hash = password_hash.hexdigest()
-chenyi = User('admin', password_hash, 'chen_swust@foxmail.com|1ff531004d5ac7d9127a7ba9170ec323', 'scpc_oj_username', datetime.now())
-chenyi.group = "admin|user|manage user|manage problem|manage contest|manage news"
-db.session.add(chenyi)
+dantangfan = User('admin', password_hash, 'dantangfan@gmail.com|1ff531004d5ac7d9127a7ba9170ec323', 'scpc_oj_username', datetime.now())
+dantangfan.group = "admin|user|manage user|manage problem|manage contest|manage news"
+db.session.add(dantangfan)
 
 print 'adding news'
 news = []
@@ -49,7 +49,7 @@ for i in range(10):
 print "adding problems"
 p = None
 for i in range(1):
-    p = Problem(None, None, u"PKUOJ", u"1000", u"A + B Problem " + str(i), u"128k", u"1s", u"description", u"input", u"output", u"sample_input", u"sample_output", u"hint")
+    p = Problem(None, None, u"A + B Problem " + str(i), u"128k", u"1s", u"description", u"input", u"output", u"sample_input", u"sample_output", u"hint")
     db.session.add(p)
 
 print "adding Contests"
@@ -61,13 +61,13 @@ for i in range(11):
 
 print "adding submission"
 for i in range(5):
-    s = Submission(users[5], p, datetime.now(), 'g++', '#include<stdio.h>\nint main(){\nint a,b;\nwhile(scanf(\"%d%d\",&a,&b)!=EOF){\nprintf(\"%d\\n\",a+b);\n}\n}\n', 'pending', None, None, 0, p.original_oj,p.original_oj_id)
+    s = Submission(users[5], p, datetime.now(), 'g++', '#include<stdio.h>\nint main(){\nint a,b;\nwhile(scanf(\"%d%d\",&a,&b)!=EOF){\nprintf(\"%d\\n\",a+b);\n}\n}\n', 'pending', None, None, 0)
     db.session.add(s)
 
 
 print "adding forum.posts"
 for i in range(20):
-    po = Forum("title", "content", datetime.now(), 0, chenyi, None)
+    po = Forum("title", "content", datetime.now(), 0, dantangfan, None)
     db.session.add(po)
 
 print "commiting..."

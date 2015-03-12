@@ -81,7 +81,7 @@ def submit():
         try:
             if len(request.form['code']) < 50:
                 raise Exception("Code is too short. 50+ required.")
-            if request.form['compiler'] != 'gcc' and request.form['compiler'] != 'g++' and request.form['compiler'] != 'java':
+            if request.form['compiler'] != 'gcc' and request.form['compiler'] != 'g++' and request.form['compiler'] != 'python2':
                 raise Exception("Please select compiler.")
             user = g.user
             problem = int(request.form['problem_id'])
@@ -105,7 +105,7 @@ def submit():
             if problem.owner_contest_id != None and 0 == request.form['contest']:
                 raise Exception("This problem belongs to a contest. Please submit in the contest page.")    
             #smt = Submission(user, problem, datetime.now(), request.form['compiler'], request.form['code'], 'pending', "0K", "0MS", 0, problem.original_oj, problem.original_oj_id)
-            smt = Submission(user, problem, datetime.now(), request.form['compiler'], request.form['code'], 'pending', "0K", "0MS", 0, problem.original_oj, problem.original_oj_id)
+            smt = Submission(user, problem, datetime.now(), request.form['compiler'], request.form['code'], 'pending', "0K", "0MS", 0)
             db.session.add(smt)
             db.session.commit()
             redis_q.lpush(submission_queue_key, smt.get_id())
@@ -183,7 +183,7 @@ def submissions(page=1, user="None", problem=0, result="None"):
             sql=""
             if(user!="None"):
                 user1 = User.query.filter(User.username==user).first()
-                user2 = User.query.filter(User.scpc_oj_username==user).first()
+                user2 = User.query.filter(User.hj_oj_username==user).first()
                 if user1 is None and user2 is None: raise Exception("User not found.")
                 if user1 is not None: 
                     user=user1
@@ -474,8 +474,7 @@ def contest_problem(cid, pid):
             if not 0<=pid<len(problems): raise Exception("problem not found.")
             pid = problems[pid]
         else:
-            pid = int(x)
-            if not pid in problems: raise Exception("problem not found..")
+            raise Exception("Problem not found Or Too many problems in one contest")
         problem = Problem.query.get(pid)
         if problem is None: raise Exception("problem not found...")
         return render_template('contest_problem.html', 

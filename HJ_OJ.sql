@@ -30,15 +30,10 @@ create table news (
     content text
 );
 
-/*
-mv owner_road_id owner_user_id
-rm original_oj
-*/
+
 create table problem (
     id integer primary key auto_increment,
     owner_contest_id integer,
-    owner_road_id integer,
-    original_oj text not null,
     title text not null,
     memory_limit text,
     time_limit text,
@@ -63,10 +58,6 @@ create table contest (
 );
 
 
-/*
-add language
-rm original_oj
-*/
 create table submission (
     id integer primary key auto_increment,
     user_id integer not null,
@@ -77,7 +68,6 @@ create table submission (
     memory_used text,
     time_used text,
     code text not null,
-    original_oj text not null,
     judger_status text
 );
 
