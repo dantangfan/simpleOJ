@@ -77,7 +77,7 @@ var HJ = function () {
             });
             var username = $('#menu-user-username').text();
             if(username.indexOf("_HJ_")>=0){
-                username = username.replace('_HJ_', "<img src='/static/img/logos/HJ-small.png' style='height: 15px;'>&nbsp;");
+                username = username.replace('_HJ_', "<img src='/static/img/logos/hj-small.png' style='height: 15px;'>&nbsp;");
                 $('#menu-user-username').html(username);
                 $('#menu-user-icon').remove();
             }
