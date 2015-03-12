@@ -49,7 +49,7 @@ for i in range(10):
 print "adding problems"
 p = None
 for i in range(1):
-    p = Problem(None, None, u"A + B Problem " + str(i), u"128k", u"1s", u"description", u"input", u"output", u"sample_input", u"sample_output", u"hint")
+    p = Problem(None, 21, u"A + B Problem " + str(i), u"128k", u"1s", u"description", u"input", u"output", u"sample_input", u"sample_output", u"hint")
     db.session.add(p)
 
 print "adding Contests"
