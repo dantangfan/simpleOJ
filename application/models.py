@@ -4,6 +4,7 @@ from datetime import datetime
 
 class User(db.Model):
     """entity for user"""
+    __tablename__ = "user"
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(64), index = True, unique = True, nullable = False)
     password = db.Column(db.String(64), nullable = False)
@@ -49,6 +50,7 @@ class User(db.Model):
 
 class News(db.Model):
     """entity for news"""
+    __tablename__ = "news"
     id = db.Column(db.Integer, primary_key = True)
     publish_time = db.Column(db.DateTime, nullable = False)
     title = db.Column(db.Text, nullable = False)
@@ -66,6 +68,7 @@ class News(db.Model):
     
 class Problem(db.Model):
     """entity for problem"""
+    __tablename__ = "problem"
     id = db.Column(db.Integer, primary_key = True)
     owner_contest_id = db.Column(db.Integer)
     owner_road_id= db.Column(db.Integer)
@@ -100,6 +103,7 @@ class Problem(db.Model):
         
 class Contest(db.Model):
     """entity for contest"""
+    __tablename__ = "contest"
     id=db.Column(db.Integer,primary_key=True)
     title=db.Column(db.Text,nullable=False)
     description=db.Column(db.Text)
@@ -123,6 +127,7 @@ class Contest(db.Model):
 	
 class Submission(db.Model):
     """entity for submission"""
+    __tablename__ = "submission"
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
     user = db.relationship('User', backref=db.backref('submissions', lazy='dynamic'))
@@ -157,6 +162,7 @@ class Submission(db.Model):
 
 class Forum(db.Model):
     """docstring for Forum"""
+    __tablename__ = "forum"
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.Text)
     content = db.Column(db.Text, nullable = False)
