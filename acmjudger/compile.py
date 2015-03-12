@@ -44,7 +44,9 @@ def compile(user_id, submission_id, language):
     exe_name = str(user_id)+'_'+str(submission_id)
     file_name = exe_name+'.'+subnames[language]
     if language=="gcc" or language=="g++":
-        os.system(build_cmd[language] % (file_name, exe_name))
+        if  os.system(build_cmd[language] % (file_name, exe_name))!=0:
+            os.remove(file_name)
+            return False
     elif language=="python":
         os.system(build_cmd[language] % (file_name))
         os.system('mv %s.pyc %s',(exe_name, exe_name))

@@ -81,7 +81,11 @@ def run_one(exe_name, sample_input_path, sample_output_path, problem_id, languag
     if not rst['result']:
         ftemp = open(exe_name+'temp.out')
         fout = open(sample_output_path)
-        crst = lorun.check(fout.fileno(),ftemp.fileno())
+        try:
+            crst = lorun.check(fout.fileno(),ftemp.fileno())
+        except:
+            os.remove(exe_name+'temp.out')
+            return {"result":8}
         fout.close()
         ftemp.close()
         os.remove(exe_name+'temp.out')

@@ -10,7 +10,8 @@ import math
 from datetime import datetime
 from hashlib import md5
 import clean_xss
-    
+from acmjudger.dbmanager import redis_q
+from acmjudger.config import submission_queue_key
 
 @lm.user_loader
 def load_user(id):
@@ -106,6 +107,7 @@ def submit():
             smt = Submission(user, problem, datetime.now(), request.form['compiler'], request.form['code'], 'pending', "0K", "0MS", 0, problem.original_oj, problem.original_oj_id)
             db.session.add(smt)
             db.session.commit()
+            redis_q.lpush(submission_queue_key, smt.get_id())
             return json.dumps({"result": "ok"})
         except Exception, e:
             return json.dumps({"result": str(e)})

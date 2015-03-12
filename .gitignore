@@ -3,4 +3,6 @@
 ~*
 test/
 .idea/
-
+nohup
+nohup.out
+*.log

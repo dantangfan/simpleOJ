@@ -1,101 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{site_name}}</title>
-    <meta name="keywords" content="SCPC Training System" />
-    <meta name="description" content="SCPC Training System" />
-    <meta name="author" content="Chen&Liu" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.0.3/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/fonts/glyphicons_pro/glyphicons.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/vendor/plugins/datatables/css/datatables.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/animate.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/pages.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/plugins.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/responsive.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-    <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-
-<body class="boxed-layout">
-    <!-- Start: Header -->
-    <header class="navbar navbar-fixed-top">
-        <div class="pull-left">
-            <a class="navbar-brand" href="/">
-                <div class="navbar-logo">
-                    <img src="/static/img/logos/logo-red.png" class="img-responsive" alt="logo" />
-                </div>
-            </a>
-        </div>
-        <div class="pull-right header-btns" id="user-area">
-        </div>
-    </header>
-    <!-- End: Header -->
-    <!-- Start: Main -->
-    <div id="main">
-        <!-- Start: Sidebar -->
-        <aside id="sidebar">
-            <div id="sidebar-search">
-                <form role="search" />
-                <input type="text" class="search-bar form-control" placeholder="Search" />
-                <i class="fa fa-search field-icon-right"></i>
-                <button type="submit" class="btn btn-default hidden"></button>
-                </form>
-                <div class="sidebar-toggle">
-                    <i class="fa fa-bars"></i>
-                </div>
-            </div>
-            <div id="sidebar-menu">
-                <ul class="nav sidebar-nav">
-                    <li>
-                        <a href="/">
-                            <span class="glyphicons glyphicons-sort"></span>
-                            <span class="sidebar-title">Index</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/problems">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">Problem</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/contests">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">Contest</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/road">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">The Road</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/submissions">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">Submission</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/forum">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">Forum</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </aside>
-        <!-- End: Sidebar -->
-        <!-- Start: Content -->
+{%extends "base.html"%}
+        {%block main%}
         <section id="content">
             <div class="container">
                 <div class="row">
@@ -154,25 +58,8 @@
                 </div>
             </div>
         </section>
-        <!-- End: Content -->
-    </div>
-    <!-- End: Main -->
-    <div class="clearfix"></div>
-    <hr class="short">
-    <footer class="footer">
-        <p style="text-align: center">Copyright 2014.</p>
-    </footer>
-    <div class="clearfix"></div>
-
-    <script type="text/javascript" src="/static/vendor/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/plugins/datatables/js/datatables.js"></script>
-    <script type="text/javascript" src="/static/vendor/bootstrap/paginator/src/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="/static/js/uniform.min.js"></script>
-    <script type="text/javascript" src="/static/js/main.js"></script>
-    <script type="text/javascript" src="/static/js/custom.js"></script>
+        {%endblock%}
+    {%block script%}
     <script type="text/javascript">
         jQuery(document).ready(function() {	  
         	// Init Theme Core 	  
@@ -248,5 +135,4 @@
     </div>
   </div>
 </div>
-</body>
-</html>
+{%endblock%}

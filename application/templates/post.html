@@ -1,49 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{site_name}}</title>
-    <meta name="keywords" content="SCPC Training System" />
-    <meta name="description" content="SCPC Training System" />
-    <meta name="author" content="Chen&Liu" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.0.3/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/fonts/glyphicons_pro/glyphicons.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/vendor/plugins/datatables/css/datatables.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/animate.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/pages.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/plugins.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/responsive.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-    <link rel="stylesheet" type="text/css" href="/static/vendor/plugins/prettify/prettify.css" />
-
-    <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-
-<body class="boxed-layout">
-    <!-- Start: Header -->
-    <header class="navbar navbar-fixed-top">
-        <div class="pull-left">
-            <a class="navbar-brand" href="/">
-                <div class="navbar-logo">
-                    <img src="/static/img/logos/logo-red.png" class="img-responsive" alt="logo" />
-                </div>
-            </a>
-        </div>
-        <div class="pull-right header-btns" id="user-area">
-        </div>
-    </header>
-    <!-- End: Header -->
-    <!-- Start: Main -->
-    <div id="main">
-        <!-- Start: Sidebar -->
+{%extends "base.html"%}
+        {%block main%}
         <aside id="sidebar">
             <div id="sidebar-search">
                 <form role="search" />
@@ -156,26 +112,10 @@
                 </div>
             </div>
         </section>
-        <!-- End: Content -->
         <div class="clearfix"></div>
-    </div>
-    <!-- End: Main -->
-    <div class="clearfix"></div>
-    <hr class="short">
-    <footer class="footer">
-        <p style="text-align: center">Copyright 2014.</p>
-    </footer>
-    <div class="clearfix"></div>
+        {%endblock%}
 
-    <script type="text/javascript" src="/static/vendor/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/plugins/datatables/js/datatables.js"></script>
-    <script type="text/javascript" src="/static/vendor/bootstrap/paginator/src/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="/static/js/uniform.min.js"></script>
-    <script type="text/javascript" src="/static/js/main.js"></script>
-    <script type="text/javascript" src="/static/js/custom.js"></script>
+    {%block script%}
     <script type="text/javascript" charset="utf-8" src="/static/vendor/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="/static/vendor/ueditor/ueditor.all.min.js"> </script>
     <script type="text/javascript" charset="utf-8" src="/static/vendor/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -291,7 +231,4 @@
             </div>
         </div>
     </div>
-
-</body>
-
-</html>
+    {%endblock%}

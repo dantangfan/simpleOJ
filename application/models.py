@@ -138,6 +138,9 @@ class Submission(db.Model):
     original_oj_submit_id=db.Column(db.Integer, default=0)
     original_oj= db.Column(db.Text, nullable = False)
     original_oj_id= db.Column(db.Text, nullable = False)
+
+    def get_id(self):
+        return self.id
     
     def __init__(self,user,problem,submit_time,compiler,code,result,memory_used,time_used,judger_status,original_oj,original_oj_id):
         self.user=user

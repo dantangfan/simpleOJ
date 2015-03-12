@@ -4,11 +4,21 @@
 from judger import judger
 from dbmanager import db, redis_q
 from config import submission_queue_key
+import logging
+import datetime
+
+logging.basicConfig(level=logging.DEBUG,
+                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                datefmt='%a, %d %b %Y %H:%M:%S',
+                filename='judger.log',
+                filemode='w')
+
 def run():
     while True:
         submission_id = redis_q.brpop(submission_queue_key, 0)[1]
         rst = judger(submission_id)
         write_back(submission_id, rst)
+        logging.info(str(datetime.datetime.now())+' '+str(submission_id)+' '+rst['result'])
 
 
 def write_back(submission_id, rst):
