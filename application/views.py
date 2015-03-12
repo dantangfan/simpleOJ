@@ -144,7 +144,7 @@ def problems(page):
             problems = objects_list,
             total_page = int(math.ceil(Problem.query.filter(Problem.owner_contest_id == None).count()/10.0)),
             current_page = page + 1,
-            site_name = app.config['SCPC_TS_SITE_NAME']
+            site_name = app.config['HJ_TS_SITE_NAME']
             )
 
     return redirect(url_for('index'))
@@ -160,7 +160,7 @@ def problem(id):
             if p.owner_contest_id is not None: 
                 raise Exception("The problem belongs to a contest. View it in the contest problem page.!")
             return render_template('problem.html',
-                site_name = app.config['SCPC_TS_SITE_NAME'],
+                site_name = app.config['HJ_TS_SITE_NAME'],
                 problem = p
                 )
         except Exception, e:
@@ -223,7 +223,7 @@ def submissions(page=1, user="None", problem=0, result="None"):
                 submissions = objects_list,
                 total_page = int(math.ceil(total/10.0)),
                 current_page = page + 1,
-                site_name = app.config['SCPC_TS_SITE_NAME']
+                site_name = app.config['HJ_TS_SITE_NAME']
                 )
         except Exception, e:
             return render_template('exception.html', message=str(e))
@@ -231,7 +231,7 @@ def submissions(page=1, user="None", problem=0, result="None"):
 
 @app.route('/road/')
 def road():
-    return render_template('road.html', site_name = app.config['SCPC_TS_SITE_NAME'])
+    return render_template('road.html', site_name = app.config['HJ_TS_SITE_NAME'])
 
 @app.route('/forum/', defaults={'page': 1})
 @app.route('/forum/<int:page>')
@@ -257,7 +257,7 @@ def forum(page):
             posts = objects_list,
             total_page = total_page,
             current_page = page + 1,
-            site_name = app.config['SCPC_TS_SITE_NAME']
+            site_name = app.config['HJ_TS_SITE_NAME']
             )
     return redirect(url_for('index'))
 
@@ -274,7 +274,7 @@ def post(id, page):
             total_page = int(math.ceil(Forum.query.filter(Forum.father_node == p.id).count()/10.0))
             if total_page == 0: total_page = 1
             return render_template('post.html',
-                site_name = app.config['SCPC_TS_SITE_NAME'],
+                site_name = app.config['HJ_TS_SITE_NAME'],
                 post = p,
                 replys = replys,
                 total_page = total_page,
@@ -337,7 +337,7 @@ def contests(page=0):
             total_page = int(math.ceil(Contest.query.count()/10.0)),
             current_page = page + 1,
             ctime=datetime.now(),
-            site_name = app.config['SCPC_TS_SITE_NAME']
+            site_name = app.config['HJ_TS_SITE_NAME']
         )
         
     return redirect(url_for('index'))
@@ -391,7 +391,7 @@ def contest(cid=1):
                  totaltime=totaltime,
                  havetime=havetime,
                  solved=solved,
-                 site_name = app.config['SCPC_TS_SITE_NAME']
+                 site_name = app.config['HJ_TS_SITE_NAME']
                  )
         except Exception, e:
             return render_template('exception.html', message = str(e))
@@ -447,7 +447,7 @@ def contest_submission(id, page):
                 submissions = objects_list,
                 total_page = total_page,
                 current_page = page + 1,
-                site_name = app.config['SCPC_TS_SITE_NAME']
+                site_name = app.config['HJ_TS_SITE_NAME']
                 )
         except Exception, e:
             return render_template('exception.html', message = str(e))
@@ -480,7 +480,7 @@ def contest_problem(cid, pid):
         return render_template('contest_problem.html', 
             contest = cont,
             problem = problem,
-            site_name = app.config['SCPC_TS_SITE_NAME']
+            site_name = app.config['HJ_TS_SITE_NAME']
             )
     except Exception, e:
         return render_template('exception.html', message = str(e))
@@ -553,7 +553,7 @@ def contest_ranklist(cid):
             contest = cont,
             problems = problems,
             contestants = objects_list,
-            site_name = app.config['SCPC_TS_SITE_NAME']
+            site_name = app.config['HJ_TS_SITE_NAME']
             )
     except Exception, e:
         return render_template('exception.html', message = str(e))
@@ -570,7 +570,7 @@ def showcode(id):
             if g.user.is_admin() == False:
                 if p.user_id != g.user.id: raise Exception('You are not the author of the code.')
             return render_template('code.html',
-                site_name = app.config['SCPC_TS_SITE_NAME'],
+                site_name = app.config['HJ_TS_SITE_NAME'],
                 submission = p
                 )
         except Exception, e:
@@ -590,7 +590,7 @@ def showcode_contest(cid, sid):
         if g.user.is_admin() == False:
             if p.user_id != g.user.id: raise Exception('You are not the author of the code.')
         return render_template('contest_code.html',
-            site_name = app.config['SCPC_TS_SITE_NAME'],
+            site_name = app.config['HJ_TS_SITE_NAME'],
             submission = p,
             contest = cont
             )
@@ -623,7 +623,7 @@ def index():
 		status.append(d)
     return render_template("index.html", 
         news_list = news_list,
-        site_name = app.config['SCPC_TS_SITE_NAME'],
+        site_name = app.config['HJ_TS_SITE_NAME'],
         status=status
         )
 

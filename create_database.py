@@ -34,7 +34,7 @@ password = u'123456'
 password_hash = md5()
 password_hash.update(password)
 password_hash = password_hash.hexdigest()
-dantangfan = User('admin', password_hash, 'dantangfan@gmail.com|1ff531004d5ac7d9127a7ba9170ec323', 'scpc_oj_username', datetime.now())
+dantangfan = User('admin', password_hash, 'dantangfan@gmail.com|1ff531004d5ac7d9127a7ba9170ec323', 'HJ_oj_username', datetime.now())
 dantangfan.group = "admin|user|manage user|manage problem|manage contest|manage news"
 db.session.add(dantangfan)
 

@@ -62,7 +62,7 @@
                                             Tried
                                             {%  endif %}
                                             <a href='/problem/{{item.problem_id}}/'><b> {{item.problem_title}} </b></a>
-                                            <span class="scpc_time" title="{{item.submit_time}}">{{item.submit_time}}</span>
+                                            <span class="HJ_time" title="{{item.submit_time}}">{{item.submit_time}}</span>
                                         </div>
                                     </li>
                                     {%  endfor %}  
@@ -80,15 +80,15 @@
         jQuery(document).ready(function() {
             // Init Theme Core    
             Core.init();
-            SCPC();
-            $(".scpc_time").timeago();
+            HJ();
+            $(".HJ_time").timeago();
         });
 
-        //replace _SCPC_
+        //replace _HJ_
         $(".media-body b").each(function(value){
             var username = $(this).text();
-            if(username.indexOf("_SCPC_")>=0){
-                username = username.replace('_SCPC_', "<img src='/static/img/logos/scpc-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;");
+            if(username.indexOf("_HJ_")>=0){
+                username = username.replace('_HJ_', "<img src='/static/img/logos/HJ-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;");
                 $(this).html(username);
             }
         });

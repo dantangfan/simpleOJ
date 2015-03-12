@@ -74,7 +74,7 @@
     <script type="text/javascript">
         jQuery(document).ready(function() {
             Core.init();
-            SCPC();
+            HJ();
 
             var options = {
                 currentPage: {{current_page}},
@@ -113,10 +113,10 @@
                     $($(this).children()[3]).css('color', 'rgb(0, 128, 0)');
                 }
                 var username = $($(this).children()[2]).text();
-                if(username.indexOf("_SCPC_")>=0){
-                    username = username.replace('_SCPC_','');
-                    username = "<img src='/static/img/logos/scpc-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;<span>" + username + "</span>"
-                    //username = username.replace('_SCPC_', "");
+                if(username.indexOf("_HJ_")>=0){
+                    username = username.replace('_HJ_','');
+                    username = "<img src='/static/img/logos/HJ-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;<span>" + username + "</span>"
+                    //username = username.replace('_HJ_', "");
                     $($(this).children()[2]).html(username);
                 }
             });
@@ -124,13 +124,13 @@
             // add code link
             $.getJSON("/user/login_status", function(data){
                 if(data.login_status == true){
-                    var SCPC_username = data.username;
-                    if(SCPC_username.indexOf("_SCPC_")>=0){
-                        SCPC_username = SCPC_username.replace('_SCPC_','');
+                    var HJ_username = data.username;
+                    if(HJ_username.indexOf("_HJ_")>=0){
+                        HJ_username = HJ_username.replace('_HJ_','');
                     }
                     $("#submission_table_body").children().each(function(){
                         var username = $($($(this).children()[2]).children()[1]).text();
-                        if(username == SCPC_username || data.admin == true){
+                        if(username == HJ_username || data.admin == true){
                             $($(this).children()[6]).html("<a href='../code/"+$($(this).children()[0]).text() + "'>" + $($(this).children()[6]).text() +"</a>");
                         }
                     });

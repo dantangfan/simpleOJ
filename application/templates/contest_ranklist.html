@@ -78,13 +78,13 @@
     <script type="text/javascript">
         jQuery(document).ready(function() {
             Core.init();
-            SCPC();
+            HJ();
 
             // coloring
             $("#submission_table_body").children().each(function(){
                 var username = $($(this).children()[1]).text();
-                if(username.indexOf("_SCPC_")>=0){
-                    username = username.replace('_SCPC_', "<img src='/static/img/logos/scpc-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;");
+                if(username.indexOf("_HJ_")>=0){
+                    username = username.replace('_HJ_', "<img src='/static/img/logos/HJ-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;");
                     $($(this).children()[1]).html(username);
                 }
             });

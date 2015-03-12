@@ -114,23 +114,6 @@
     <script type="text/javascript" src="/static/js/main.js"></script>
     <script type="text/javascript" src="/static/js/custom.js"></script>
     {%block script%}
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            Core.init();
-            SCPC();
-            $("#knob-clock").knob({
-                width: 100,
-                max:{{totaltime}},
-                height: 100,
-                readOnly: true,
-                displayInput: true,
-                thickness: ".3",
-                fgColor: '#4cbcf7',
-                bgColor: '#ff6767'
-            });
-            $("#knob-clock").val({{havetime}}).trigger('change');
-        });
-    </script>
     {% endblock %}
 </body>
 </html>

@@ -65,7 +65,7 @@
                                         <tr>
                                             <td>
                                                 <h1>{{post.title}}</h1>
-                                                <strong class="SCPC_USER">{{post.user.username}}</strong>
+                                                <strong class="HJ_USER">{{post.user.username}}</strong>
                                                 <span style="color: #939191;">• {{post.last_update_time}}</span>
                                             </td>
                                             <td width="75px;" class="pull-right">
@@ -93,7 +93,7 @@
                                             <img src="http://gravatar.duoshuo.com/avatar/{{p.user.email.split("|")[1]}}?s=50&d=mm" class="avatar" border="0" align="default">
                                         </td>
                                         <td>
-                                            <p class="SCPC_USER" style="font-size: 15px;">{{p.user.username}}&nbsp;&nbsp;
+                                            <p class="HJ_USER" style="font-size: 15px;">{{p.user.username}}&nbsp;&nbsp;
                                                 <span style="color: #939191;font-size:12px;">{{p.last_update_time}}</span>
                                             </p>
                                             <div style='color:black;font-size:14px;'>{{p.content|safe}}
@@ -125,7 +125,7 @@
         jQuery(document).ready(function() {
                 // Init Theme Core    
                 Core.init();
-                SCPC();
+                HJ();
                 $('pre').addClass('prettyprint');
                 prettyPrint();
 
@@ -198,10 +198,10 @@
                     });
                 });
 
-                $('.SCPC_USER').each(function(v){
+                $('.HJ_USER').each(function(v){
                 var username = $(this).text();
-                if(username.indexOf("_SCPC_")>=0){
-                    username = username.replace('_SCPC_', "<img src='/static/img/logos/scpc-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;");
+                if(username.indexOf("_HJ_")>=0){
+                    username = username.replace('_HJ_', "<img src='/static/img/logos/HJ-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;");
                     $(this).html(username);
                 }
             });

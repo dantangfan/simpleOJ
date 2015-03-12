@@ -32,7 +32,7 @@ class MyBaseView(AdminIndexView):
         if current_user.get_id() is None:
             return False
         return current_user.is_admin()
-admin = Admin(app, name="Admin System - " + app.config['SCPC_TS_SITE_NAME'], index_view = MyBaseView(template='admin/index.html'))
+admin = Admin(app, name="Admin System - " + app.config['HJ_TS_SITE_NAME'], index_view = MyBaseView(template='admin/index.html'))
 from application import admins
 
 
