@@ -21,7 +21,7 @@ class MyModelView(ModelView):
 class MyProblemModelView(ModelView):
     #can_create = False
     can_delete = False
-    column_list = ('id', 'owner_contest_id', 'owner_road_id', 'title', 'memory_limit', 'time_limit','description', 'input', 'output', 'sample_input', 'sample_output','hint')
+    column_list = ('id', 'owner_contest_id', 'owner_road_id', 'title', 'memory_limit', 'time_limit','description', 'input', 'output', 'sample_input', 'sample_output','hint','solution')
     def is_accessible(self):
         if flask_login.current_user.get_id() is None:
             return False
