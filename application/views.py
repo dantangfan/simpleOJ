@@ -1,7 +1,7 @@
 #coding=utf-8
-from flask import g, render_template, redirect, url_for, request
+from flask import g, render_template, redirect, url_for, request, flash
 from application import app,lm, cache, db
-from application.forms import form_user_login
+from application.forms import form_user_login, form_user_register
 from application.models import User, News, Problem, Contest, Submission, Forum
 from flask_login import login_user, logout_user, current_user, login_required
 import json
@@ -21,6 +21,42 @@ def load_user(id):
 def before_request():
     g.user = current_user
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = form_user_register()
+    if request.method=="POST":
+        username = form.username.data
+        password = form.password.data
+        confirm = form.confirm.data
+        if password!=confirm:
+            flash("wrong password")
+            return render_template("register.html",
+                           site_name = app.config['HJ_TS_SITE_NAME'],
+                           form=form_user_register())
+        email = form.email.data
+        email_hash = md5()
+        email_hash.update(email)
+        email_hash = email_hash.hexdigest()
+        password_hash = md5()
+        password_hash.update(password)
+        password_hash = password_hash.hexdigest()
+        try:
+            if User.query.filter_by(username=username).first() or User.query.filter_by(email="%s | %s" % (email, email_hash)).first():
+                flash("username or email already used")
+                return render_template("register.html",
+                           site_name = app.config['HJ_TS_SITE_NAME'],
+                           form=form_user_register())
+            u = User(username, password_hash, "%s | %s" % (email, email_hash), None, datetime.now())
+            db.session.add(u)
+            db.session.commit()
+            login_user(u)
+            return redirect(url_for('index'))
+        except:
+            db.session.rollback()
+            flash('Filed to register, please try again')
+    return render_template("register.html",
+                           site_name = app.config['HJ_TS_SITE_NAME'],
+                           form=form_user_register())
 
 @app.route('/user/<action>', methods=['GET', 'POST'])
 def login(action):
@@ -58,6 +94,12 @@ def login(action):
         return json.dumps({"result" : "failed"})
 
     return redirect(url_for('index'))
+
+@app.route('/setting', methods=['GET', 'POST'])
+@login_required
+def setting():
+    return render_template('setting.html', site_name = app.config['HJ_TS_SITE_NAME'])
+
 
 @app.route('/news/<action>/<int:id>/')
 @cache.cached(timeout=5)
@@ -172,11 +214,11 @@ def problem(id):
 @app.route('/submissions/<int:page>/')
 @cache.cached(timeout=3)
 def submissions_1(page):
-    return submissions(page, 'None', 0, 'None')
+    return submissions(page, 'None', 0, 'None', False)
 
 @app.route('/submissions/<string:user>:<int:problem>:<string:result>/<int:page>/')
 @cache.cached(timeout=3)
-def submissions(page=1, user="None", problem=0, result="None"):
+def submissions(page=1, user="None", problem=0, result="None", rode=False):
     if type(page) == int:
         try:
             page = 0 if page<1 else page-1
@@ -219,6 +261,11 @@ def submissions(page=1, user="None", problem=0, result="None"):
                 d['submit_time'] = row.submit_time
                 objects_list.append(d)
             total = int(db.session.execute("SELECT COUNT(*) FROM submission %s"%sql).first()[0])
+            if rode:
+                return {'submissions':objects_list,
+                        'total_page':int(math.ceil(total/10.0)),
+                        'current_page':page+1,
+                        }
             return render_template('submissions.html', 
                 submissions = objects_list,
                 total_page = int(math.ceil(total/10.0)),
@@ -229,9 +276,17 @@ def submissions(page=1, user="None", problem=0, result="None"):
             return render_template('exception.html', message=str(e))
         
 
-@app.route('/road/')
-def road():
-    return render_template('road.html', site_name = app.config['HJ_TS_SITE_NAME'])
+@app.route('/road/', defaults={'page':1})
+@app.route('/road/<int:page>')
+@cache.cached(timeout=3)
+def road(page):
+    info = submissions(page, g.user.username, 0, "None", True)
+    print info
+    return render_template('road.html',
+                           submissions=info['submissions'],
+                           total_page=info['total_page'],
+                           current_page=info['current_page'],
+                           site_name = app.config['HJ_TS_SITE_NAME'])
 
 @app.route('/forum/', defaults={'page': 1})
 @app.route('/forum/<int:page>')

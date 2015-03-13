@@ -1,197 +1,127 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{site_name}}</title>
-    <meta name="keywords" content="HJ Training System" />
-    <meta name="description" content="HJ Training System" />
-    <meta name="author" content="Chen&Liu" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.0.3/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/fonts/glyphicons_pro/glyphicons.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/vendor/plugins/datatables/css/datatables.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/animate.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/pages.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/plugins.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/responsive.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-    <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-
-
-<body class="boxed-layout">
-
-    <!-- Start: Header -->
-    <header class="navbar navbar-fixed-top">
-        <div class="pull-left">
-            <a class="navbar-brand" href="/">
-                <div class="navbar-logo">
-                    <img src="/static/img/logos/logo-red.png" class="img-responsive" alt="logo" />
-                </div>
-            </a>
-        </div>
-        <div class="pull-right header-btns" id="user-area">
-        </div>
-    </header>
-
-    <!-- End: Header -->
-
-    <!-- Start: Main -->
-    <div id="main">
-        <!-- Start: Sidebar -->
-        <aside id="sidebar">
-            <div id="sidebar-search">
-                <form role="search" />
-                <input type="text" class="search-bar form-control" placeholder="Search" />
-                <i class="fa fa-search field-icon-right"></i>
-                <button type="submit" class="btn btn-default hidden"></button>
-                </form>
-                <div class="sidebar-toggle">
-                    <i class="fa fa-bars"></i>
-                </div>
-            </div>
-            <div id="sidebar-menu">
-                <ul class="nav sidebar-nav">
-                    <li>
-                        <a href="/">
-                            <span class="glyphicons glyphicons-sort"></span>
-                            <span class="sidebar-title">Index</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/problems">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">Problem</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/contests">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">Contest</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/road">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">The Road</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/submissions">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">Submission</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/forum">
-                            <span class="glyphicons glyphicons-globe"></span>
-                            <span class="sidebar-title">Forum</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </aside>
-        <!-- End: Sidebar -->
-
-
-        <!-- Start: Content -->
+{%extends "base.html"%}
+        {%block main%}
         <section id="content">
             <div class="container" style="padding-top: 15px;">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>Coming Soon</h1>
+                        <h1>The Road----Your submissions</h1>
                     </div>
                 </div>
                 <hr class="short" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel" style="margin-bottom: 0px">
+                            <div class="panel-body">
+                                <table class="table table-hover table-striped1 text-center table-striped-color-green" id="submission_table">
+                                    <thead>
+                                        <tr>
+                                            <td width="6%">ID</td>
+                                            <td width="6%">Problem</td>
+                                            <td width="18%">User</td>
+                                            <td width="20%">Result</td>
+                                            <td width="9%">Memory</td>
+                                            <td width="9%">Time</td>
+                                            <td width="6%">Compiler</td>
+                                            <td width="6%">Length</td>
+                                            <td width="20%">Submit Time</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="submission_table_body">
+                                        {% for p in submissions %}
+                                        <tr>
+                                            <td>{{p.id}}</td>
+                                            <td><a href="/problem/{{p.problem_title}}">{{p.problem_title}}</a></td>
+                                            <td>{{p.username}}</td>
+                                            <td><a href="/code/{{p.id}}">{{p.result}}</a></td>
+                                            <td>{{p.memory_used}}</td>
+                                            <td>{{p.time_used}}</td>
+                                            <td>{{p.compiler}}</td>
+                                            <td>{{p.code}}</td>
+                                            <td>{{p.submit_time}}</td>
+                                        </tr>  
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <ul id="paginator-problem-list">
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-        <!-- End: Content -->
-
-    </div>
-    <!-- End: Main -->
-    <div class="clearfix"></div>
-    <hr class="short">
-    <footer class="footer">
-        <p style="text-align: center">Copyright 2014.</p>
-    </footer>
-    <div class="clearfix"></div>
-
-
-    <!-- Core Javascript - via CDN 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
--->
-    <script type="text/javascript" src="/static/vendor/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/bootstrap.min.js"></script>
-
-    <!-- Plugins - Via CDN 
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
-<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.min.js"></script>
--->
-    <!-- Plugins - Via Local Storage -->
-    <script type="text/javascript" src="/static/vendor/plugins/jqueryflot/jquery.flot.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/plugins/sparkline/jquery.sparkline.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/static/vendor/plugins/calendar/fullcalendar.min.js"></script>
-
-
-    <!-- Plugins -->
-    <script type="text/javascript" src="/static/vendor/plugins/calendar/gcal.js"></script>
-    <!-- Calendar Addon -->
-    <script type="text/javascript" src="/static/vendor/plugins/jqueryflot/jquery.flot.resize.min.js"></script>
-    <!-- Flot Charts Addon -->
-    <script type="text/javascript" src="/static/vendor/plugins/datatables/js/datatables.js"></script>
-    <!-- Datatable Bootstrap Addon -->
-    <script type="text/javascript" src="/static/vendor/bootstrap/paginator/src/bootstrap-paginator.js"></script>
-
-    <!-- Theme Javascript -->
-    <script type="text/javascript" src="/static/js/uniform.min.js"></script>
-    <script type="text/javascript" src="/static/js/main.js"></script>
-    <!--<script type="text/javascript" src="/static/js/plugins.js"></script>-->
-    <script type="text/javascript" src="/static/js/custom.js"></script>
-    <script type="text/javascript">
+        {%endblock%}
+    {%block script%}
+    <script type="text/javascript"> 
         jQuery(document).ready(function() {
-        	  
-        	// Init Theme Core 	  
-        	Core.init();
+            // Init Theme Core    
+            Core.init();
             HJ();
-              
             var options = {
-        		currentPage: 3,
-        		totalPages: 1000,
+                currentPage: {{current_page}},
+                totalPages: {{total_page}},
+                shouldShowPage:function(type, page, current){
+                    switch(type)
+                    {
+                        case "first":
+                        case "last":
+                            return true;
+                        default:
+                            return true;
+                    }
+                },
+                onPageChanged: function(e,oldPage,newPage){
+                    if({{current_page}} != newPage){
+                        if(window.location.pathname == "/submissions/"){
+                            window.location.href = '/submissions/' + newPage;
+                        }else{
+                            window.location.href = '../' + newPage;
+                        }
+                    }
+                }
+            }
+            // init paginator
+            $('#paginator-problem-list').bootstrapPaginator(options);
+            // coloring
+            $("#submission_table_body").children().each(function(){
+                var result = $($(this).children()[3]).text();
+                if( $.inArray(result, Array("Accepted","Accept"))!=-1 ){
+                    $($(this).children()[3]).find('a').css('color', 'red');
+                }
+                else if( $.inArray(result, Array("Presentation Error"))!=-1 ){
+                    $($(this).children()[3]).find('a').css('color', 'rgb(255, 165, 0)');
+                }
+                else if( $.inArray(result, Array("Compilation Error", "Compile Error"))!=-1 ){
+                    $($(this).children()[3]).find('a').css('color', 'rgb(102, 51, 255)');
+                }
+                else{
+                    $($(this).children()[3]).find('a').css('color', 'rgb(0, 128, 0)');
+                }
+                var username = $($(this).children()[2]).text();
+                if(username.indexOf("_HJ_")>=0){
+                    username = username.replace('_HJ_','');
+                    username = "<img src='/static/img/logos/HJ-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;<span>" + username + "</span>"
+                    //username = username.replace('_HJ_', "");
+                    $($(this).children()[2]).html(username);
+                }
                 
-        		shouldShowPage:function(type, page, current){
-        			switch(type)
-        			{
-        				case "first":
-        				case "last":
-        					return true;
-        				default:
-        					return true;
-        			}
-        		},
-        		onPageChanged: function(e,oldPage,newPage){
-        			//$('#paginator-content').text("Current page changed, old: "+oldPage+" new: "+newPage);
-        		}
-        	}
-        	// init paginator
-        	$('#paginator-problem-list').bootstrapPaginator(options);
-        
-        
+            });
+            // add code link
+            $.getJSON("/user/login_status", function(data){
+                if(data.login_status == true){
+                    var HJ_username = data.username;
+                    if(HJ_username.indexOf("_HJ_")>=0){
+                        HJ_username = HJ_username.replace('_HJ_','');
+                    }
+                    $("#submission_table_body").children().each(function(){
+                        var username = $($($(this).children()[2]).children()[1]).text();
+                        if(username == HJ_username || data.admin == true){
+                            $($(this).children()[6]).html("<a href='/code/"+$($(this).children()[0]).text() + "'>" + $($(this).children()[6]).text() +"</a>");
+                        }
+                    });
+                }
+            });
         });
     </script>
-
-</body>
-
-</html>
+    {%endblock%}
