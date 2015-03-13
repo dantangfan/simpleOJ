@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<fps version="1.0" url="http://code.google.com/p/freeproblemset/">
+	<generator name="HUSTOJ" url="http://code.google.com/p/hustoj/"/>
+	<item>
+<title><![CDATA[Box of Bricks]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+<description><![CDATA[Little Bob likes playing with his box of bricks. He puts the bricks one upon another and builds stacks of different height. "Look, I've built a wall!", he tells his older sister Alice. "Nah, you should make all stacks the same height. Then you would have a real wall.", she retorts. After a little con- sideration, Bob sees that she is right. So he sets out to rearrange the bricks, one by one, such that all stacks are the same height afterwards. But since Bob is lazy he wants to do this with the minimum number of bricks moved. Can you help? 
+<center><img src="Image/1011/1.jpg"></img></center>]]></description>
+<input><![CDATA[The input consists of several data sets. Each set begins with a line containing the number n of stacks Bob has built. The next line contains n numbers, the heights hi of the n stacks. You may assume 1 <= n <= 50 and 1 <= hi <= 100. 
+
+The total number of bricks will be divisible by the number of stacks. Thus, it is always possible to rearrange the bricks such that all stacks have the same height. 
+
+The input is terminated by a set starting with n = 0. This set should not be processed. ]]></input> 
+<output><![CDATA[For each set, first print the number of the set, as shown in the sample output. Then print the line "The minimum number of moves is k.", where k is the minimum number of bricks that have to be moved in order to make all the stacks the same height. 
+
+Output a blank line after each set. ]]></output>
+<sample_input><![CDATA[<pre>
+6
+5 2 4 1 7 5
+0
+</pre>]]></sample_input>
+<sample_output><![CDATA[<pre>
+Set #1
+The minimum number of moves is 5.
+</pre>]]></sample_output>
+<br />
+<b>Warning</b>:  opendir(/home/judge/data//1011/) [<a href='function.opendir'>function.opendir</a>]: failed to open dir: Permission denied in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>21</b><br />
+<br />
+<b>Warning</b>:  readdir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>22</b><br />
+<br />
+<b>Warning</b>:  closedir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>37</b><br />
+<hint><![CDATA[]]></hint>
+<source><![CDATA[ZJGSU warmup 1]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+void main()
+{
+	int n;
+	int  a[60];
+	int count=0,i;
+	while(scanf("%d",&n),n)
+	{
+		int t=0;
+		int average;
+		int totle=0;
+		count++;
+		for(i=0;i<n;i++)
+			scanf("%d",&a[i]);
+		for(i=0;i<n;i++)
+			t+=a[i];
+			//printf("%d\n",t);
+		average=t/n;
+		//printf("%d\n",average);
+		for(i=0;i<n;i++)
+			if(a[i]>average)
+			totle+=a[i]-average;
+		printf("Set #%d\nThe minimum number of moves is %d.\n\n",count,totle);
+	}
+}
+
+
+
+		
+
+
+]]></solution>
+<![CDATA[]]>
+</item>
+<item>
+<title><![CDATA[IMMEDIATE DECODABILITY]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+<description><![CDATA[An encoding of a set of symbols is said to be immediately decodable if no code for one symbol is the prefix of a code for another symbol. We will assume for this problem that all codes are in binary, that no two codes within a set of codes are the same, that each code has at least one bit and no more than ten bits, and that each set has at least two codes and no more than eight. 
+
+Examples: Assume an alphabet that has symbols {A, B, C, D} 
+
+The following code is immediately decodable: 
+A:01 B:10 C:0010 D:0000 
+
+but this one is not: 
+A:01 B:10 C:010 D:0000 (Note that A is a prefix of C) ]]></description>
+<input><![CDATA[Write a program that accepts as input a series of groups of records from standard input. Each record in a group contains a collection of zeroes and ones representing a binary code for a different symbol. Each group is followed by a single separator record containing a single 9; the separator records are not part of the group. Each group is independent of other groups; the codes in one group are not related to codes in any other group (that is, each group is to be processed independently). ]]></input> 
+<output><![CDATA[For each group, your program should determine whether the codes in that group are immediately decodable, and should print a single output line giving the group number and stating whether the group is, or is not, immediately decodable. ]]></output>
+<sample_input><![CDATA[01
+10
+0010
+0000
+9
+01
+10
+010
+0000
+9]]></sample_input>
+<sample_output><![CDATA[Set 1 is immediately decodable
+Set 2 is not immediately decodable]]></sample_output>
+<br />
+<b>Warning</b>:  opendir(/home/judge/data//1012/) [<a href='function.opendir'>function.opendir</a>]: failed to open dir: Permission denied in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>21</b><br />
+<br />
+<b>Warning</b>:  readdir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>22</b><br />
+<br />
+<b>Warning</b>:  closedir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>37</b><br />
+<hint><![CDATA[]]></hint>
+<source><![CDATA[ZJGSU warmup 1]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int compare(const void *m,const void *n)
+{
+	return strcmp((char *)m,(char *)n);
+}
+
+int main(void)
+{
+	char	bi[20][80];
+	char	temp[80];
+	int	count;
+	int	i;
+	int	cs=0;
+	int	not;
+
+	while(scanf("%s",bi[0])!=EOF)
+	{
+		cs++;
+		not=1;
+		for(count=1;scanf("%s",bi[count]),strcmp(bi[count],"9");count++);
+		qsort(bi,count,sizeof(bi[0]),compare);
+		for(i=0;i<count-1;i++)
+		{
+			strncpy(temp,bi[i+1],strlen(bi[i]));
+			temp[strlen(bi[i])]='\0';
+			if(!strcmp(temp,bi[i]))
+			{
+				printf("Set %d is not immediately decodable\n",cs);
+				not=0;
+				break;
+			}
+		}
+		if(not)
+		{
+			printf("Set %d is immediately decodable\n",cs);
+		}
+	}
+	return 0;
+}]]></solution>
+<![CDATA[]]>
+</item>
+<item>
+<title><![CDATA[STAMPS]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+<description><![CDATA[Have you done any Philately lately? 
+
+You have been hired by the Ruritanian Postal Service (RPS) to design their new postage software. The software allocates stamps to customers based on customer needs and the denominations that are currently in stock. 
+
+Ruritania is filled with people who correspond with stamp collectors. As a service to these people, the RPS asks that all stamp allocations have the maximum number of different types of stamps in it. In fact, the RPS has been known to issue several stamps of the same denomination in order to please customers (these count as different types, even though they are the same denomination). The maximum number of different types of stamps issued at any time is twenty-five. 
+
+To save money, the RPS would like to issue as few duplicate stamps as possible (given the constraint that they want to issue as many different types). Further, the RPS won't sell more than four stamps at a time. ]]></description>
+<input><![CDATA[The input for your program will be pairs of positive integer sequences, consisting of two lines, alternating until end-of-file. The first sequence are the available values of stamps, while the second sequence is a series of customer requests. For example: 
+
+1 2 3 0 ; three different stamp types 
+7 4 0 ; two customers 
+1 1 0 ; a new set of stamps (two of the same type) 
+6 2 3 0 ; three customers 
+
+Note: the comments in this example are *not* part of the data file; data files contain only integers.]]></input> 
+<output><![CDATA[For each customer, you should print the "best" combination that is exactly equal to the customer's needs, with a maximum of four stamps. If no such combination exists, print "none". 
+The "best" combination is defined as the maximum number of different stamp types. In case of a tie, the combination with the fewest total stamps is best. If still tied, the set with the highest single-value stamp is best. If there is still a tie, print "tie". 
+
+For the sample input file, the output should be: 
+
+7 (3): 1 1 2 3 
+4 (2): 1 3 
+6 ---- none 
+2 (2): 1 1 
+3 (2): tie 
+
+That is, you should print the customer request, the number of types sold and the actual stamps. In case of no legal allocation, the line should look like it does in the example, with four hyphens after a space. In the case of a tie, still print the number of types but do not print the allocation (again, as in the example).Don't print extra blank at the end of each line. ]]></output>
+<sample_input><![CDATA[1 2 3 0
+7 4 0
+1 1 0
+6 2 3 0]]></sample_input>
+<sample_output><![CDATA[7 (3): 1 1 2 3 
+4 (2): 1 3 
+6 ---- none
+2 (2): 1 1
+3 (2): tie]]></sample_output>
+<br />
+<b>Warning</b>:  opendir(/home/judge/data//1013/) [<a href='function.opendir'>function.opendir</a>]: failed to open dir: Permission denied in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>21</b><br />
+<br />
+<b>Warning</b>:  readdir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>22</b><br />
+<br />
+<b>Warning</b>:  closedir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>37</b><br />
+<hint><![CDATA[]]></hint>
+<source><![CDATA[ZJGSU warmup 1]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct nd
+{
+	char N[5];
+	struct nd * next;
+}node;
+
+node A[41], head;
+
+void sql(int n)
+{
+	int i, j, k;
+	node *p, *q;
+	
+	for (i = 1; i < 5; i++)
+	{
+		for (j = 0; j < 41; j++)
+		{
+			for (p = A[j].next; p; p = p->next)
+			{
+				if (p->N[0] + i < 5)
+				{
+					q = (node *)malloc(sizeof(node));
+					strncpy(q->N, p->N, 5);
+					for (k = 0; k < i; k++, q->N[++(q->N[0])] = n);
+					q->next = head.next;
+					head.next = q;
+				}
+			}
+		}
+	}
+}
+
+int main(void)
+{
+	int i, j, s;
+	char Max[4], tmp[3], W[11];
+	//Max[0]: 最大的数；Max[1]: 类别数；Max[2]: 该类个数
+	node *p;
+
+	while (scanf("%d", &i) + 1)
+	{
+		memset(A, 0, sizeof(A));
+		A[0].next = (node *)malloc(sizeof(node));
+		A[0].next->N[0] = 0;
+		A[0].next->next = NULL;
+		head.next = NULL;
+		for (A[i].N[0]++; scanf("%d", &i), i; A[i].N[0]++);
+		for (i = 1; i < 11; i++)
+		{
+			if (A[i].N[0])
+			{
+				sql(i);
+				while (head.next)
+				{
+					p = head.next;
+					head.next = p->next;
+					for (s = 0, j = 1; j <= p->N[0]; j++)
+						s += p->N[j];
+					p->next = A[s].next;
+					A[s].next = p;
+				}
+			}
+		}
+		while (scanf("%d", &i), i)
+		{
+			if (A[i].next == NULL)
+			{
+				printf("%d ---- none\n", i);
+				continue;
+			}
+			Max[0] = Max[1] = Max[2] = Max[3] = 0;
+			printf("%d (", i);
+			while (A[i].next)
+			{
+				p = A[i].next;
+				A[i].next = p->next;
+				memset(W, 0, sizeof(W));
+				for (j = 1; j <= p->N[0]; W[tmp[0] = p->N[j++]]++);
+				tmp[1] = !(tmp[2] = 1);
+				for (j = 1; j <= tmp[0]; j++)
+				{
+					if (W[j])
+					{
+						tmp[1] += A[j].N[0] < W[j]? A[j].N[0]: W[j];
+						if (tmp[2]) tmp[2] = (W[j] == A[j].N[0] || A[j].N[0] == 1);
+					}
+				}
+				if (tmp[1] > Max[1])
+				{
+					Max[0] = tmp[0];
+					Max[1] = tmp[1];
+					Max[2] = tmp[2]? 1: 2;
+					Max[3] = p->N[0];
+					strncpy(A[i].N + 1, p->N + 1, 4);
+				}
+				else if (tmp[1] == Max[1] && tmp[0] > Max[0])
+				{
+                                        Max[0] = tmp[0];
+					Max[2] = tmp[2]? 1: 2;
+					Max[3] = p->N[0];
+					strncpy(A[i].N + 1, p->N + 1, 4);
+				}
+				else if (tmp[1] == Max[1] && tmp[0] == Max[0])
+				{
+					Max[2]++;
+				}
+				        //printf((j - 1 ? "+%d": " %d"), p->N[j]);
+				free(p);
+			}
+			printf("%d): ", Max[1]);
+			if (Max[2] > 1)
+			{
+				puts("tie");
+			}
+			else
+			{
+				for (j = 1; j <= Max[3]; j++)
+					printf("%d ", A[i].N[j]);
+                                putchar('\n');
+			}
+		}
+	}
+
+	return 0;
+}
+]]></solution>
+<![CDATA[]]>
+</item>
+<item>
+<title><![CDATA[Border]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+<description><![CDATA[You are to write a program that draws a border around a closed path into a bitmap, as displayed in the following figure: 
+<center><img src="Image/1014/1.gif"></img></center>
+The path is closed and runs along the grid lines, i.e. between the squares of the grid. The path runs counter-clockwise, so if following the path is considered as going ``forward'', the border pixels are always to the "right'' of the path. The bitmap always covers 32 by 32 squares and has its lower left corner at (0, 0). You can safely assume that the path never touches the bounding rectangle of the bitmap and never touches or crosses itself. Note that a bit gets set if it is on the outside of the area surrounded by the path and if at least one of its edges belongs to the path, but not if only one of its corners is in the path. (A look at the convex corners in the figure should clarify that statement.) ]]></description>
+<input><![CDATA[The first line of the input file contains the number of test cases in the file. Each test case that follows consists of two lines. The first line of each case contains two integer numbers x and y specifying the starting point of the path. The second line contains a string of variable length. Every letter in the string symbolizes a move of length one along the grid. Only the letters 'W' ("west"), 'E' ("east"), 'N' ("north"), 'S' ("south"), and '.' ("end of path", no move) appear in the string. The end-of-path character ( '.') is immediately followed by the end of the line. ]]></input> 
+<output><![CDATA[For each test case, output a line with the number of the case ('Bitmap #1', 'Bitmap #2', etc.). For each row of the bitmap from top to bottom, print a line where you print a character for every bit in that row from left to right. Print an uppercase 'X' for set bits and a period '.' for unset bits. Output a blank line after each bitmap. ]]></output>
+<sample_input><![CDATA[1
+2 1
+EENNWNENWWWSSSES.]]></sample_input>
+<sample_output><![CDATA[Bitmap #1
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+.XXX............................
+X...X...........................
+X..X............................
+X...X...........................
+.X..X...........................
+..XX............................]]></sample_output>
+<br />
+<b>Warning</b>:  opendir(/home/judge/data//1014/) [<a href='function.opendir'>function.opendir</a>]: failed to open dir: Permission denied in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>21</b><br />
+<br />
+<b>Warning</b>:  readdir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>22</b><br />
+<br />
+<b>Warning</b>:  closedir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>37</b><br />
+<hint><![CDATA[]]></hint>
+<source><![CDATA[ZJGSU warmup 1]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+	int i;
+	int j;
+	int k;
+	int n;
+	char bmp[34][34] = {'\0'};
+	int ro[34][34] = {0};
+	int co[34][34];
+	int x,y;
+	char c;
+	int row,col;
+	int dig;
+
+	scanf("%d", &n);
+	for (k = 1 ; k <= n ; k++)
+	{
+		row = col = 1;
+		dig = 0;
+		for (i = 0 ; i < 33 ; i++)
+		{
+			for (j = 0 ; j < 33 ; j++)
+			{
+				ro[i][j] = 0;
+				co[i][j] = 0;
+				bmp[i][j] = '.';
+			}
+		}
+		scanf("%d%d", &x, &y);
+		printf("Bitmap #%d\n", k);
+		while ((c = getchar()) != '.')
+		{
+			switch (c)
+			{
+				case 'W':
+					x--;
+					ro[y][x] = 1;
+					break;
+				case 'E':
+					x++;
+					ro[y][x - 1] = 1;
+					break;
+				case 'N':
+					y++;
+					co[y - 1][x] = 1;
+					break;
+				case 'S':
+					y--;
+					co[y][x] = 1;
+					break;
+				default :
+					break;
+			}
+		}
+
+		for (i = 0 ; i < 33 ; i++)
+		{
+			for (j = 0 ; j < 33 ; j++)
+			{
+				if (co[i][j])
+				{
+					if (col)
+						bmp[i][j-1] = 'X';
+					else
+						bmp[i][j] = 'X';
+					col = col?0:1;
+				}
+				if (ro[j][i])
+				{
+					if (row)
+						bmp[j - 1][i] = 'X';
+					else
+						bmp[j][i] = 'X';
+					row = row?0:1;
+				}
+			}
+		}
+		for (i = 31 ; i >= 0 ; i--)
+		{
+			for (j = 0 ; j < 32 ; j++)
+				putchar(bmp[i][j]);
+			putchar('\n');
+		}
+		putchar ('\n');
+
+	}
+	return 0;
+}]]></solution>
+<![CDATA[]]>
+</item>
+<item>
+<title><![CDATA[Simple Arithmetics]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+<description><![CDATA[One part of the new WAP portal is also a calculator computing expressions with very long numbers. To make the output look better, the result is formated the same way as is it usually used with manual calculations. 
+
+Your task is to write the core part of this calculator. Given two numbers and the requested operation, you are to compute the result and print it in the form specified below. With addition and subtraction, the numbers are written below each other. Multiplication is a little bit more complex: first of all, we make a partial result for every digit of one of the numbers, and then sum the results together. ]]></description>
+<input><![CDATA[There is a single positive integer T on the first line of input. It stands for the number of expressions to follow. Each expression consists of a single line containing a positive integer number, an operator (one of +, - and *) and the second positive integer number. Every number has at most 500 digits. There are no spaces on the line. If the operation is subtraction, the second number is always lower than the first one. No number will begin with zero.]]></input> 
+<output><![CDATA[For each expression, print two lines with two given numbers, the second number below the first one, last digits (representing unities) must be aligned in the same column. Put the operator right in front of the first digit of the second number. After the second number, there must be a horizontal line made of dashes (-). 
+
+For each addition or subtraction, put the result right below the horizontal line, with last digit aligned to the last digit of both operands. 
+
+For each multiplication, multiply the first number by each digit of the second number. Put the partial results one below the other, starting with the product of the last digit of the second number. Each partial result should be aligned with the corresponding digit. That means the last digit of the partial product must be in the same column as the digit of the second number. No product may begin with any additional zeros. If a particular digit is zero, the product has exactly one digit -- zero. If the second number has more than one digit, print another horizontal line under the partial results, and then print the sum of them. 
+
+There must be minimal number of spaces on the beginning of lines, with respect to other constraints. The horizontal line is always as long as necessary to reach the left and right end of both numbers (and operators) right below and above it. That means it begins in the same column where the leftmost digit or operator of that two lines (one below and one above) is. It ends in the column where is the rightmost digit of that two numbers. The line can be neither longer nor shorter than specified. 
+
+Print one blank line after each test case, including the last one. ]]></output>
+<sample_input><![CDATA[4
+12345+67890
+324-111
+325*4405
+1234*4]]></sample_input>
+<sample_output><![CDATA[ 12345
++67890
+------
+ 80235
+
+ 324
+-111
+----
+ 213
+
+    325
+  *4405
+  -----
+   1625
+     0
+ 1300
+1300
+-------
+1431625
+
+1234
+  *4
+----
+4936]]></sample_output>
+<br />
+<b>Warning</b>:  opendir(/home/judge/data//1015/) [<a href='function.opendir'>function.opendir</a>]: failed to open dir: Permission denied in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>21</b><br />
+<br />
+<b>Warning</b>:  readdir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>22</b><br />
+<br />
+<b>Warning</b>:  closedir() expects parameter 1 to be resource, boolean given in <b>/var/www/JudgeOnline/admin/problem_export_xml.php</b> on line <b>37</b><br />
+<hint><![CDATA[]]></hint>
+<source><![CDATA[ZJGSU warmup 1]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+#include <string.h>
+#define MAX(a,b) ((a)>(b)?(a):(b))
+
+void space(int n)
+{
+	int i;
+	for (i = 0 ; i < n ; putchar(' '), i++);
+}
+
+void change(char *s, int *n)
+{
+	int i;
+	int len = strlen(s);
+	for (i = 0 ; i < len ; i++)
+		n[i] = s[len - 1 - i] - '0';
+}
+
+void addnum(int *a, int *b, int *c, int len)
+{
+	int i;
+	for (i = 0 ; i <= len ; i++)
+	{
+		c[i] += a[i] + b[i];
+		c[i + 1] += c[i] / 10;
+		c[i] %= 10;
+	}
+}
+
+void popnum(int *a, int *b, int len)
+{
+	int i;
+	for (i = 0 ; i < len ; i++)
+	{
+		a[i] -= b[i];
+		if (a[i] < 0)
+		{
+			a[i + 1]--;
+			a[i] += 10;
+		}
+	}
+}
+
+void mulnum(int *a, int *b, int *res, int lena, int lenb)
+{
+	int i;
+	int j;
+
+	for (i = 0 ; i < 1024 ; i++)
+		res[i] = 0;
+	for (i = 0 ; i < lenb ; i++)
+	{
+		for (j = 0 ; j < lena ; j++)
+		{
+			res[j + i] += b[i] * a[j];
+			res[i + j + 1] += res[j + i] / 10;
+			res[j + i] %= 10;
+		}
+	}
+}
+
+int numlen(int *p)
+{
+	int i;
+	for (i = 1023 ; i && !p[i] ; i--);
+	return i + 1;
+}
+
+int main(void)
+{
+	int n;
+	char *p;
+	char c;
+	int i;
+	int j;
+	int nub1[512];
+	int nub2[512];
+	int res[1024];
+	int tmp[1024];
+	int len[4];
+	int max;
+	int max2;
+	char symbol[4] = {"-+*"};
+	char num1[512];
+	char num2[512];
+	char temp[1024];
+
+	scanf("%d", &n);
+	while (n--)
+	{
+		scanf("%s", temp);
+		p = strpbrk(temp, symbol);
+		c = *p;
+		*p = '\0';
+		strcpy(num1, temp);
+		strcpy(num2, p + 1);
+		len[0] = strlen(num1);
+		len[1] = strlen(num2) + 1;
+		max2 = max = MAX(len[0], len[1]);
+		for (i = 0 ; i < 512 ; i++)
+			nub1[i] = nub2[i] = 0;
+		for (i = 0 ; i < 1024 ; i++)
+			res[i] = 0;
+		change(num1, nub1);
+		change(num2, nub2);
+		switch (c)
+		{
+			case '+':
+				addnum(nub1, nub2, res, max);
+				len[2] = numlen(res);
+				max = MAX(max, len[2]);
+				space(max - len[0]);
+				puts(num1);
+				space(max - len[1]);
+				printf("%c", c);
+				puts(num2);
+				max2 = MAX(len[1], len[2]);
+				space(max - max2);
+				for (i = 0 ; i < max2 ; i++)
+					putchar('-');
+				printf("\n");
+				space(max - len[2]);
+				for (i = len[2] - 1 ; i>= 0 ; i--)
+					printf("%d", res[i]);
+				printf("\n");
+				break;
+			case '-':
+				for (i = 0 ; i < len[0] ; i++)
+					res[i] = nub1[i];
+				popnum(res, nub2, max);
+				len[2] = numlen(res);
+				max = MAX(max, len[2]);
+				space(max - len[0]);
+				puts(num1);
+				space(max - len[1]);
+				printf("%c", c);
+				puts(num2);
+				max2 = MAX(len[1], len[2]);
+				space(max - max2);
+				for (i = 0 ; i < max2 ; i++)
+					putchar('-');
+				printf("\n");
+				space(max - len[2]);
+				for (i = len[2] - 1 ; i>= 0 ; i--)
+					printf("%d", res[i]);
+				printf("\n");
+				break;
+			case '*':
+				mulnum(nub1, nub2, res, len[0], len[1]);
+				len[2] = numlen(res);
+				max = MAX(max, len[2]);
+				space(max - len[0]);
+				puts(num1);
+				space(max - len[1]);
+				printf("%c", c);
+				puts(num2);
+				if (len[1] > 2)
+				{
+					mulnum(nub1, nub2 , tmp, len[0], 1);
+					len[3] = numlen(tmp);
+					max2 = MAX(len[1], len[3]);
+					space(max - max2);
+					for (i = 0 ; i < max2 ; i++)
+						putchar('-');
+					printf("\n");
+					space(max - len[3]);
+					for (j = 1023 ; j && !tmp[j] ; j--);
+					for (; j >= 0 ; j--)
+						printf("%d", tmp[j]);
+					putchar('\n');
+					for (i = 1 ; i < len[1] - 1 ; i++)
+					{
+						mulnum(nub1, nub2 + i, tmp, len[0], 1);
+						len[3] = numlen(tmp);
+						space(max - len[3] - i);
+						for (j = 1023 ; j && !tmp[j] ; j--);
+						for (; j >= 0 ; j--)
+							printf("%d", tmp[j]);
+						putchar('\n');
+					}
+				}
+				max2 = len[1] > 2 ? MAX(len[3], len[2]) : MAX(len[1], len[2]);
+				space(max - max2);
+				for (i = 0 ; i < max2 ; i++)
+					printf("-");
+				putchar('\n');
+				space(max - len[2]);
+				for (i = len[2] - 1 ; i >= 0 ; i--)
+					printf("%d", res[i]);
+				putchar('\n');
+				break;
+			default :
+				break;
+		}
+		putchar('\n');
+	}
+	return 0;
+}
+]]></solution>
+<![CDATA[]]>
+</item>
+</fps>

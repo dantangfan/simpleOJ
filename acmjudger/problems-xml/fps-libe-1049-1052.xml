@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<fps version="1.0" url="http://code.google.com/p/freeproblemset/">
+	<generator name="HUSTOJ" url="http://code.google.com/p/hustoj/"/>
+	<item>
+<title><![CDATA[Satellite Photographs]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[128]]></memory_limit>
+<description><![CDATA[<p>Farmer John purchased satellite photos of W x H pixels of his farm (1  &lt;= W &lt;= 80, 1 &lt;= H &lt;= 1000) and wishes to determine the  largest 'contiguous' (connected) pasture. Pastures are contiguous when  any pair of pixels in a pasture can be connected by traversing adjacent  vertical or horizontal pixels that are part of the pasture.  (It is easy  to create pastures with very strange shapes, even circles that surround  other circles.) <br />
+<br />
+Each photo has been digitally enhanced to show pasture area as an  asterisk ('*') and non-pasture area as a period ('.').  Here is a 10 x 5  sample satellite photo: <br />
+<br />
+<tt>..*.....** <br />
+.**..***** <br />
+.*...*.... <br />
+..****.*** <br />
+..****.***</tt> <br />
+<br />
+This photo shows three contiguous pastures of 4, 16, and 6 pixels.  Help FJ find the largest contiguous pasture in each of his satellite  photos.</p>]]></description>
+<input><![CDATA[<p>* Line 1: Two space-separated integers: W and H <br />
+* Lines 2..H+1: Each line contains W &quot;*&quot; or &quot;.&quot; characters  representing one raster line of a satellite photograph.</p>
+<p>&nbsp;</p>]]></input> 
+<output><![CDATA[<p>* Line 1: The size of the largest contiguous field in the satellite  photo.</p>]]></output>
+<sample_input><![CDATA[10 5
+..*.....**
+.**..*****
+.*...*....
+..****.***
+..****.***
+]]></sample_input>
+<sample_output><![CDATA[16
+]]></sample_output>
+<test_input><![CDATA[10 5
+..*.....**
+.**..*****
+.*...*....
+..****.***
+..****.***
+]]></test_input>
+<test_output><![CDATA[16
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C++"><![CDATA[#include<iostream>
+using namespace std;
+
+int r[] = {0, 0, 1, -1};
+int c[] = {1, -1, 0, 0};
+
+int maxi(int a, int b) {
+	if(a > b) return a;
+	return b;
+}
+
+int dfs(char graph[][100], int row, int col, int maxRow, int maxCol) {
+	if(row < 0 || row >= maxRow) return 0;
+	if(col < 0 || col >= maxCol) return 0;
+	if(graph[row][col] != '*') return 0;
+	
+	graph[row][col] = '#';
+	int ret = 1;
+
+	for(int i=0; i<4; i++) ret += dfs(graph, row+r[i], col+c[i], maxRow, maxCol);
+
+	return ret;
+}
+
+
+int main(void) {
+	int row, col;
+	while(cin >> col >> row) {
+		int answer = 0;
+		char graph[1100][100];
+		for(int i=0; i<row; i++)
+			for(int j=0; j<col; j++) cin >> graph[i][j];
+		for(int i=0; i<row; i++) {
+			for(int j=0; j<col; j++) {
+				if(graph[i][j] == '*') {
+					answer = maxi(answer, dfs(graph, i, j, row, col));
+				}
+			}
+		}
+		cout << answer << endl;
+	}
+}
+]]></solution>
+<spj><![CDATA[]]></spj>
+</item>
+<item>
+<title><![CDATA[Prime Path]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[128]]></memory_limit>
+<description><![CDATA[<p>The ministers of the cabinet were quite upset by the message from the  Chief of Security stating that they would all have to change the  four-digit room numbers on their offices. <br />
+&mdash; It is a matter of security to change such things every now and  then, to keep the enemy in the dark. <br />
+&mdash; But look, I have chosen my number 1033 for good reasons. I am the  Prime minister, you know! <br />
+&mdash; I know, so therefore your new number 8179 is also a prime. You  will just have to paste four new digits over the four old ones on your  office door. <br />
+&mdash; No, it&rsquo;s not that simple. Suppose that I change the first digit to  an 8, then the number will read 8033 which is not a prime! <br />
+&mdash; I see, being the prime minister you cannot stand having a  non-prime number on your door even for a few seconds. <br />
+&mdash; Correct! So I must invent a scheme for going from 1033 to 8179 by a  path of prime numbers where only one digit is changed from one prime to  the next prime. <br />
+<br />
+Now, the minister of finance, who had been eavesdropping,  intervened. <br />
+&mdash; No unnecessary expenditure, please! I happen to know that the  price of a digit is one pound. <br />
+&mdash; Hmm, in that case I need a computer program to minimize the cost.  You don't know some very cheap software gurus, do you? <br />
+&mdash; In fact, I do. You see, there is this programming contest going  on... Help the prime minister to find the cheapest prime path between  any two given four-digit primes! The first digit must be nonzero, of  course. Here is a solution in the case above. </p>
+<blockquote>1033<br />
+1733<br />
+3733<br />
+3739<br />
+3779<br />
+8779<br />
+8179</blockquote>
+<p>The  cost of this solution is 6 pounds. Note that the digit 1 which got  pasted over in step 2 can not be reused in the last step &ndash; a new 1 must  be purchased.</p>]]></description>
+<input><![CDATA[<p>One line with a positive number: the number of test cases (at most 100).  Then for each test case, one line with two numbers separated by a  blank. Both numbers are four-digit primes (without leading zeros).</p>]]></input> 
+<output><![CDATA[<p>One line for each case, either with a number stating the minimal cost or containing the word Impossible.</p>]]></output>
+<sample_input><![CDATA[3
+1033 8179
+1373 8017
+1033 1033]]></sample_input>
+<sample_output><![CDATA[6
+7
+0]]></sample_output>
+<test_input><![CDATA[13
+1231 1231
+1231 1237
+1277 9001
+9001 8087
+8263 9391
+9011 8263
+7433 4133
+3797 3467
+8017 1373
+3391 8017
+1109 1019
+9173 1973
+2441 9199
+]]></test_input>
+<test_output><![CDATA[0
+1
+5
+4
+6
+6
+3
+2
+7
+5
+2
+2
+8
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C++"><![CDATA[#include<iostream>
+#include<cstdio>
+#include<queue>
+
+#define INTMAX 2147483647
+
+using namespace std;
+
+void play(int num, int goal, int visited[], bool isPrime[]) {
+	int x, y;
+	char strNum[5];
+	queue <int> que;
+	que.push(num);
+	visited[num] = 0;
+	while(!que.empty()) {
+		x = que.front();
+		que.pop();
+		if(x == goal) return;
+		for(int i=0; i<4; i++) {
+			for(int j=0; j<=9; j++) {
+				sprintf(strNum, "%d", x);
+				strNum[i] = j + '0';
+				sscanf(strNum, "%d", &y);
+				if(y < 1000) continue;
+				if(isPrime[y] == false) continue;
+				if(visited[x]+1 < visited[y]) { visited[y] = visited[x] + 1; que.push(y); }
+			}
+		}
+	}
+}
+
+int main(void) {
+	bool isPrime[10000];
+	isPrime[0] = isPrime[1] = false;
+	for(int i=2; i<10000; i++) isPrime[i] = true;
+	for(int i=2; i<5000; i++) {
+		if(isPrime[i] == false) continue;
+		for(int j=2; i*j<10000; j++) isPrime[i*j] = false;
+	}
+	
+	int tcase, num, goal, answer;
+	int visited[10000];
+
+	cin >> tcase;
+	while(tcase--) {
+		cin >> num >> goal;
+		for(int i=0; i<10000; i++) visited[i] = INTMAX;
+		play(num, goal, visited, isPrime);
+		cout << visited[goal] << endl;
+	}
+	return 0;
+}
+
+]]></solution>
+<spj><![CDATA[]]></spj>
+</item>
+<item>
+<title><![CDATA[A Bug]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[128]]></memory_limit>
+<description><![CDATA[<p><b>Background</b> <br />
+Professor Hopper is researching the sexual behavior of a rare  species of bugs. He assumes that they feature two different genders and  that they only interact with bugs of the opposite gender. In his  experiment, individual bugs and their interactions were easy to  identify, because numbers were printed on their backs. <br />
+<b>Problem</b> <br />
+Given a list of bug interactions, decide whether the experiment  supports his assumption of two genders with no homosexual bugs or if it  contains some bug interactions that falsify it.</p>
+<p>&nbsp;</p>]]></description>
+<input><![CDATA[<p>The first line of the input contains the number of scenarios. Each  scenario starts with one line giving the number of bugs (at least one,  and up to 2000) and the number of interactions (up to 1000000) separated  by a single space. In the following lines, each interaction is given in  the form of two distinct bug numbers separated by a single space. Bugs  are numbered consecutively starting from one.</p>]]></input> 
+<output><![CDATA[<p>The output for every scenario is a line containing &quot;Scenario #i:&quot;, where  i is the number of the scenario starting at 1, followed by one line  saying either &quot;No suspicious bugs found!&quot; if the experiment is  consistent with his assumption about the bugs' sexual behavior, or  &quot;Suspicious bugs found!&quot; if Professor Hopper's assumption is definitely  wrong.</p>]]></output>
+<sample_input><![CDATA[2
+3 3
+1 2
+2 3
+1 3
+4 2
+1 2
+3 4]]></sample_input>
+<sample_output><![CDATA[Scenario #1:
+Suspicious bugs found!
+
+Scenario #2:
+No suspicious bugs found!
+]]></sample_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C++"><![CDATA[#include<iostream>  
+#include<cstring>  
+#include<vector>  
+#include<stdio.h>  
+#define NOT 0  
+#define MALE 1  
+#define FEMALE 2  
+using namespace std;  
+bool chk;  
+vector<vector<int> > list; //간선들  
+int visited[2000];  
+bool vis[2000];  
+void dfs(int s,int state)  
+
+{
+	if(visited[s] == NOT)  
+		visited[s] = state;  
+	else 
+		return;  
+	for(unsigned int i = 0; i < list[s].size();i++)  
+	{  
+		if(visited[list[s][i]] == NOT)  
+		{  
+			if(state == FEMALE)  
+				dfs(list[s][i],MALE);           //다음 정점은 수컷으로  
+			else if(state == MALE)  
+				dfs(list[s][i],FEMALE);  
+		}  
+	}  
+}  
+
+void dfs_process(int s)  
+
+{  
+	if(!vis[s]) vis[s] = true;  
+	else if(chk) return;  
+	else return;  
+	for(unsigned int i = 0 ; i < list[s].size();i++)  
+	{ 
+		if(visited[s] == visited[list[s][i]])  
+			chk = true;     //성이 모호해 지는 관계  
+		if(!vis[list[s][i]])  
+			dfs_process(list[s][i]);  
+	}  
+}  
+
+int main()  
+
+{  
+	int T,n,m;  
+	scanf("%d",&T);  
+	for(int aa = 0; aa < T;aa++)  
+	{  
+		scanf("%d %d",&n,&m);  
+		list.resize(n,vector<int>(0));  
+		memset(visited,NOT,sizeof(visited));  
+		memset(vis,false,sizeof(vis));  
+		chk = false;  
+		for(int i = 0; i < n;i++)  
+			list[i].clear();  
+		for(int i = 0; i < m ; i++)  
+		{  
+			int p,q;  
+			scanf("%d %d",&p,&q);  
+			list[p-1].push_back(q-1); //리스트 구현  
+			list[q-1].push_back(p-1);  
+		}  
+		for(int i = 0; i < n;i++)  
+		{  
+			if(visited[i] == NOT)  
+
+				dfs(i,FEMALE);  
+			dfs_process(i);  
+		}  
+		printf("Scenario #%d:\n",aa+1);  
+		if(chk)     //chk가 참이면 성이 모호해 지는 관계를 뜻함  
+			printf("Suspicious bugs found!\n");  
+		else 
+			printf("No suspicious bugs found!\n");  
+		printf("\n");
+	}  
+	return 0;  
+
+} 
+
+]]></solution>
+<spj><![CDATA[]]></spj>
+</item>
+<item>
+<title><![CDATA[Maze Problem]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[128]]></memory_limit>
+<description><![CDATA[<p>Given a maze, find a shortest path from start to goal.</p>]]></description>
+<input><![CDATA[<p>Input consists serveral test cases. </p>
+<p>First line of the input contains number of test case T.</p>
+<p>For each test case the first line contains two integers N , M ( 1 &lt;= N, M &lt;= 100 ).</p>
+<p>Each of the following N lines contain M characters. Each character means a cell of the map.</p>
+<p>Here is the definition for chracter.</p>
+<p>&nbsp;</p>
+<p>Constraint:</p>
+<ul>
+    <li>For a character in the map:
+    <ul>
+        <li>'S' : start cell</li>
+        <li>'E' : goal cell</li>
+        <li>'-' : empty cell</li>
+        <li>'#' :  obstacle cell</li>
+    </ul>
+    </li>
+    <li>no two start cell exists.</li>
+    <li>no two goal cell exists.</li>
+</ul>]]></input> 
+<output><![CDATA[<p>For each test case print one line containing shortest path. If there exists no path from start to goal, print -1.</p>]]></output>
+<sample_input><![CDATA[1
+5 5
+S-###
+-----
+##---
+E#---
+---##
+]]></sample_input>
+<sample_output><![CDATA[9
+]]></sample_output>
+<test_input><![CDATA[3
+5 5
+S-###
+-----
+##---
+E#---
+---##
+3 2
+S-
+--
+-E
+10 10
+S########E
+-########-
+-########-
+-########-
+-########-
+-########-
+-########-
+-########-
+-########-
+----------]]></test_input>
+<test_output><![CDATA[9
+3
+27
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C++"><![CDATA[#include<iostream>
+#include<queue>
+#include<utility>
+#include<set>
+using namespace std;
+
+int maxRow, maxCol;
+pair <int, int> start;
+pair <int, int> end;
+int sr, sc, er, ec;
+int r[] = {0, 0, 1, -1};
+int c[] = {1, -1, 0, 0};
+char graph[110][110];
+
+int bfs() {
+	set < pair <int, int> > s;
+	queue < pair <int, int> > que;
+	queue < int > move;
+	pair < int, int > posi;
+	pair < int, int > step[4];
+	que.push(start);
+	move.push(0);
+	int visited = 0;
+	int moving;
+	while(1) {
+		if(que.empty()) return -1;
+		posi = que.front();
+		moving = move.front();
+		//cout << posi.first << ' ' << posi.second << ' ' << moving << endl;
+		que.pop();
+		move.pop();
+		if(graph[posi.first][posi.second] == 'E') return moving;
+		visited = moving+1;
+		for(int i=0; i<4; i++) step[i] = posi;
+		step[0].first++;
+		step[1].first--;
+		step[2].second++;
+		step[3].second--;
+		for(int i=0; i<4; i++) {
+			if(step[i].first < 0 || step[i].first >= maxRow) continue;
+			if(step[i].second < 0 || step[i].second >= maxRow) continue;
+			if(s.find(step[i]) != s.end()) continue;
+			if(graph[step[i].first][step[i].second] == '#') continue;
+			que.push(step[i]);
+			move.push(visited);
+			s.insert(step[i]);
+		}
+	}
+	return -1;
+}
+
+int main(void) {
+	int tcase;
+	cin >> tcase;
+	while(tcase--) {
+		cin >> maxRow >> maxCol;
+		for(int i=0; i<maxRow; i++) {
+			for(int j=0; j<maxCol; j++) {
+				cin >> graph[i][j];
+				if(graph[i][j] == 'S') { start.first = i; start.second = j; }
+				if(graph[i][j] == 'E') { end.first = i; end.second = j; }
+			}
+		}
+		cout << bfs() << endl;
+	}
+}
+
+]]></solution>
+<spj><![CDATA[]]></spj>
+</item>
+</fps>

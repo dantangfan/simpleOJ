@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<fps version="1.1" url="http://code.google.com/p/freeproblemset/">
+	<generator name="HUSTOJ" url="http://code.google.com/p/hustoj/"/>
+	<item>
+<title><![CDATA[Hello, world!]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[
+This is the first problem for test.
+
+Since all we know the ASCII code, your job is simple: Input numbers and output corresponding messages. 
+]]></description>
+<input><![CDATA[The input will contain a list of positive integers separated by whitespaces(spaces, newlines, TABs).
+Please process to the end of file (EOF).
+The integers will be no less than 32.]]></input> 
+<output><![CDATA[Output the corresponding message.
+Note there is NOT a newline character in the end of output. ]]></output>
+<sample_input><![CDATA[72 101 108 108 111 44
+32 119 111 114 108 100 33
+]]></sample_input>
+<sample_output><![CDATA[Hello, world!]]></sample_output>
+<test_input><![CDATA[72 101 108 108 111 44
+32 119 111 114 108 100 33]]></test_input>
+<test_output><![CDATA[Hello, world!
+
+]]></test_output>
+<test_input><![CDATA[73 108 111 118 101 67 104 105 110 97 33 33
+73 108 111 118 101 83 68 73 66 84 33 33 33 ]]></test_input>
+<test_output><![CDATA[IloveChina!!IloveSDIBT!!!]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+void main()
+{
+   int a;char b;
+   while(scanf("%d",&a)!=EOF){
+       b=a;
+       printf("%c",b);
+   }
+}]]></solution>
+</item>
+<item>
+<title><![CDATA[用筛法求之N内的素数。 
+]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[用筛法求之N内的素数。 
+]]></description>
+<input><![CDATA[N
+ ]]></input> 
+<output><![CDATA[0～N的素数
+]]></output>
+<sample_input><![CDATA[100
+]]></sample_input>
+<sample_output><![CDATA[2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37
+41
+43
+47
+53
+59
+61
+67
+71
+73
+79
+83
+89
+97]]></sample_output>
+<test_input><![CDATA[150
+]]></test_input>
+<test_output><![CDATA[2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37
+41
+43
+47
+53
+59
+61
+67
+71
+73
+79
+83
+89
+97
+101
+103
+107
+109
+113
+127
+131
+137
+139
+149
+]]></test_output>
+<test_input><![CDATA[100]]></test_input>
+<test_output><![CDATA[2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37
+41
+43
+47
+53
+59
+61
+67
+71
+73
+79
+83
+89
+97]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+#include <stdlib.h>
+#include"math.h"
+void sushu(n)
+int n;
+{int j,k;
+k=sqrt(n);
+for(j=2;j<=k;j++)
+  if(n%j==0)
+  break;
+if(j==k+1) printf("%d\n",n);
+else return ;
+         }
+int main(int argc, char *argv[])
+{
+  int N,i;
+  scanf("%d",&N);
+  for(i=2;i<=N;i++)
+   sushu(i);	
+  return 0;
+}
+]]></solution>
+</item>
+<item>
+<title><![CDATA[A+B for Input-Output Practice (I)]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[Your task is to Calculate a + b.
+Too easy?! Of course! I specially designed the problem for acm beginners.
+You must have found that some problems have the same titles with this one, yes, all these problems were designed for the same aim]]></description>
+<input><![CDATA[The input will consist of a series of pairs of integers a and b, separated by a space, one pair of integers per line. ]]></input> 
+<output><![CDATA[For each pair of input integers a and b you should output the sum of a and b in one line, and with one line of output for each line in input.]]></output>
+<sample_input><![CDATA[1 5
+10 20]]></sample_input>
+<sample_output><![CDATA[6
+30
+]]></sample_output>
+<test_input><![CDATA[1 5
+10 20]]></test_input>
+<test_output><![CDATA[6
+30
+]]></test_output>
+<hint><![CDATA[这是一个求两数之和的题目，输入多对用空格分开的两个数a b，输出a+b的和，每一对数据的和占一行。编写代码时需要注意的是，由于没有指出有多少对输入数据，因此我们可以编写如下代码：
+
+//C语言
+
+#include &lt;stdio.h>
+int main() //把main函数定义成int类型
+{
+int a,b;
+while(scanf("%d %d",&a, &b) != EOF) // 输入结束时，scanf函数返回值为EOF，即没有数据输入时则退出while循环
+printf("%d\n",a+b);
+return 0; //返回值为0
+}
+
+//或者C++语言
+
+#include &lt;iostream> //注意头文件的使用方法
+using namespace std;
+int main()
+{
+int a,b;
+while(cin >> a >> b)
+cout << a+b << endl;
+return 0;
+} ]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+  int a,b;
+ while(scanf("%d %d",&a, &b) != EOF)
+ printf("%d\n",a+b);	
+  return 0;
+}
+]]></solution>
+</item>
+<item>
+<title><![CDATA[A+B for Input-Output Practice (II)]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[The first line integer means the number of input integer a and b.
+Your task is to Calculate a + b. ]]></description>
+<input><![CDATA[Your task is to Calculate a + b. 
+
+The first line integer means the numbers of  pairs of input integers. ]]></input> 
+<output><![CDATA[For each pair of input integers a and b you should output the sum of a and b in one line, and with one line of output for each line in input. ]]></output>
+<sample_input><![CDATA[2
+1 5
+10 20
+]]></sample_input>
+<sample_output><![CDATA[6
+30
+]]></sample_output>
+<test_input><![CDATA[2
+1 5
+10 20
+]]></test_input>
+<test_output><![CDATA[6
+30
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+void main()
+{
+	int a[100],b[100],c[100];
+	int i,n;
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+		scanf("%d %d",&a[i],&b[i]);
+		c[i]=a[i]+b[i];
+	}
+	for(i=0;i<n;i++)
+		printf("%d\n",c[i]);
+}
+]]></solution>
+</item>
+<item>
+<title><![CDATA[A+B for Input-Output Practice (III)]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[Your task is to Calculate a + b.]]></description>
+<input><![CDATA[Input contains multiple test cases. Each test case contains a pair of integers a and b, one pair of integers per line. A test case containing 0 0 terminates the input and this test case is not to be processed. ]]></input> 
+<output><![CDATA[For each pair of input integers a and b you should output the sum of a and b in one line, and with one line of output for each line in input.]]></output>
+<sample_input><![CDATA[1 5
+10 20
+0 0
+]]></sample_input>
+<sample_output><![CDATA[6
+30
+]]></sample_output>
+<test_input><![CDATA[1 5
+10 20
+0 10
+0 0
+]]></test_input>
+<test_output><![CDATA[6
+30
+10
+]]></test_output>
+<test_input><![CDATA[1 5
+10 20
+0 0
+]]></test_input>
+<test_output><![CDATA[6
+30
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+int main( )
+{
+ int a,b;
+ while( scanf("%d %d",&a,&b)!=EOF)
+ {
+  if(a==0&&b==0) break;
+  printf("%d\n",a+b);
+ }
+ return 0;
+}]]></solution>
+</item>
+<item>
+<title><![CDATA[A+B for Input-Output Practice (IV)]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[Your task is to Calculate the sum of some integers. ]]></description>
+<input><![CDATA[Input contains multiple test cases. Each test case contains a integer N, and then N integers follow in the same line. A test case starting with 0 terminates the input and this test case is not to be processed. ]]></input> 
+<output><![CDATA[For each group of input integers you should output their sum in one line, and with one line of output for each line in input. ]]></output>
+<sample_input><![CDATA[4 1 2 3 4
+5 1 2 3 4 5
+0 
+]]></sample_input>
+<sample_output><![CDATA[10
+15]]></sample_output>
+<test_input><![CDATA[4 1 2 3 4
+5 1 2 3 4 5
+0 
+]]></test_input>
+<test_output><![CDATA[10
+15]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+int main()
+{
+	int a,c,i,sum;
+	while(scanf("%d",&c)!=EOF)
+	{  
+		sum=0;
+	    if(c==0)
+		   break;
+	    for(i=0;i<c;i++)
+		{   
+	 	    scanf("%d",&a);
+		    sum=sum+a;
+		}
+	    printf("%d\n",sum);
+	}
+	return 0;
+}]]></solution>
+</item>
+<item>
+<title><![CDATA[A+B for Input-Output Practice (V)]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[Your task is to calculate the sum of some integers. ]]></description>
+<input><![CDATA[Input contains an integer N in the first line, and then N lines follow. Each line starts with a integer M, and then M integers follow in the same line. ]]></input> 
+<output><![CDATA[For each group of input integers you should output their sum in one line, and with one line of output for each line in input. ]]></output>
+<sample_input><![CDATA[2
+4 1 2 3 4
+5 1 2 3 4 5
+]]></sample_input>
+<sample_output><![CDATA[10
+15
+]]></sample_output>
+<test_input><![CDATA[2
+4 1 2 3 4
+5 1 2 3 4 5
+]]></test_input>
+<test_output><![CDATA[10
+15
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+int main()
+{
+	int a,c,d,j,i,sum;
+	scanf("%d",&d);
+	for(j=0;j<d;j++)
+	{
+	while(scanf("%d",&c)!=EOF)
+	{  sum=0;
+	    for(i=0;i<c;i++)
+		{   
+	 	    scanf("%d",&a);
+		    sum=sum+a;
+		}
+	    printf("%d\n",sum);
+	}
+	}
+	return 0;
+}
+]]></solution>
+</item>
+<item>
+<title><![CDATA[A+B for Input-Output Practice (VI)]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[Your task is to calculate the sum of some integers. ]]></description>
+<input><![CDATA[Input contains multiple test cases, and one case one line. Each case starts with an integer N, and then N integers follow in the same line. ]]></input> 
+<output><![CDATA[For each test case you should output the sum of N integers in one line, and with one line of output for each line in input. ]]></output>
+<sample_input><![CDATA[4 1 2 3 4
+5 1 2 3 4 5
+]]></sample_input>
+<sample_output><![CDATA[10
+15
+]]></sample_output>
+<test_input><![CDATA[4 1 2 3 4
+5 1 2 3 4 5
+]]></test_input>
+<test_output><![CDATA[10
+15
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+int main()
+{
+	int i,a,b,j;
+    while(scanf("%d",&i)==1)
+	{b=0;
+	for(j=i;j!=0;j--)
+	{
+    scanf("%d",&a);
+	b+=a;
+	}
+ printf("%d\n",b);
+	}
+	return 0;
+}]]></solution>
+</item>
+<item>
+<title><![CDATA[A+B for Input-Output Practice (VII)]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[Your task is to Calculate a + b. ]]></description>
+<input><![CDATA[The input will consist of a series of pairs of integers a and b, separated by a space, one pair of integers per line. ]]></input> 
+<output><![CDATA[For each pair of input integers a and b you should output the sum of a and b, and followed by a blank line. ]]></output>
+<sample_input><![CDATA[1 5
+10 20]]></sample_input>
+<sample_output><![CDATA[6
+
+30
+]]></sample_output>
+<test_input><![CDATA[1 5
+10 20]]></test_input>
+<test_output><![CDATA[6
+
+30
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+int main( )
+{
+ int a,b;
+ while(scanf("%d %d",&a,&b)!=EOF)
+ printf("%d\n\n",a+b);
+ return 0;
+}
+]]></solution>
+</item>
+<item>
+<title><![CDATA[A+B for Input-Output Practice]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[Your task is to calculate the sum of some integers]]></description>
+<input><![CDATA[Input contains an integer N in the first line, and then N lines follow. Each line starts with a integer M, and then M integers follow in the same line]]></input> 
+<output><![CDATA[For each group of input integers you should output their sum in one line, and you must note that there is a blank line between outputs. ]]></output>
+<sample_input><![CDATA[3
+4 1 2 3 4
+5 1 2 3 4 5
+3 1 2 3
+]]></sample_input>
+<sample_output><![CDATA[10
+
+15
+
+6]]></sample_output>
+<test_input><![CDATA[3
+4 1 2 3 4
+5 1 2 3 4 5
+3 1 2 3
+]]></test_input>
+<test_output><![CDATA[10
+
+15
+
+6]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+int main( )
+{
+ int n,m,i,k,a,sum=0;
+ scanf("%d",&n);
+ for(i=1;i<=n;i++)
+ {
+  scanf("%d",&m);
+  for(k=1;k<=m;k++)
+  {
+    scanf("%d",&a);
+    sum+=a;
+  }
+  printf("%d\n\n",sum);
+  sum=0;
+ }
+  return 0;
+}
+]]></solution>
+</item>
+<item>
+<title><![CDATA[字符逆序]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[将一个字符串str的内容颠倒过来，并输出。str的长度不超过100个字符。 ]]></description>
+<input><![CDATA[输入包括一行。
+第一行输入的字符串。]]></input> 
+<output><![CDATA[输出转换好的逆序字符串。 ]]></output>
+<sample_input><![CDATA[I am a student
+]]></sample_input>
+<sample_output><![CDATA[tneduts a ma I
+]]></sample_output>
+<test_input><![CDATA[I am a student]]></test_input>
+<test_output><![CDATA[tneduts a ma I
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include<stdio.h>
+#include<string.h>
+char main()
+{int i,length;
+ char str[100],t;
+ gets(str);
+ length=strlen(str);
+ for(i=0;i<length/2;i++)
+ {t=str[i];
+  str[i]=str[length-1-i];
+  str[length-1-i]=t;
+ }
+ puts(str);
+ return 0;
+}]]></solution>
+</item>
+<item>
+<title><![CDATA[字符串的输入输出处理]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[字符串的输入输出处理。]]></description>
+<input><![CDATA[第一行是一个正整数N，最大为100。之后是多行字符串（行数大于N），  每一行字符串可能含有空格，字符数不超过1000。]]></input> 
+<output><![CDATA[先将输入中的前N行字符串（可能含有空格）原样输出，再将余下的字符串（不含有空格）以空格或回车分割依次按行输出。每行输出之间输出一个空行。]]></output>
+<sample_input><![CDATA[2
+www.njupt.edu.cn NUPT
+A C M
+N U P Ter]]></sample_input>
+<sample_output><![CDATA[www.njupt.edu.cn NUPT
+
+A C M
+
+N
+
+U
+
+P
+
+Ter
+
+]]></sample_output>
+<test_input><![CDATA[2
+www.njupt.edu.cn NUPT
+A C M
+N U P Ter
+Hello World!]]></test_input>
+<test_output><![CDATA[www.njupt.edu.cn NUPT
+
+A C M
+
+N
+
+U
+
+P
+
+Ter
+
+Hello
+
+World!
+
+]]></test_output>
+<test_input><![CDATA[2
+www.njupt.edu.cn NUPT
+A C M
+N U P Ter]]></test_input>
+<test_output><![CDATA[www.njupt.edu.cn NUPT
+
+A C M
+
+N
+
+U
+
+P
+
+Ter
+
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C++"><![CDATA[#include <stdio.h>
+#include <string.h>
+  
+int main()
+{
+    int i,j,a;
+    scanf("%d",&a);
+    char c;
+    c=scanf("%c",&c);
+    char auf[1000]={0};
+    char buf[1000] = { 0 };
+    while(a--){
+        gets(buf);
+        printf("%s\n\n", buf);
+    }
+    while(gets(auf)){
+        if(auf=="")
+            break;
+        for(i=0;i<strlen(auf);i++){
+            if (auf[i]!=' '){
+            if(i!=strlen(auf)-1)
+                printf("%c",auf[i]);
+            else
+                printf("%c\n\n",auf[i]);
+            }else
+                printf("\n\n");
+        }
+    }
+    return 0;
+} ]]></solution>
+</item>
+<item>
+<title><![CDATA[The 3n + 1 problem ]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[Consider the following algorithm to generate a sequence of numbers. Start with an integer n. If n is even, divide by 2. If n is odd, multiply by 3 and add 1. Repeat this process with the new value of n, terminating when n = 1. For example, the following sequence of numbers will be generated for n = 22:
+22 11 34 17 52 26 13 40 20 10 5 16 8 4 2 1
+It is conjectured (but not yet proven) that this algorithm will terminate at n = 1 for every integer n. Still, the conjecture holds for all integers up to at least 1, 000, 000.
+
+For an input n, the cycle-length of n is the number of numbers generated up to and including the 1. In the example above, the cycle length of 22 is 16. Given any two numbers i and j, you are to determine the maximum cycle length over all numbers between i and j, including both endpoints. ]]></description>
+<input><![CDATA[The input will consist of a series of pairs of integers i and j, one pair of integers per line. All integers will be less than 1,000,000 and greater than 0.]]></input> 
+<output><![CDATA[For each pair of input integers i and j, output i, j in the same order in which they appeared in the input and then the maximum cycle length for integers between and including i and j. These three numbers should be separated by one space, with all three numbers on one line and with one line of output for each line of input. ]]></output>
+<sample_input><![CDATA[1 10
+100 200
+201 210
+900 1000
+]]></sample_input>
+<sample_output><![CDATA[1 10 20
+100 200 125
+201 210 89
+900 1000 174
+]]></sample_output>
+<test_input><![CDATA[1 10
+100 200
+201 210
+1000 900
+]]></test_input>
+<test_output><![CDATA[1 10 20
+100 200 125
+201 210 89
+1000 900 174
+]]></test_output>
+<test_input><![CDATA[1 10
+100 200
+201 210
+900 1000
+]]></test_input>
+<test_output><![CDATA[1 10 20
+100 200 125
+201 210 89
+900 1000 174
+]]></test_output>
+<hint><![CDATA[<a href="http://acm.hdu.edu.cn/showproblem.php?pid=1032">杭电1032</a>]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+int F(int i);
+int main()
+{
+	int a,b,i,temp=0,temp1,temp2,a1,a2;
+	while(scanf("%d %d",&a,&b)==2)
+	{
+                  a1=a;
+                  a2=b;
+                  if(a>b)
+                  {
+                      temp2=a;
+                      a=b;
+                      b=temp2;
+                  }
+		for(i=a;i<=b;i++)
+		{
+			temp1=F(i);
+			//printf("%d\n",temp1);
+			if(temp<temp1)
+				temp=temp1;
+		}
+		printf("%d %d %d\n",a1,a2,temp);
+		temp=0;
+	}
+}
+
+int F(int i)
+{
+	int temp=i,j=1;
+	while(1)
+	{
+		if(temp==1)
+			return j;
+		if(temp%2==0)
+		{
+			temp=temp/2;
+		}
+		else
+		{
+			temp=temp*3+1;
+		}
+		j++;
+	}
+}]]></solution>
+</item>
+<item>
+<title><![CDATA[Minesweeper ]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[	
+		
+	
+
+Minesweeper
+	
+	
+		
+Have you ever played Minesweeper? This cute little game comes with a certain operating system whose name we can't remember. The goal of the game is to find where all the mines are located within a M x N field.
+
+The game shows a number in a square which tells you how many mines there are adjacent to that square. Each square has at most eight adjacent squares. The 4 x 4 field on the left contains two mines, each represented by a ``*'' character. If we represent the same field by the hint numbers described above, we end up with the field on the right:
+
+*...
+....
+.*..
+....
+
+*100
+2210
+1*10
+1110
+]]></description>
+<input><![CDATA[The input will consist of an arbitrary number of fields. The first line of each field contains two integers n and m  ( 0 < n, m$ \le$100) which stand for the number of lines and columns of the field, respectively. Each of the next n lines contains exactly m characters, representing the field.
+
+Safe squares are denoted by ``.'' and mine squares by ``*,'' both without the quotes. The first field line where n = m = 0 represents the end of input and should not be processed. ]]></input> 
+<output><![CDATA[For each field, print the message Field #x: on a line alone, where x stands for the number of the field starting from 1. The next n lines should contain the field with the ``.'' characters replaced by the number of mines adjacent to that square. There must be an empty line between field outputs.]]></output>
+<sample_input><![CDATA[4 4
+*...
+....
+.*..
+....
+3 5
+**...
+.....
+.*...
+0 0
+]]></sample_input>
+<sample_output><![CDATA[Field #1:
+*100
+2210
+1*10
+1110
+
+Field #2:
+**100
+33200
+1*100
+]]></sample_output>
+<test_input><![CDATA[4 4
+*...
+....
+.*..
+....
+3 5
+**...
+.....
+.*...
+0 0
+]]></test_input>
+<test_output><![CDATA[Field #1:
+*100
+2210
+1*10
+1110
+
+Field #2:
+**100
+33200
+1*100
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include"stdio.h"
+int a[105][105];
+char s[105][105];
+int main()
+{
+	int m,n,i,j,c=0;
+	while(scanf("%d %d",&n,&m)==2&&(n||m))
+	{
+		getchar();
+		for(i=0;i<=n;i++)
+			for(j=0;j<=n;j++)
+				a[i][j]=0;
+		c++;
+		for(i=1;i<=n;i++)
+		{
+			for(j=1;j<=m;j++)
+			{
+				scanf("%c",&s[i][j]);
+			if(s[i][j]=='*')
+			{
+				a[i][j]=-1;
+				if(a[i-1][j-1]!=-1)a[i-1][j-1]++;
+				if(a[i][j-1]!=-1)a[i][j-1]++;
+				if(a[i-1][j]!=-1)a[i-1][j]++;
+				if(a[i+1][j+1]!=-1)a[i+1][j+1]++;
+				if(a[i-1][j+1]!=-1)a[i-1][j+1]++;
+				if(a[i+1][j-1]!=-1)a[i+1][j-1]++;
+				if(a[i][j+1]!=-1)a[i][j+1]++;
+				if(a[i+1][j]!=-1)a[i+1][j]++;
+			}
+			}
+			getchar();
+		}
+		printf("Field #%d:\n",c);
+		for(i=1;i<=n;i++)
+		{
+			for(j=1;j<=m;j++)
+			{
+				if(a[i][j]==-1)printf("*");
+				else printf("%d",a[i][j]);
+			}
+			printf("\n");
+		}
+		printf("\n");
+	}
+ 	return 0;
+}
+]]></solution>
+</item>
+<item>
+<title><![CDATA[蛇行矩阵]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[64]]></memory_limit>
+
+<description><![CDATA[   
+ 蛇形矩阵是由1开始的自然数依次排列成的一个矩阵上三角形。]]></description>
+<input><![CDATA[本题有多组数据，每组数据由一个正整数N组成。（N不大于100）]]></input> 
+<output><![CDATA[对于每一组数据，输出一个N行的蛇形矩阵。两组输出之间不要额外的空行。矩阵三角中同一行的数字用一个空格分开。行尾不要多余的空格。]]></output>
+<sample_input><![CDATA[5
+
+]]></sample_input>
+<sample_output><![CDATA[1 3 6 10 15
+2 5 9 14
+4 8 13
+7 12
+11
+]]></sample_output>
+<test_input><![CDATA[5]]></test_input>
+<test_output><![CDATA[1 3 6 10 15
+2 5 9 14
+4 8 13
+7 12
+11
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include"stdio.h"
+int main()
+{
+	int i,j,n,count1=0,count2;
+	while(scanf("%d",&n)==1&&n<=100)
+	for(i=0;i<n;i++)
+	{
+		count2=count1;
+		for(j=i+1;j<n+1;j++)
+		{
+			count2=count2+j;
+			printf("%d",count2);
+			if(j!=n)printf(" ");
+		}
+		count1=count1+i;
+		printf("\n");
+	}
+	return 0;
+}]]></solution>
+</item>
+</fps>

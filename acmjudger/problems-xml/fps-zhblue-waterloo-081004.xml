@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<fps version="1.0" url="http://code.google.com/p/freeproblemset/">
+	<generator name="HUSTOJ" url="http://code.google.com/p/hustoj/"/>
+	<item>
+<title><![CDATA[Cranes]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[128]]></memory_limit>
+<description><![CDATA[<p>A crane is a wonderful tool for putting up a building. It makes the job go very quickly. When the building must go up even faster, more than one crane can be used. However, when there are too many cranes working on the same building, it can get dangerous. As the cranes spins around, it can bump into another crane if the operator is not careful. Such an accident could cause the cranes to fall over, possibly causing major damage. Therefore, safety regulations require cranes to be spaced far enough apart so that it is impossible for any part of a crane to touch any part of any other crane. Unfortunately, these regulations limit the number of cranes that can be used on the construction site, slowing down the pace of construction. Your task is to place the cranes on the construction site while respecting the safety regulations.</p>
+<p>The construction site is laid out as a square grid. Several places on the grid have been marked as possible crane locations. The arm of each crane has a certain length <i>r</i>, and can rotate around the location of the crane. The crane covers the entire area that is no more than <i>r</i> units away from the location of the crane. You are to place the cranes to maximize the total area covered by all the cranes.</p>]]></description>
+<input><![CDATA[<p>The first line of input contains one integer specifying the number of test cases to follow. Each test case begins with a line containing an integer <i>C</i>, the number of possible locations where a crane could be placed. There will be no more than 15 such locations. Each of the following <i>C</i> lines contains three integers <i>x</i>, <i>y</i>, and <i>r</i>, all between -10 000 and 10 000 inclusive. The first two integers are the grid coordinates of the location, and the third integer is the length of the arm of the crane that can be placed at that location.</p>]]></input> 
+<output><![CDATA[<p>For each test case, find the maximum area <i>A</i> that can be covered by cranes, and output a line containing a single integer <i>B</i> such that <i>A</i> = <i>B</i> &times; &pi; .</p>]]></output>
+<sample_input><![CDATA[1
+3
+0 0 4
+5 0 4
+-5 0 4
+]]></sample_input>
+<sample_output><![CDATA[32
+]]></sample_output>
+<test_input><![CDATA[1
+3
+0 0 4
+5 0 4
+-5 0 4
+]]></test_input>
+<test_output><![CDATA[32
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+
+int x[20];
+int y[20];
+int r[20];
+
+int dsq(int i, int j) {
+    return i*i + j*j;
+}
+int hits(int i, int j) {
+    return dsq(x[i]-x[j], y[i]-y[j]) <= dsq(r[i]+r[j],0);
+}
+
+main() {
+    int CASES;
+    scanf("%d", &CASES);
+    while(CASES--) {
+        int c,i,j,k;
+        int mx = 0;
+        scanf("%d", &c);
+        for(i=0;i<c;i++) {
+            scanf("%d %d %d", x+i,y+i, r+i);
+        }
+        for(i=0;i<(1<<c);i++) {
+            int tota = 0;
+            for(j=0;j<c;j++) {
+                if(!(i & (1<<j))) continue;
+                tota += r[j]*r[j];
+                for(k=0;k<c;k++) {
+                    if(j==k) continue;
+                    if(!(i & (1<<k))) continue;
+                    if(hits(j,k)) goto blah;
+                }
+            }
+            if(tota > mx) mx = tota;
+blah:;
+        }
+        printf("%d\n", mx);
+    }
+}]]></solution>
+<spj><![CDATA[]]></spj>
+</item>
+<item>
+<title><![CDATA[WiFi]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[128]]></memory_limit>
+<description><![CDATA[<p>One day, the residents of Main Street got together and decided that they would install wireless internet on their street, with coverage for every house. Now they need your help to decide where they should place the wireless access points. They would like to have as strong a signal as possible in every house, but they have only a limited budget for purchasing access points. They would like to place the available access points so that the maximum distance between any house and the access point closest to it is as small as possible.</p>
+<p>Main Street is a perfectly straight road. The street number of each house is the number of metres from the end of the street to the house. For example, the house at address 123 Main Street is exactly 123 metres from the end of the street.</p>
+<h3>&nbsp;</h3>]]></description>
+<input><![CDATA[<p>The first line of input contains an integer specifying the number of test cases to follow. The first line of each test case contains two positive integers <i>n</i>, the number of access points that the residents can buy, and <i>m</i>, the number of houses on Main Street. The following <i>m</i> lines contain the house numbers of the houses on Main Street, one house number on each line. There will be no more than 100 000 houses on Main Street, and the house numbers will be no larger than one million.</p>]]></input> 
+<output><![CDATA[<p>For each test case, output a line containing one number, the maximum distance between any house and the access point nearest to it. Round the number to the nearest tenth of a metre, and output it with exactly one digit after the decimal point.</p>]]></output>
+<sample_input><![CDATA[1
+2 3
+1
+3
+10
+]]></sample_input>
+<sample_output><![CDATA[1.0
+]]></sample_output>
+<test_input><![CDATA[1
+2 3
+1
+3
+10
+]]></test_input>
+<test_output><![CDATA[1.0
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C++"><![CDATA[#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+#define MP make_pair
+#define A first
+#define B second
+
+#define PB push_back
+#define FR(i, a, b) for(int i=(a); i<(b); i++)
+#define FOR(i, n) FR(i, 0, n)
+#define RF(i, a, b) for(int i=(b)-1; i>=(a); i--)
+#define ROF(i, n) RF(i, 0, n)
+#define EACH(it,X) for(__typeof((X).begin()) it=(X).begin(); it!=(X).end(); ++it)
+
+#define MAXN 110000
+
+int lis[MAXN],n,m,ans,del;
+
+int work(int len){
+  int pre,cou;
+  if(len<0) return 0;
+  pre=-(1<<20);
+  cou=0;
+  FOR(i,n)
+    if(lis[i]>pre+len){
+      pre=lis[i];
+      if(++cou>m) return 0;
+    }
+  return 1;
+}
+
+int main(){
+  int ct;
+  scanf("%d",&ct);
+  while(ct--){
+    scanf("%d%d",&m,&n);
+    FOR(i,n) scanf("%d",&lis[i]);
+    sort(lis,lis+n);
+    ans=del=1<<20;
+    while(del){
+      if(work(ans-del)) ans-=del;
+      del/=2;
+    }
+    printf("%d.%d\n",ans/2,(ans%2==0)?0:5);
+  }
+  return 0;
+}]]></solution>
+<spj><![CDATA[]]></spj>
+</item>
+<item>
+<title><![CDATA[Exact Change]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[128]]></memory_limit>
+<description><![CDATA[<ul>
+    <li>Seller: That will be fourteen dollars.</li>
+    <li>Buyer: Here's a twenty.</li>
+    <li>Seller: Sorry, I don't have any change.</li>
+    <li>Buyer: OK, here's a ten and a five. Keep the change.</li>
+</ul>
+<p>When travelling to remote locations, it is often helpful to bring cash, in case you want to buy something from someone who does not accept credit or debit cards. It is also helpful to bring a variety of denominations in case the seller does not have change. Even so, you may not have the exact amount, and will have to pay a little bit more than full price. The same problem can arise even in urban locations, for example with vending machines that do not return change.</p>
+<p>Of course, you would like to minimize the amount you pay (though you must pay at least as much as the value of the item). Moreover, while paying the minimum amount, you would like to minimize the number of coins or bills that you pay out.</p>]]></description>
+<input><![CDATA[<p>The first line of input contains one integer specifying the number of test cases to follow. Each test case begins with a line containing an integer, the price in cents of the item you would like to buy. The price will not exceed 10 000 cents (i.e., $100). The following line contains a single integer <i>n</i>, the number of bills and coins that you have. The number <i>n</i> is at most 100. The following <i>n</i> lines  each contain one integer, the value in cents of each bill or coin that you have. Note that the denominations can be any number of cents; they are not limited to the values of coins and bills that we usually use in Canada. However, no bill or coin will have a value greater than 10 000 cents ($100). The total value of your bills and coins will always be equal to or greater than the price of the item.</p>]]></input> 
+<output><![CDATA[<p>For each test case, output a single line containing two integers: the total amount paid (in cents), and the total number of coins and bills used.</p>]]></output>
+<sample_input><![CDATA[1
+1400
+3
+500
+1000
+2000
+]]></sample_input>
+<sample_output><![CDATA[1500 2
+]]></sample_output>
+<test_input><![CDATA[1
+1400
+3
+500
+1000
+2000
+]]></test_input>
+<test_output><![CDATA[1500 2
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+#include <string.h>
+
+int coins[1100000];
+unsigned dp[1100000];
+
+int comp(const int* a, const int *b) {
+    return (*a)-(*b);
+}
+main() {
+    int nc;
+    int i,j;
+    int CASES;
+    int price;
+    scanf("%d", &CASES);
+    while(CASES--) {
+        memset(dp,-1,sizeof(dp));
+        dp[0]=0;
+        scanf("%d", &price);
+        scanf("%d", &nc);
+        for(i=0;i<nc;i++) {
+            scanf("%d", coins+i);
+        }
+        for(i=0;i<nc;i++) {
+            for(j=price-1;j>=0;j--) {
+                if(dp[j]==-1) continue;
+                if(dp[j+coins[i]] > dp[j]+1) dp[j+coins[i]] = dp[j]+1;
+            }
+        }
+        for(i=price;dp[i]==-1;i++);
+        printf("%d %d\n", i, dp[i]);
+    }
+}]]></solution>
+<spj><![CDATA[]]></spj>
+</item>
+<item>
+<title><![CDATA[Dominos 2]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[128]]></memory_limit>
+<description><![CDATA[<p>Dominos are lots of fun. Children like to stand the tiles on their side in long lines. When one domino falls, it knocks down the next one, which knocks down the one after that, all the way down the line. However, sometimes a domino fails to knock the next one down. In that case, we have to knock it down by hand to get the dominos falling again.</p>
+<p>Given a set of dominos that are knocked down by hand, your task is to determine the total number of dominos that fall.</p>]]></description>
+<input><![CDATA[<p>The first line of input contains one integer specifying the number of test cases to follow. Each test case begins with a line containing three integers <i>n, m, l</i> no larger than 10 000, followed by <i>m</i>+<i>l</i> additional lines. The first integer <i>n</i> is the number of domino tiles. The domino tiles are numbered from 1 to <i>n</i>. Each of the <i>m</i> lines after the first line  contains two integers <i>x</i> and <i>y</i> indicating that if domino number <i>x</i> falls, it will cause domino number <i>y</i> to fall as well. Each of the following <i>l</i> lines contains a single integer <i>z</i> indicating that the domino numbered <i>z</i> is knocked over by hand.</p>]]></input> 
+<output><![CDATA[<p>For each test case, output a line containing one integer, the total number of dominos that fall over.</p>]]></output>
+<sample_input><![CDATA[1
+3 2 1
+1 2
+2 3
+2
+]]></sample_input>
+<sample_output><![CDATA[2
+]]></sample_output>
+<test_input><![CDATA[1
+3 2 1
+1 2
+2 3
+2
+]]></test_input>
+<test_output><![CDATA[2
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C"><![CDATA[#include <stdio.h>
+#include <string.h>
+#define N 1100000
+
+char toppled[N];
+int edges[N][2];
+unsigned se[N];
+char incoming[N];
+
+int topple(int x) {
+    if(!toppled[x]) {
+        int i;
+        toppled[x] = 1;
+        for(i = se[x]; i < N && edges[i][0] == x; i++) {
+            topple(edges[i][1]);
+        }
+    }
+}
+int comp(const int *e1, const int *e2) {
+    return *e1 - *e2;
+}
+
+char seen[N];
+int nextfin;
+int finish[N];
+void dfs(int n) {
+    if(!seen[n]) {
+        int i;
+        seen[n] = 1;
+        for(i = se[n]; i < N && edges[i][0] == n; i++) {
+            dfs(edges[i][1]);
+        }
+        finish[n] = ++nextfin;
+    }
+}
+int fincomp(const int *e1, const int *e2) {
+    return finish[*e2] - finish[*e1];
+}
+int nums[N];
+int main() {
+    int CASES;
+    scanf("%d", &CASES);
+    while(CASES--) {
+        int n, m, i, cnt,l;
+        memset(toppled,0,sizeof(toppled));
+        memset(incoming,0,sizeof(incoming));
+        memset(seen,0,sizeof(seen));
+        memset(finish,0,sizeof(finish));
+        scanf("%d %d %d", &n, &m, &l);
+        for(i=0; i<m; i++) {
+            int x, y;
+            scanf("%d %d", &x, &y);
+            x--; y--;
+            edges[i][0] = x;
+            edges[i][1] = y;
+            incoming[y] = 1;
+        }
+        qsort(edges, m, sizeof(edges[0]), comp);
+        memset(se,-1,sizeof(se));
+        for(i=m-1; i>=0; i--) {
+            se[edges[i][0]] = i;
+        }
+        for(i=0;i<l;i++) {
+            int x;
+            scanf("%d", &x);
+            x--;
+            topple(x);
+        }
+        cnt = 0;
+        for(i=0;i<n;i++) if(toppled[i]) cnt++;
+        printf("%d\n", cnt);
+    }
+    return 0;
+}]]></solution>
+<spj><![CDATA[]]></spj>
+</item>
+<item>
+<title><![CDATA[Logo 2]]></title>
+<time_limit><![CDATA[1]]></time_limit>
+<memory_limit><![CDATA[128]]></memory_limit>
+<description><![CDATA[<p>Logo is a programming language built around a turtle. Commands in the language cause the turtle to move. The turtle has a pen attached to it. As the turtle moves, it draw lines on the page. The turtle can be programmed to draw interesting pictures.</p>
+<p>We are interested in making the turtle draw a picture, then return to the point that it started from. For example, we could give the turtle the following program:</p>
+<p><tt>fd 100 lt 120 fd 100 lt 120 fd 100</tt></p>
+<p>The command <tt>fd</tt> causes the turtle to move forward by the specified number of units. The command <tt>lt</tt> causes the turtle to turn left by the specified number of degrees. Thus the above commands cause the turtle to draw an equilateral triangle with sides 100 units long. Notice that after executing the commands, the turtle ends up in the same place as it started. The turtle understands two additional commands. The command <tt>bk</tt> causes the turtle to move backward by the specified number of units. The command <tt>rt</tt> causes the turtle to turn right by the specified number of degrees. The distances and angles in all commands are always non-negative integers.</p>
+<p>Unfortunately, we have been messy in writing the program down, and cannot read our own writing. One of the numbers in the program is missing. Assuming the turtle ends up at the place that it started at the end of its journey, can you find the missing number?</p>]]></description>
+<input><![CDATA[<p>The first line of input contains one integer specifying the number of test cases to follow.  Each test case starts with a line containing one integer, the number of commands to follow. The commands follow, one on each line. Each test case will contain no more than 1000 commands. The argument of each command is either an integer or a question mark (?). There will be exactly one question mark in each test case.</p>]]></input> 
+<output><![CDATA[<p>For each test case, output line containing a single integer</p>
+<i>n</i>
+<p>such that when the question mark in the program is replaced by</p>
+<i>n</i>
+<p>, the turtle ends up at the same point that it started from once the program completes. If the question mark is the argument of an</p>
+<tt>lt</tt>
+<p>or</p>
+<tt>rt</tt>
+<p>command, the angle in the output must be between 0 and 359 degrees, inclusive. The correct answer will always be an integer, and we guarantee that for every test case, there will be only one correct answer.</p>]]></output>
+<sample_input><![CDATA[1
+5
+fd 100
+lt 120
+fd ?
+lt 120
+fd 100
+]]></sample_input>
+<sample_output><![CDATA[100
+]]></sample_output>
+<test_input><![CDATA[1
+5
+fd 100
+lt 120
+fd ?
+lt 120
+fd 100
+]]></test_input>
+<test_output><![CDATA[100
+]]></test_output>
+<hint><![CDATA[]]></hint>
+<source><![CDATA[]]></source>
+<solution language="C++"><![CDATA[#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define EPS 0.0000001
+
+char buf[100000];
+char cmd[1100];
+char dist[1100][100];
+
+double X, Y;
+
+double HD;
+
+void FD(int d) {
+    X += d*cos(HD/180*M_PI);
+    Y += d*sin(HD/180*M_PI);
+    //printf("FD %d to %lf %lf\n", d, X, Y);
+}
+
+void LT(int d) {
+    HD+=d;
+}
+
+void HOME() {
+    HD = 0;
+    X = 0;
+    Y = 0;
+}
+
+int myatoi(char* st, int other) {
+    if(st[0] == '?') return other;
+    return atoi(st);
+}
+
+
+
+int main() {
+    int CASES;
+    scanf("%d ", &CASES);
+    while(CASES--) {
+       // int cnt;
+        int i;
+        int turn = 0;
+        int n;
+        scanf("%d", &n);
+       
+        for(i=0;i<n;i++) {
+			
+            scanf("%s%s", buf,dist[i]);
+            cmd[i] = buf[0];
+        }
+        for(i=0; i<n; i++) {
+            if(dist[i][0] != '?') continue;
+            if(cmd[i] == 'l') turn = 1;
+            if(cmd[i] == 'r') turn = 1;
+        }
+        if(turn) {
+            int ang;
+            for(ang = 0; ang < 360; ang++) {
+                    //printf("angle: %d\n", ang);
+                HOME();
+                for(i=0; i<n; i++){
+                    switch(cmd[i]) {
+                        case 'f': FD(atoi(dist[i])); break;
+                        case 'b': FD(-atoi(dist[i])); break;
+                        case 'l': LT(myatoi(dist[i],ang)); break;
+                        case 'r': LT(-myatoi(dist[i],ang)); break;
+                    }
+                }
+                if(fabs(X)+fabs(Y) < EPS) {
+                    printf("%d\n", ang);
+                    goto next;
+                }
+            }
+                puts("no angle worked");
+        } else {
+            HOME();
+            for(i=0; i<n; i++){
+                switch(cmd[i]) {
+                    case 'f': FD(myatoi(dist[i],0)); break;
+                    case 'b': FD(-myatoi(dist[i],0)); break;
+                    case 'l': LT(atoi(dist[i])); break;
+                    case 'r': LT(-atoi(dist[i])); break;
+                }
+            }
+            printf("%.0lf\n", sqrt(X*X+Y*Y));
+        }
+next:;
+    }
+    return 0;
+}]]></solution>
+<spj><![CDATA[]]></spj>
+</item>
+</fps>
