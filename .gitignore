@@ -6,3 +6,4 @@ test/
 nohup
 nohup.out
 *.log
+acmjudger/problems/

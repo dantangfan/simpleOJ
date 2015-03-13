@@ -1,4 +1,7 @@
 {%extends "base.html"%}
+        <style type="text/css" media="screen">
+            pre{text-align: left}
+        </style>
         {%block main%}
         <section id="content">
             <div class="container">
@@ -15,39 +18,52 @@
                             <div class="tab-content">
                                 <div id="tab-problem" class="tab-pane active">
                                     <h3>Description</h3>
-                                    <div class="well">
+                                    <!--<div class="well">-->
+                                    <div>
                                         <div id="tab-problem-content">
-                                            {{problem.description|safe}}
+                                            <pre>
+                                                {{problem.description|safe}}
+                                            </pre>
                                         </div>
                                     </div>
                                     <h3>Input</h3>
-                                    <div class="well">
+                                    <div class="">
                                         <div id="tab-problem-content">
-                                            {{problem.input|safe}}
+                                            <pre>
+                                            {{problem.input|safe}}   
+                                            </pre>
                                         </div>
                                     </div>
                                     <h3>Output</h3>
-                                    <div class="well">
+                                    <div class="">
                                         <div id="tab-problem-content">
+                                            <pre>
                                             {{problem.output|safe}}
+                                            </pre>
                                         </div>
                                     </div>
                                     <h3>Sample Input</h3>
-                                    <div class="well">
+                                    <div class="">
                                         <div id="tab-problem-content">
+                                            <pre>
                                             {{problem.sample_input|safe}}
+                                            </pre>
                                         </div>
                                     </div>
                                     <h3>Sample Output</h3>
-                                    <div class="well">
+                                    <div class="">
                                         <div id="tab-problem-content">
+                                            <pre>
                                             {{problem.sample_output|safe}}
+                                            </pre>
                                         </div>
                                     </div>
                                     <h3>Hint</h3>
-                                    <div class="well">
+                                    <div class="">
                                         <div id="tab-problem-content">
+                                            <pre>
                                             {{problem.hint|safe}}
+                                            </pre>
                                         </div>
                                     </div>
                                     <button type="button" id="btn-submit" class="btn btn-light6 btn-gradient">Submit</button>

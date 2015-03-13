@@ -6,6 +6,7 @@ from datetime import datetime
 from hashlib import md5
 from acmjudger.dbmanager import redis_q
 from acmjudger.config import submission_queue_key
+from acmjudger.makeProblem import make_problem
 
 
 print 'Clearing old database...'
@@ -46,11 +47,11 @@ for i in range(10):
 
 
 
-print "adding problems"
-p = None
-for i in range(1):
-    p = Problem(None, 21, u"A + B Problem " + str(i), u"128k", u"1s", u"description", u"input", u"output", u"sample_input", u"sample_output", u"hint")
-    db.session.add(p)
+#print "adding problems"
+#p = None
+#for i in range(1):
+#    p = Problem(None, 21, u"A + B Problem " + str(i), u"128k", u"1s", u"description", u"input", u"output", u"sample_input", u"sample_output", u"hint", u"solution")
+#    db.session.add(p)
 
 print "adding Contests"
 p1 = None
@@ -59,10 +60,10 @@ for i in range(11):
     db.session.add(p1)
 
 
-print "adding submission"
-for i in range(5):
-    s = Submission(users[5], p, datetime.now(), 'g++', '#include<stdio.h>\nint main(){\nint a,b;\nwhile(scanf(\"%d%d\",&a,&b)!=EOF){\nprintf(\"%d\\n\",a+b);\n}\n}\n', 'pending', None, None, 0)
-    db.session.add(s)
+#print "adding submission"
+#for i in range(5):
+#    s = Submission(users[5], p, datetime.now(), 'g++', '#include<stdio.h>\nint main(){\nint a,b;\nwhile(scanf(\"%d%d\",&a,&b)!=EOF){\nprintf(\"%d\\n\",a+b);\n}\n}\n', 'pending', None, None, 0)
+#    db.session.add(s)
 
 
 print "adding forum.posts"
@@ -73,8 +74,13 @@ for i in range(20):
 print "commiting..."
 db.session.commit()
 
+print "adding problem"
+make_problem()
+
+print "adding submission into redis"
 for i in range(1,6):
     redis_q.lpush(submission_queue_key, i)
 
+print "done"
 
 

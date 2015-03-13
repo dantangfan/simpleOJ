@@ -85,8 +85,9 @@ class Problem(db.Model):
     sample_input = db.Column(db.Text)
     sample_output = db.Column(db.Text)
     hint = db.Column(db.Text)
+    solution = db.Column(db.Text)
 
-    def __init__(self, owner_contest_id, owner_road_id, title, memory_limit, time_limit, description, input, output, sample_input, sample_output, hint):
+    def __init__(self, owner_contest_id, owner_road_id, title, memory_limit, time_limit, description, input, output, sample_input, sample_output, hint, solution):
         self.owner_contest_id = owner_contest_id
         self.owner_road_id = owner_road_id
         self.title = title
@@ -98,7 +99,7 @@ class Problem(db.Model):
         self.sample_input = sample_input
         self.sample_output = sample_output
         self.hint = hint
-
+        self.solution = solution
         
         
 class Contest(db.Model):

@@ -12,4 +12,5 @@ redis_server = "127.0.0.1"
 redis_port = 6379
 submission_queue_key = "submission_queue"
 
-problem_dir="problems"
+problem_dir="/home/hj/TODO/greguate/HJ_OJ/acmjudger/problems"
+problem_xml_dir = "/home/hj/TODO/greguate/problems-xml/"
