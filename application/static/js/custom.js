@@ -1,15 +1,3 @@
-//  Author: Louis Holladay
-//  Website: AdminDesigns.com
-//  Last Updated: 01/01/14 
-// 
-//  This file is reserved for changes made by the user 
-//  as it's often a good idea to seperate your work from 
-//  the theme. It makes modifications, and future theme
-//  updates much easier 
-// 
-
-//  Place custom styles below this line 
-///////////////////////////////////////
 var window_height = $(window).height();
 var main_height = $('#main').height();
 var content_height = $('#content').height();
@@ -64,7 +52,7 @@ var HJ = function () {
         else{
             HJ_username = data.username;
             var email_hash = data.email_hash;
-            $('#user-area').append("<div class=\"btn-group user-menu\" id=\"menu_user\"><button type=\"button\" class=\"btn btn-default btn-gradient btn-sm dropdown-toggle\" data-toggle=\"dropdown\"> <span id=\"menu-user-icon\" class=\"glyphicons glyphicons-user\"></span> <b id='menu-user-username'></b> </button><button type=\"button\" class=\"btn btn-default btn-gradient btn-sm dropdown-toggle padding-none\" data-toggle=\"dropdown\"> <img src=\"http://gravatar.duoshuo.com/avatar/" + email_hash +"?d=mm\" alt=\"user avatar\" width=\"28\" height=\"28\"> </button><ul class=\"dropdown-menu checkbox-persist animated-short animated flipInY\" role=\"menu\"><li class=\"menu-arrow\"><div class=\"menu-arrow-up\"></div></li><li class=\"dropdown-header\">Your Account <span class=\"pull-right glyphicons glyphicons-user\"></span></li><li><ul class=\"dropdown-items\"><li><div class=\"item-icon\"><i class=\"fa fa-envelope-o\"></i> </div><a class=\"item-message\" href=\"/setting\">Setting</a> </li><li><div class=\"item-icon\"><i class=\"fa fa-envelope-o\"></i> </div><a class=\"item-message\" id='btn-logout' href=\"\">Logout</a> </li></li></ul></li></ul></div>");
+            $('#user-area').append("<div class=\"btn-group user-menu\" id=\"menu_user\"><button type=\"button\" class=\"btn btn-default btn-gradient btn-sm dropdown-toggle\" data-toggle=\"dropdown\"> <span id=\"menu-user-icon\" class=\"glyphicons glyphicons-user\"></span> <b id='menu-user-username'></b> </button><button type=\"button\" class=\"btn btn-default btn-gradient btn-sm dropdown-toggle padding-none\" data-toggle=\"dropdown\"> <img src=\"/static/img/headers/"+data.head_img.toString()+"\.png\" alt=\"user avatar\" width=\"28\" height=\"28\"> </button><ul class=\"dropdown-menu checkbox-persist animated-short animated flipInY\" role=\"menu\"><li class=\"menu-arrow\"><div class=\"menu-arrow-up\"></div></li><li class=\"dropdown-header\">Your Account <span class=\"pull-right glyphicons glyphicons-user\"></span></li><li><ul class=\"dropdown-items\"><li><div class=\"item-icon\"><i class=\"fa fa-envelope-o\"></i> </div><a class=\"item-message\" href=\"/setting\">Setting</a> </li><li><div class=\"item-icon\"><i class=\"fa fa-envelope-o\"></i> </div><a class=\"item-message\" id='btn-logout' href=\"\">Logout</a> </li></li></ul></li></ul></div>");
             $('#menu-user-username').text(data.username);
             $('#btn-logout').click(function(){
                 $.getJSON("/user/logout", function(data){

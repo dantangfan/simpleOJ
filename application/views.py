@@ -62,7 +62,7 @@ def register():
 def login(action):
     if action == "login_status":
         if g.user is not None and g.user.is_authenticated():
-            return json.dumps({"login_status" : True, "username" : g.user.username, "email_hash" : g.user.email.split('|')[1], "admin":g.user.is_admin()})
+            return json.dumps({"login_status" : True, "username" : g.user.username, "email_hash" : g.user.email.split('|')[1], "admin":g.user.is_admin(), "head_img":g.user.head_img})
         else:
             return json.dumps({"login_status" : False})
     elif action == "login_form":

@@ -14,6 +14,7 @@ class User(db.Model):
     hj_oj_username = db.Column(db.String(128), unique=True)
     last_login_time = db.Column(db.DateTime)
     group = db.Column(db.Text, default='user')
+    head_img = db.Column(db.Integer, nullable=False)
 
     def is_authenticated(self):
         if 'user' in self.group.split('|'):
@@ -40,12 +41,13 @@ class User(db.Model):
             return False
 
 
-    def __init__(self, username="", password="", email="", hj_oj_username="", last_login_time=datetime.now()):
+    def __init__(self, username="", password="", email="", hj_oj_username="", last_login_time=datetime.now(), heade_img=0):
         self.username = username
         self.password = password
         self.email = email
         self.hj_oj_username = hj_oj_username
         self.last_login_time = last_login_time
+        self.head_img = heade_img
         
     def __repr__(self):
         return "<user %r>" % self.username
