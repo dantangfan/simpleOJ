@@ -7,6 +7,7 @@ from hashlib import md5
 from acmjudger.dbmanager import redis_q
 from acmjudger.config import submission_queue_key
 from acmjudger.makeProblem import make_problem
+from acmjudger.dbmanager import db as updateDB
 
 
 print 'Clearing old database...'
@@ -45,25 +46,29 @@ for i in range(10):
     n = News(datetime.now(), u"新闻标题新闻标题新闻 " + str(i), u"新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!新闻内容!")
     db.session.add(n)
 
+print "adding problem"
+make_problem()
 
-
-#print "adding problems"
-#p = None
-#for i in range(1):
-#    p = Problem(None, 21, u"A + B Problem " + str(i), u"128k", u"1s", u"description", u"input", u"output", u"sample_input", u"sample_output", u"hint", u"solution")
-#    db.session.add(p)
 
 print "adding Contests"
-p1 = None
-for i in range(11):
-    p1 = Contest(u"contests" + str(i), u"1000", datetime.now(), datetime.now(),"1|2|3",False, u"a|b|c|d|e", u"description")
-    db.session.add(p1)
+sql = "update problem set owner_contest_id=%s where id=%s"
+p1 = Contest(u"contests" + str(1), u"description", datetime.now(), datetime.now(),"1|2|3",False, u"a|b|c|d|e", u"1000")
+updateDB.execute(sql,1,1)
+updateDB.execute(sql,1,2)
+updateDB.execute(sql,1,3)
+db.session.add(p1)
+p2 = Contest(u"contests" + str(2), u"description", datetime.now(), datetime.now(),"4|5|6",False, u"a|b|c|d|e", u"1000")
+updateDB.execute(sql,2,4)
+updateDB.execute(sql,2,5)
+updateDB.execute(sql,2,6)
+db.session.add(p2)
+p3 = Contest(u"contests" + str(3), u"description", datetime.now(), datetime.now(),"7|8|9|10",True, u"admin|user1", u"1000")
+updateDB.execute(sql,3,7)
+updateDB.execute(sql,3,8)
+updateDB.execute(sql,3,9)
+updateDB.execute(sql,3,10)
+db.session.add(p3)
 
-
-#print "adding submission"
-#for i in range(5):
-#    s = Submission(users[5], p, datetime.now(), 'g++', '#include<stdio.h>\nint main(){\nint a,b;\nwhile(scanf(\"%d%d\",&a,&b)!=EOF){\nprintf(\"%d\\n\",a+b);\n}\n}\n', 'pending', None, None, 0)
-#    db.session.add(s)
 
 
 print "adding forum.posts"
@@ -74,8 +79,6 @@ for i in range(20):
 print "commiting..."
 db.session.commit()
 
-print "adding problem"
-make_problem()
 
 print "adding submission into redis"
 for i in range(1,6):

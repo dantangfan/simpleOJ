@@ -409,11 +409,12 @@ def contest(cid=1):
             if cont.private == True:
                 contestants = []
                 if cont.contestants is not None and cont.contestants != "":
-                    contestants = map(int, cont.contestants.split('|'))
+                    contestants = map(str, cont.contestants.split('|'))
+                    print contestants
                 if g.user.is_anonymous() == True:
                     raise Exception("This contest is private. Please login first.")
                 
-                if g.user.id not in contestants:
+                if g.user.username not in contestants:
                     raise Exception("This contest is private and you have not been invited.")
             problem_list=[]
             if cont.problems is not None and cont.problems != "":

@@ -10,6 +10,7 @@ from application.models import Problem
 from config import problem_dir,problem_xml_dir
 
 def test_one():
+
     os.chdir(problem_xml_dir)
     DOMTree = parse("fps-A_plus_B.-Img-demo.xml")
     collection = DOMTree.documentElement
@@ -144,7 +145,7 @@ def make_problem():
             except Exception,e:
                 print e,one,title
                 continue
-        if count>=30:
+        if count>=10:
             break
 
 
