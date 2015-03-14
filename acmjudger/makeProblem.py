@@ -118,8 +118,12 @@ def make_problem():
                 os.mkdir(new_dir_name)
                 os.chdir(new_dir_name)
                 for index in range(len(test_input)):
-                    case_in = test_input[index].childNodes[0].data
-                    case_out = test_output[index].childNodes[0].data
+                    case_in = test_input[index].childNodes
+                    if case_in:
+                        case_in = case_in[0].data
+                    case_out = test_output[index].childNodes
+                    if case_out:
+                        case_out = case_out[0].data
                     fin = open(str(index)+'.in', 'w')
                     fout = open(str(index)+'.out', 'w')
                     fin.write(case_in)
@@ -145,7 +149,7 @@ def make_problem():
             except Exception,e:
                 print e,one,title
                 continue
-        if count>=10:
+        if count>=300:
             break
 
 

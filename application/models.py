@@ -113,9 +113,8 @@ class Contest(db.Model):
     problems = db.Column(db.Text, default="")  # split with '|'
     private = db.Column(db.Boolean, nullable=False)  # if is true, only contestants can reach the contest, else every can
     contestants = db.Column(db.Text)  # user invited
-    ranklist = db.Column(db.Text)
 
-    def __init__(self, title="", description="", start_time=datetime.now(), end_time=datetime.now(), problems="", private=False, contestants="", ranklist=""):
+    def __init__(self, title="", description="", start_time=datetime.now(), end_time=datetime.now(), problems="", private=False, contestants=""):
         self.title = title
         self.description = description
         self.start_time = start_time
@@ -123,7 +122,6 @@ class Contest(db.Model):
         self.problems = problems
         self.private = private
         self.contestants = contestants
-        self.ranklist = ranklist
 
 
 

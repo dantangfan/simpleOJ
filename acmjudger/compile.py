@@ -4,6 +4,9 @@
 import os
 import logging
 from dbmanager import db
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 build_cmd = {
@@ -16,14 +19,14 @@ build_cmd = {
     "pascal": 'fpc %s.pas -O2 -Co -Ct -Ci',
     "go": '/opt/golang/bin/go build -ldflags "-s -w" %s.go',
     "lua": 'luac -o main %s.lua',
-    "python2": 'python2 -m py_compile %s.py',
-    "python3": 'python3 -m py_compile %s.py',
+    "python2": 'python -m py_compile %s',
+    "python3": 'python3 -m py_compile %s',
     "haskell": "ghc -o main %s.hs",
 }
 
 subnames = {
     'gcc':'c',
-    'g++':'c++',
+    'g++':'cpp',
     'java':'java',
     'ruby':'rb',
     'perl':'pl',
@@ -47,9 +50,11 @@ def compile(user_id, submission_id, language):
         if  os.system(build_cmd[language] % (file_name, exe_name))!=0:
             os.remove(file_name)
             return False
-    elif language=="python":
-        os.system(build_cmd[language] % (file_name))
-        os.system('mv %s.pyc %s',(exe_name, exe_name))
+    elif language=="python2":
+        if os.system(build_cmd[language] % (file_name)) != 0:
+            os.remove(file_name)
+            return False
+        os.system('mv %s.pyc %s' % (exe_name,exe_name))
     os.remove(file_name)
     return True
 
@@ -62,7 +67,8 @@ def get_code(submission_id, user_id, language):
     #if status==-1:
     #    return False
     sub = subnames[language]
-    f = open('%s_%s.%s' % (user_id, submission_id, sub), 'w' )
+    file_name = "%s_%s.%s" % (user_id, submission_id, sub)
+    f = open(file_name, 'w' )
     f.write(code)
     f.close()
     return True

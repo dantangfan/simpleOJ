@@ -28,7 +28,7 @@
                                         <div class="row">
                                             <div class="col-md-10 col-md-offset-1" style="background-color:#fbfafa">
                                                 <div class="col-md-2">
-                                                    <input id="knob-clock" />
+                                                    <input id="knob-clock"/>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <table style="margin-top:10px">
@@ -92,7 +92,7 @@
     {%block script%}
     <script type="text/javascript">
         jQuery(document).ready(function() {
-        	Core.init();
+            Core.init();
             HJ();
             $("#knob-clock").knob({
                 width: 100,
@@ -104,8 +104,12 @@
                 fgColor: '#4cbcf7',
                 bgColor: '#ff6767'
             });
-	        $("#knob-clock").val({{havetime}}).trigger('change');
+            $("#knob-clock").val({{havetime}}).trigger('change');
+            $("#knob-clock").css('position','relative');
+            $("#knob-clock").css('margin-top', '-88px');
         });
     </script>
+    <style type="text/css" media="screen">
+    </style>
     {%endblock%}
 

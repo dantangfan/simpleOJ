@@ -40,23 +40,35 @@ def judger(submission_id):
         return {'result':RESULT_STR[7]}
     testcase_count = get_total_testcase_count(problem_id)
     exe_name = '%s_%s' % (user_id, submission_id)
+    #if language=="python2": exe_name = exe_name +'.pyc'
+    timeused = 0
+    memoryused = 0
     for i in range(testcase_count):
         sample_input_path = os.path.join(config.problem_dir, str(problem_id), '%s.in' % i)
         sample_output_path = os.path.join(config.problem_dir, str(problem_id), '%s.out' % i)
         if os.path.isfile(sample_input_path) and os.path.isfile(sample_output_path):
             rst = run_one(exe_name, sample_input_path, sample_output_path, problem_id, language)
             rst['result'] = RESULT_STR[rst["result"]]
+            if rst['result'] != RESULT_STR[0]:
+                os.remove(exe_name)
+                return rst
+            if rst['timeused']>timeused:
+                timeused = rst['timeused']
+            if rst['memoryused']>memoryused:
+                memoryused = rst['memoryused']
         else:
-            print 'testdata:%s incompleted' % i
+            logging.error('testdata:%s incompleted' % i)
             os.remove(exe_name)
             return {'result':RESULT_STR[8]}
     os.remove(exe_name)
+    rst['timeused']=timeused
+    rst['memoryused']=memoryused
     return rst
 
 run_cmd = {
     'gcc':'./%s',
     'g++':'./%s',
-    'python':'python %s'
+    'python2':'python %s'
 }
 
 def run_one(exe_name, sample_input_path, sample_output_path, problem_id, language):
@@ -68,6 +80,7 @@ def run_one(exe_name, sample_input_path, sample_output_path, problem_id, languag
     memory_limit = info['memory_limit']
     time_limit = int(time_limit[0:-1])
     memory_limit = int(memory_limit[0:-1])
+
     runcfg = {
         'args':[run_cmd[language]%exe_name],
         'fd_in':fin.fileno(),
@@ -75,7 +88,13 @@ def run_one(exe_name, sample_input_path, sample_output_path, problem_id, languag
         'timelimit':time_limit*1000,
         'memorylimit':memory_limit*1024
     }
-    rst = lorun.run(runcfg)
+    try:
+        rst = lorun.run(runcfg)
+    except Exception,e:
+        print 'lorun.run.error:',e
+        logging.error(e)
+        os.remove(exe_name+'temp.out')
+        return {'result':8}
     fin.close()
     ftemp.close()
     if not rst['result']:
@@ -83,7 +102,8 @@ def run_one(exe_name, sample_input_path, sample_output_path, problem_id, languag
         fout = open(sample_output_path)
         try:
             crst = lorun.check(fout.fileno(),ftemp.fileno())
-        except:
+        except Exception,e:
+            logging.error(e)
             os.remove(exe_name+'temp.out')
             return {"result":8}
         fout.close()
@@ -91,6 +111,8 @@ def run_one(exe_name, sample_input_path, sample_output_path, problem_id, languag
         os.remove(exe_name+'temp.out')
         if crst != 0:
             return {"result": crst}
+    else:
+        os.remove(exe_name+'temp.out')
     return rst
 
 def get_total_testcase_count(problem_id):

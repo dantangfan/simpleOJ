@@ -37,7 +37,7 @@ password_hash = md5()
 password_hash.update(password)
 password_hash = password_hash.hexdigest()
 dantangfan = User('admin', password_hash, 'dantangfan@gmail.com|1ff531004d5ac7d9127a7ba9170ec323', 'HJ_oj_username', datetime.now())
-dantangfan.group = "admin|user|manage user|manage problem|manage contest|manage news"
+dantangfan.group = "admin|user|manage user|manage problem|manage contest|manage news|manage submission"
 db.session.add(dantangfan)
 
 print 'adding news'
@@ -52,17 +52,17 @@ make_problem()
 
 print "adding Contests"
 sql = "update problem set owner_contest_id=%s where id=%s"
-p1 = Contest(u"contests" + str(1), u"description", datetime.now(), datetime.now(),"1|2|3",False, u"a|b|c|d|e", u"1000")
+p1 = Contest(u"contests" + str(1), u"description", datetime.now(), datetime.now(),"1|2|3",False, u"a|b|c|d|e")
 updateDB.execute(sql,1,1)
 updateDB.execute(sql,1,2)
 updateDB.execute(sql,1,3)
 db.session.add(p1)
-p2 = Contest(u"contests" + str(2), u"description", datetime.now(), datetime.now(),"4|5|6",False, u"a|b|c|d|e", u"1000")
+p2 = Contest(u"contests" + str(2), u"description", datetime.now(), datetime.now(),"4|5|6",False, u"a|b|c|d|e")
 updateDB.execute(sql,2,4)
 updateDB.execute(sql,2,5)
 updateDB.execute(sql,2,6)
 db.session.add(p2)
-p3 = Contest(u"contests" + str(3), u"description", datetime.now(), datetime.now(),"7|8|9|10",True, u"admin|user1", u"1000")
+p3 = Contest(u"contests" + str(3), u"description", datetime.now(), datetime.now(),"7|8|9|10",True, u"admin|user1")
 updateDB.execute(sql,3,7)
 updateDB.execute(sql,3,8)
 updateDB.execute(sql,3,9)

@@ -2,13 +2,9 @@
 from application import admin, models, db
 from flask_admin.contrib.sqla import ModelView
 from flask_admin import BaseView, expose
-from urlparse import urljoin
 import flask_login
 from flask import request
-import urllib2,re
 import json
-import sys
-from datetime import datetime
 
 
 
@@ -61,8 +57,16 @@ class MyContestModelView(ModelView):
                     cont.description = request.form['description']
                     cont.start_time = request.form['start_time']
                     cont.end_time = request.form['end_time']
+                    cont.problems = request.form['problems']
+                    cont.private = request.form['private']
+                    cont.contestants = request.form['contestants']
                 else:
-                    cont = models.Contest(request.form['title'],request.form['description'],request.form['start_time'],request.form['end_time'])
+                    cont = models.Contest(request.form['title'],request.form['description'],request.form['start_time'],request.form['end_time'], request.form['problems'], request.form['private'], request.form['contestants'])
+                    problems = map(int, request.form['problems'].split('|'))
+                    for pid in problems:
+                        pro = models.Problem.query.get(pid)
+                        pro.owner_contest_id = cont.id
+                        db.session.add(pro)
                     db.session.add(cont)
                 db.session.commit()
                 return json.dumps({"result" : "ok"})
@@ -84,6 +88,11 @@ class MyContestModelView(ModelView):
                     if txt != "": txt = txt + "|"
                     txt = txt + str(x)
                 cont.problems = txt
+                db.session.add(cont)
+                pro = models.Problem.query.get(problem_id)
+                if pro is None: raise Exception('problem not found')
+                pro.owner_contest_id = None
+                db.session.add (pro)
                 db.session.commit()
                 return json.dumps({"result" : "ok"})
             except Exception, e:
