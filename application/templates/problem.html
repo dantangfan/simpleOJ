@@ -21,49 +21,37 @@
                                     <!--<div class="well">-->
                                     <div>
                                         <div id="tab-problem-content">
-                                            <pre>
-                                                {{problem.description|safe}}
-                                            </pre>
+                                            <pre>{{problem.description|safe}}</pre>
                                         </div>
                                     </div>
                                     <h3>Input</h3>
                                     <div class="">
                                         <div id="tab-problem-content">
-                                            <pre>
-                                            {{problem.input|safe}}   
-                                            </pre>
+                                            <pre>{{problem.input|safe}}</pre>
                                         </div>
                                     </div>
                                     <h3>Output</h3>
                                     <div class="">
                                         <div id="tab-problem-content">
-                                            <pre>
-                                            {{problem.output|safe}}
-                                            </pre>
+                                            <pre>{{problem.output|safe}}</pre>
                                         </div>
                                     </div>
                                     <h3>Sample Input</h3>
                                     <div class="">
                                         <div id="tab-problem-content">
-                                            <pre>
-                                            {{problem.sample_input|safe}}
-                                            </pre>
+                                            <pre>{{problem.sample_input|safe}}</pre>
                                         </div>
                                     </div>
                                     <h3>Sample Output</h3>
                                     <div class="">
                                         <div id="tab-problem-content">
-                                            <pre>
-                                            {{problem.sample_output|safe}}
-                                            </pre>
+                                            <pre>{{problem.sample_output|safe}}</pre>
                                         </div>
                                     </div>
                                     <h3>Hint</h3>
                                     <div class="">
                                         <div id="tab-problem-content">
-                                            <pre>
-                                            {{problem.hint|safe}}
-                                            </pre>
+                                            <pre>{{problem.hint|safe}}</pre>
                                         </div>
                                     </div>
                                     <button type="button" id="btn-submit" class="btn btn-light6 btn-gradient">Submit</button>
@@ -102,7 +90,7 @@
             });
 
             $('#btn-submit-confirm').click(function(){
-                $('#btn-submit-confirm').attr('disabled',"true")
+                //$('#btn-submit-confirm').attr('disabled',"true")
                 $.ajax({
                   url: '/submit',
                   method: 'POST',
