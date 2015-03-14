@@ -146,7 +146,6 @@ def submit():
                             raise Exception("This contest is private and you have not been invited.")
             if problem.owner_contest_id != None and 0 == request.form['contest']:
                 raise Exception("This problem belongs to a contest. Please submit in the contest page.")    
-            #smt = Submission(user, problem, datetime.now(), request.form['compiler'], request.form['code'], 'pending', "0K", "0MS", 0, problem.original_oj, problem.original_oj_id)
             smt = Submission(user, problem, datetime.now(), request.form['compiler'], request.form['code'], 'pending', "0K", "0MS", 0)
             db.session.add(smt)
             db.session.commit()

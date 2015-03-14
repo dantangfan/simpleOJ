@@ -44,6 +44,7 @@
                                     </thead>
                                     <tbody id="submission_table_body">
                                         {% for p in submissions %}
+                                        <div id="length"></div>
                                         <tr>
                                             <td>{{p.id}}</td>
                                             <td><a href="/problem/{{p.problem_title}}">{{p.problem_title}}</a></td>
@@ -98,7 +99,9 @@
                 }
             }
             // init paginator
-            $('#paginator-problem-list').bootstrapPaginator(options);
+            if(document.getElementById('length')){
+                $('#paginator-problem-list').bootstrapPaginator(options);
+            }
             // coloring
             $("#submission_table_body").children().each(function(){
                 var result = $($(this).children()[3]).text();
