@@ -28,7 +28,15 @@
                                             <td>
                                                 <a href="/problem/{{p.id}}">{{p.title}}</a>
                                             </td>
-                                            <td>N/A</td>
+                                            <td>
+                                                {%if p.status=="Accepted"%}
+                                                    <span style="color: red;">Accepted</span>
+                                                {%elif p.status=="Wrong"%}
+                                                    <span style="color: blue;">Wrong</span>
+                                                {%else%}
+                                                    <span></span>
+                                                {%endif%}
+                                            </td>
                                         </tr>    
                                         {% endfor %}
                                     </tbody>

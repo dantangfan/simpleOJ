@@ -4,12 +4,21 @@
             <div class="container" style="padding-top: 15px;">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>The Road----Your submissions</h1>
+                        <h1>The Road——submissions and solved problems</h1>
                     </div>
                 </div>
                 <hr class="short" />
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="panel" style="margin-bottom: 0px">
+                            <div class="panel-body">
+                            {%for p in submissions%}
+                                {%if p.result=="Accepted"%}
+                                    <a href="../problem/{{p.problem_title}}" style="color:blue;margin-left: 15px;">{{p.problem_title}}</a>
+                                {%endif%}
+                            {%endfor%}
+                            </div>
+                        </div>
                         <div class="panel" style="margin-bottom: 0px">
                             <div class="panel-body">
                                 <table class="table table-hover table-striped1 text-center table-striped-color-green" id="submission_table">

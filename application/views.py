@@ -168,6 +168,10 @@ def problems(page):
     if type(page) == int:
         page = 0 if page<1 else page-1
         data = Problem.query.filter(Problem.owner_contest_id == None).limit(10).offset(page*10).all()
+        tried = Submission.query.filter_by(user_id=g.user.id).all()
+        accept_id = list(set([p.problem_id for p in tried if p.result=="Accepted"]))
+        not_accept_id = list(set([p.problem_id for p in tried])-set(accept_id))
+        print accept_id, not_accept_id
         objects_list = []
         for row in data:
             d = collections.OrderedDict()
@@ -181,7 +185,14 @@ def problems(page):
             d['sample_input'] = row.sample_input
             d['sample_output'] = row.sample_output
             d['hint'] = row.hint
+            if row.id in accept_id:
+                d['status'] = "Accepted"
+            elif row.id in not_accept_id:
+                d['status'] = "Wrong"
+            else:
+                d['status'] = ""
             objects_list.append(d)
+
         return render_template('problems.html', 
             problems = objects_list,
             total_page = int(math.ceil(Problem.query.filter(Problem.owner_contest_id == None).count()/10.0)),
