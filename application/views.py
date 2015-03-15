@@ -123,7 +123,9 @@ def submit():
         try:
             if len(request.form['code']) < 10:
                 raise Exception("Code is too short. 50+ required.")
-            if request.form['compiler'] != 'gcc' and request.form['compiler'] != 'g++' and request.form['compiler'] != 'python2':
+            if request.form['compiler'] != 'gcc' and request.form['compiler'] != 'g++' and request.form['compiler'] != 'python2'\
+                    and request.form['compiler'] != "java" and request.form['compiler'] != 'ruby' and request.form['compiler'] != 'perl'\
+                    and request.form['compiler'] != 'go' and request.form['compiler'] != 'haskell':
                 raise Exception("Please select compiler.")
             user = g.user
             problem = int(request.form['problem_id'])
