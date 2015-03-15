@@ -82,7 +82,7 @@ def run_one(exe_name, sample_input_path, sample_output_path, problem_id, languag
     memory_limit = int(memory_limit[0:-1])
 
     runcfg = {
-        'args':[run_cmd[language]%exe_name],
+        'args':(run_cmd[language]%exe_name).split(),
         'fd_in':fin.fileno(),
         'fd_out':ftemp.fileno(),
         'timelimit':time_limit*1000,
