@@ -17,14 +17,16 @@
                                     <thead>
                                         <tr>
                                             <td width="15%">ID</td>
+                                            <td width="10%">AC ratio</td>
                                             <td>Title</td>
-                                            <td width="15%">AC ratio</td>
+                                            <td width="15%">Status</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for p in problems %}
                                         <tr>
                                             <td>{{p.id}}</td>
+                                            <td>100/2000</td>
                                             <td>
                                                 <a href="/problem/{{p.id}}">{{p.title}}</a>
                                             </td>

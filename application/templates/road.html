@@ -12,6 +12,8 @@
                     <div class="col-md-12">
                         <div class="panel" style="margin-bottom: 0px">
                             <div class="panel-body">
+                            AC/submissions: 5/100
+                            <hr>
                             {%for p in submissions%}
                                 {%if p.result=="Accepted"%}
                                     <a href="../problem/{{p.problem_title}}" style="color:blue;margin-left: 15px;">{{p.problem_title}}</a>
