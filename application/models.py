@@ -15,6 +15,8 @@ class User(db.Model):
     last_login_time = db.Column(db.DateTime)
     group = db.Column(db.Text, default='user')
     head_img = db.Column(db.Integer, nullable=False)
+    submit_count = db.Column(db.Integer, nullable=False)
+    acc_count = db.Column(db.Integer, nullable=False)
 
     def is_authenticated(self):
         if 'user' in self.group.split('|'):
@@ -40,17 +42,20 @@ class User(db.Model):
         else:
             return False
 
-
-    def __init__(self, username="", password="", email="", hj_oj_username="", last_login_time=datetime.now(), heade_img=0):
+    def __init__(self, username="", password="", email="", hj_oj_username="", last_login_time=datetime.now(),
+                 head_img=0, submit_count=0, acc_count=0):
         self.username = username
         self.password = password
         self.email = email
         self.hj_oj_username = hj_oj_username
         self.last_login_time = last_login_time
-        self.head_img = heade_img
+        self.head_img = head_img
+        self.submit_count = submit_count
+        self.acc_count = acc_count
         
     def __repr__(self):
         return "<user %r>" % self.username
+
 
 class News(db.Model):
     """entity for news"""
@@ -59,7 +64,6 @@ class News(db.Model):
     publish_time = db.Column(db.DateTime, nullable=False)
     title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text)
-
 
     def __init__(self, publish_time=datetime.now(), title="", content=""):
         self.publish_time = publish_time
@@ -76,7 +80,7 @@ class Problem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_contest_id = db.Column(db.Integer)  # if has value, this problem will not show in the public problem list
     owner_road_id = db.Column(db.Integer)
-    title = db.Column(db.Text, nullable = False)
+    title = db.Column(db.Text, nullable=False)
     memory_limit = db.Column(db.Text)
     time_limit = db.Column(db.Text)
     description = db.Column(db.Text)
@@ -86,8 +90,12 @@ class Problem(db.Model):
     sample_output = db.Column(db.Text)
     hint = db.Column(db.Text)
     solution = db.Column(db.Text)
+    submit_count = db.Column(db.Integer, nullable=False)
+    acc_count = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, owner_contest_id, owner_road_id, title, memory_limit, time_limit, description, input, output, sample_input, sample_output, hint, solution):
+    def __init__(self, owner_contest_id=None, owner_road_id=None, title="", memory_limit="0K", time_limit="0S",
+                 description="", input="", output="", sample_input="", sample_output="", hint="", solution="",
+                 submit_count=0, acc_count=0):
         self.owner_contest_id = owner_contest_id
         self.owner_road_id = owner_road_id
         self.title = title
@@ -100,6 +108,8 @@ class Problem(db.Model):
         self.sample_output = sample_output
         self.hint = hint
         self.solution = solution
+        self.submit_count = submit_count
+        self.acc_count = acc_count
         
         
 class Contest(db.Model):
@@ -111,10 +121,11 @@ class Contest(db.Model):
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=False)
     problems = db.Column(db.Text, default="")  # split with '|'
-    private = db.Column(db.Boolean, nullable=False)  # if is true, only contestants can reach the contest, else every can
+    private = db.Column(db.Boolean, nullable=False)  # if is true, only contestants can reach the contest
     contestants = db.Column(db.Text)  # user invited
 
-    def __init__(self, title="", description="", start_time=datetime.now(), end_time=datetime.now(), problems="", private=False, contestants=""):
+    def __init__(self, title="", description="", start_time=datetime.now(), end_time=datetime.now(), problems="",
+                 private=False, contestants=""):
         self.title = title
         self.description = description
         self.start_time = start_time
@@ -122,7 +133,6 @@ class Contest(db.Model):
         self.problems = problems
         self.private = private
         self.contestants = contestants
-
 
 
 class Submission(db.Model):
@@ -138,13 +148,14 @@ class Submission(db.Model):
     result = db.Column(db.Text, nullable=False)
     memory_used = db.Column(db.Text)
     time_used = db.Column(db.Text)
-    code = db.Column(db.Text,nullable=False)
+    code = db.Column(db.Text, nullable=False)
     judger_status = db.Column(db.Integer, default=0)
 
     def get_id(self):
         return self.id
     
-    def __init__(self, user, problem, submit_time, compiler, code, result, memory_used, time_used, judger_status):
+    def __init__(self, user=User(), problem=Problem(), submit_time="", compiler="", code="", result="", memory_used="",
+                 time_used="", judger_status=0):
         self.user = user
         self.problem = problem
         self.submit_time = submit_time
@@ -171,7 +182,7 @@ class Forum(db.Model):
     last_reply = db.Column(db.Text, default=None)
     last_update_time = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, title, content, publish_time, father_node, user, problem):
+    def __init__(self, title="", content="", publish_time="", father_node="", user="", problem=1):
         self.title = title
         self.content = content
         self.publish_time = publish_time
@@ -179,10 +190,3 @@ class Forum(db.Model):
         self.user = user
         self.problem = problem
         self.last_update_time = publish_time
-        
-
-
-
-
-
-

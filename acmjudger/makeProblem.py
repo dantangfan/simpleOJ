@@ -1,13 +1,17 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-from xml.dom import minidom
+
 from xml.dom.minidom import parse
 import os
 import sys
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
+
 from application import db
 from application.models import Problem
-from config import problem_dir,problem_xml_dir
+from config import problem_dir, problem_xml_dir
+
 
 def test_one():
 
@@ -18,12 +22,11 @@ def test_one():
     print len(problems)
     for problem in problems:
         title = problem.getElementsByTagName('title')
-        title =  title[0].childNodes[0].data
+        title = title[0].childNodes[0].data
         print "Title: %s" % title
         description = problem.getElementsByTagName('description')
-        description =  description[0].childNodes[0].data
+        description = description[0].childNodes[0].data
         print "description: %s" % description
-
 
 
 def check_testdata_in():
@@ -31,8 +34,8 @@ def check_testdata_in():
     pwd = os.getcwd()
     file_names = os.listdir(pwd)
     print len(file_names)
-    i=0
-    not_in=[]
+    i = 0
+    not_in = []
     for one in file_names:
         content = open(one).read()
         if content.find("test_output"):
@@ -48,14 +51,12 @@ def make_problem():
     os.chdir(problem_xml_dir)
     pwd = os.getcwd()
     file_names = os.listdir(pwd)
-    #sql = "insert into problem(title, memory_limit, time_limit, description, input, output, sample_input, sample_output, hint) " \
-    #      "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     count = 0
     for one in file_names:
         try:
             DOMTree = parse(one)
-        except:
-            print one
+        except Exception, e:
+            print one, e
             continue
         collection = DOMTree.documentElement
         problems = collection.getElementsByTagName("item")
@@ -106,12 +107,25 @@ def make_problem():
                 test_input = problem.getElementsByTagName('test_input')
                 test_output = problem.getElementsByTagName('test_output')
                 if len(test_input) != len(test_output):
-                    print "test_case error",len(test_input) , len(test_output), one, title
+                    print "test_case error", len(test_input), len(test_output), one, title
                     continue
-                if len(test_input)==0:
+                if len(test_input) == 0:
                     print "no test cases", one, title
                     continue
-                p = Problem(None, 21, title, str(int(memory_limit)*1024)+"K", str(time_limit)+"S", description, input, output, sample_input, sample_output, hint, solution)
+                p = Problem(owner_contest_id=None,
+                            owner_road_id=21,
+                            title=title,
+                            memory_limit=str(int(memory_limit)*1024)+"K",
+                            time_limit=str(time_limit)+"S",
+                            description=description,
+                            input=input,
+                            output=output,
+                            sample_input=sample_input,
+                            sample_output=sample_output,
+                            hint=hint,
+                            solution=solution,
+                            submit_count=0,
+                            acc_count=0)
                 db.session.add(p)
                 os.chdir(problem_dir)
                 new_dir_name = str(count+1)
@@ -144,16 +158,15 @@ def make_problem():
                 print solution
                 '''
                 count += 1
-                if count%10:
+                if count % 10:
                     db.session.commit()
-            except Exception,e:
-                print e,one,title
+            except Exception, e:
+                print e, one, title
                 continue
-        if count>=300:
+        if count >= 30:
             break
 
 
-
-if __name__=="__main__":
-    #test_one()
+if __name__ == "__main__":
+    # test_one()
     make_problem()

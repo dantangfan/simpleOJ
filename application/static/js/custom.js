@@ -13,6 +13,7 @@ var HJ = function () {
         if(data.login_status == false){
             $('#user-area').append("<button class='btn btn-primary btn-gradient' id='btn-login-form'><i class='fa fa-keyboard-o'></i><b>&nbsp;Login</b></button>");
             $('#user-area').append("<a href='/register' style='margin-left:20px;font-size:16px;'>register</a>");
+            $('#road').css('display', 'none');
             $('#btn-login-form').click(function () {
                 $.get('/user/login_form', function(data){
                     if(!$('#LoginModal').length){
@@ -42,7 +43,7 @@ var HJ = function () {
                                 }
                             }
                         });
-
+                        
                     });
                     }
                     $('#LoginModal').modal();

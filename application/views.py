@@ -13,25 +13,28 @@ import clean_xss
 from acmjudger.dbmanager import redis_q
 from acmjudger.config import submission_queue_key
 
+
 @lm.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
 
 @app.before_request
 def before_request():
     g.user = current_user
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = form_user_register()
-    if request.method=="POST":
+    if request.method == "POST":
         username = form.username.data
         password = form.password.data
         confirm = form.confirm.data
-        if password!=confirm:
+        if password != confirm:
             flash("wrong password")
             return render_template("register.html",
-                           site_name = app.config['HJ_TS_SITE_NAME'],
+                           site_name=app.config['HJ_TS_SITE_NAME'],
                            form=form_user_register())
         email = form.email.data
         email_hash = md5()
@@ -41,33 +44,46 @@ def register():
         password_hash.update(password)
         password_hash = password_hash.hexdigest()
         try:
-            if User.query.filter_by(username=username).first() or User.query.filter_by(email="%s | %s" % (email, email_hash)).first():
+            if User.query.filter_by(username=username).first()\
+                    or User.query.filter_by(email="%s | %s" % (email, email_hash)).first():
                 flash("username or email already used")
                 return render_template("register.html",
-                           site_name = app.config['HJ_TS_SITE_NAME'],
+                           site_name=app.config['HJ_TS_SITE_NAME'],
                            form=form_user_register())
-            u = User(username, password_hash, "%s | %s" % (email, email_hash), None, datetime.now())
+            u = User(username=username,
+                     password=password_hash,
+                     email="%s | %s" % (email, email_hash),
+                     hj_oj_username=None,
+                     last_login_time=datetime.now(),
+                     head_img=0,
+                     submit_count=0,
+                     acc_count=0)
             db.session.add(u)
             db.session.commit()
             login_user(u)
             return redirect(url_for('index'))
-        except:
+        except Exception, e:
             db.session.rollback()
-            flash('Filed to register, please try again')
+            flash('Filed to register, please try again ' + e)
     return render_template("register.html",
-                           site_name = app.config['HJ_TS_SITE_NAME'],
+                           site_name=app.config['HJ_TS_SITE_NAME'],
                            form=form_user_register())
+
 
 @app.route('/user/<action>', methods=['GET', 'POST'])
 def login(action):
     if action == "login_status":
         if g.user is not None and g.user.is_authenticated():
-            return json.dumps({"login_status" : True, "username" : g.user.username, "email_hash" : g.user.email.split('|')[1], "admin":g.user.is_admin(), "head_img":g.user.head_img})
+            return json.dumps({"login_status": True,
+                               "username": g.user.username,
+                               "email_hash": g.user.email.split('|')[1],
+                               "admin": g.user.is_admin(),
+                               "head_img": g.user.head_img})
         else:
-            return json.dumps({"login_status" : False})
+            return json.dumps({"login_status": False})
     elif action == "login_form":
         form = form_user_login()
-        return render_template('form_login.html', form = form)
+        return render_template('form_login.html', form=form)
     elif action == "login":
         try:
             form = form_user_login()
@@ -81,24 +97,25 @@ def login(action):
                 u = User.query.filter_by(username=form.username.data, password=password_hash).first()
                 if u is not None:
                     login_user(u)
-                    return json.dumps({"result" : "ok", "username" : g.user.username})
+                    return json.dumps({"result": "ok",
+                                       "username": g.user.username})
         except Exception, e:
             raise e
             db.session.rollback()
-        return json.dumps({"result" : "failed"})
+        return json.dumps({"result": "failed"})
         
     elif action == "logout":
         if g.user is not None and g.user.is_authenticated():
             logout_user()
-            return json.dumps({"result" : "ok"})
-        return json.dumps({"result" : "failed"})
+            return json.dumps({"result": "ok"})
+        return json.dumps({"result": "failed"})
 
     return redirect(url_for('index'))
 
 @app.route('/setting', methods=['GET', 'POST'])
 @login_required
 def setting():
-    return render_template('setting.html', site_name = app.config['HJ_TS_SITE_NAME'])
+    return render_template('setting.html', site_name=app.config['HJ_TS_SITE_NAME'])
 
 
 @app.route('/news/<action>/<int:id>/')
@@ -116,6 +133,7 @@ def news(action, id):
 
     return redirect(url_for('index'))
 
+
 @app.route('/submit', methods=['POST'])
 @login_required
 def submit():
@@ -123,9 +141,14 @@ def submit():
         try:
             if len(request.form['code']) < 10:
                 raise Exception("Code is too short. 50+ required.")
-            if request.form['compiler'] != 'gcc' and request.form['compiler'] != 'g++' and request.form['compiler'] != 'python2'\
-                    and request.form['compiler'] != "java" and request.form['compiler'] != 'ruby' and request.form['compiler'] != 'perl'\
-                    and request.form['compiler'] != 'go' and request.form['compiler'] != 'haskell':
+            if request.form['compiler'] != 'gcc'\
+                    and request.form['compiler'] != 'g++'\
+                    and request.form['compiler'] != 'python2'\
+                    and request.form['compiler'] != "java"\
+                    and request.form['compiler'] != 'ruby'\
+                    and request.form['compiler'] != 'perl'\
+                    and request.form['compiler'] != 'go'\
+                    and request.form['compiler'] != 'haskell':
                 raise Exception("Please select compiler.")
             user = g.user
             problem = int(request.form['problem_id'])
@@ -134,22 +157,35 @@ def submit():
                 raise Exception("Problem not found.")
             if 0 != int(request.form['contest']):
                 cont = Contest.query.get(int(request.form['contest']))
-                if cont is None: raise Exception("Contest not found.")
+                if cont is None:
+                    raise Exception("Contest not found.")
                 if problem.owner_contest_id != cont.id:
                     raise Exception("Problem does not belong to the contest.")
-                if datetime.now() < cont.start_time: raise Exception("Contest has not begun.")
-                if datetime.now() > cont.end_time: raise Exception("Contest had ended.")
+                if datetime.now() < cont.start_time:
+                    raise Exception("Contest has not begun.")
+                if datetime.now() > cont.end_time:
+                    raise Exception("Contest had ended.")
                 if cont.start_time < datetime.now() < cont.end_time:
-                    if cont.private == True:
+                    if cont.private is True:
                         contestants = []
                         if cont.contestants is not None and cont.contestants != "":
                             contestants = map(int, cont.contestants.split('|'))
                         if g.user.id not in contestants:
                             raise Exception("This contest is private and you have not been invited.")
-            if problem.owner_contest_id != None and 0 == request.form['contest']:
+            if problem.owner_contest_id is not None and 0 == request.form['contest']:
                 raise Exception("This problem belongs to a contest. Please submit in the contest page.")    
-            smt = Submission(user, problem, datetime.now(), request.form['compiler'], request.form['code'], 'pending', "0K", "0MS", 0)
+            smt = Submission(user=user,
+                             problem=problem,
+                             submit_time=datetime.now(),
+                             compiler=request.form['compiler'],
+                             code=request.form['code'],
+                             result='pending',
+                             memory_used="0K",
+                             time_used="0MS",
+                             judger_status=0)
             db.session.add(smt)
+            db.session.execute("update user set submit_count=%s where id=%s" % (user.submit_count+1, user.id))
+            db.session.execute("update problem set submit_count=%s where id=%s" % (problem.submit_count+1, problem.id))
             db.session.commit()
             redis_q.lpush(submission_queue_key, smt.get_id())
             return json.dumps({"result": "ok"})
@@ -163,16 +199,20 @@ def submit():
 def problems_no_page():
     return problems(0)
 
+
 @app.route('/problems/<int:page>/')
 @cache.cached(timeout=5)
 def problems(page):
     if type(page) == int:
-        page = 0 if page<1 else page-1
+        page = 0 if page <1 else page-1
         data = Problem.query.filter(Problem.owner_contest_id == None).limit(10).offset(page*10).all()
-        tried = Submission.query.filter_by(user_id=g.user.id).all()
-        accept_id = list(set([p.problem_id for p in tried if p.result=="Accepted"]))
-        not_accept_id = list(set([p.problem_id for p in tried])-set(accept_id))
-        print accept_id, not_accept_id
+        if g.user.is_authenticated():
+            tried = Submission.query.filter_by(user_id=g.user.id).all()
+            accept_id = list(set([p.problem_id for p in tried if p.result == "Accepted"]))
+            not_accept_id = list(set([p.problem_id for p in tried])-set(accept_id))
+        else:
+            accept_id = list()
+            not_accept_id = list()
         objects_list = []
         for row in data:
             d = collections.OrderedDict()
@@ -183,9 +223,8 @@ def problems(page):
             d['description'] = row.description
             d['input'] = row.input
             d['output'] = row.output
-            d['sample_input'] = row.sample_input
-            d['sample_output'] = row.sample_output
-            d['hint'] = row.hint
+            d['submit_count'] = row.submit_count
+            d['acc_count'] = row.acc_count
             if row.id in accept_id:
                 d['status'] = "Accepted"
             elif row.id in not_accept_id:
@@ -195,13 +234,14 @@ def problems(page):
             objects_list.append(d)
 
         return render_template('problems.html', 
-            problems = objects_list,
-            total_page = int(math.ceil(Problem.query.filter(Problem.owner_contest_id == None).count()/10.0)),
-            current_page = page + 1,
-            site_name = app.config['HJ_TS_SITE_NAME']
+            problems=objects_list,
+            total_page=int(math.ceil(Problem.query.filter(Problem.owner_contest_id == None).count()/10.0)),
+            current_page=page + 1,
+            site_name=app.config['HJ_TS_SITE_NAME']
             )
 
     return redirect(url_for('index'))
+
 
 @app.route('/problem/<int:id>/')
 @cache.cached(timeout=5)
@@ -210,17 +250,17 @@ def problem(id):
         try:
             id = 1 if id < 1 else id
             p = Problem.query.get(id)
-            if p is None: raise Exception("problem not found.")
-            if p.owner_contest_id is not None: 
+            if p is None:
+                raise Exception("problem not found.")
+            if p.owner_contest_id is not None:
                 raise Exception("The problem belongs to a contest. View it in the contest problem page.!")
             return render_template('problem.html',
-                site_name = app.config['HJ_TS_SITE_NAME'],
-                problem = p
+                site_name=app.config['HJ_TS_SITE_NAME'],
+                problem=p
                 )
         except Exception, e:
-            return render_template('exception.html', message = str(e))
+            return render_template('exception.html', message=str(e))
         
-
 
 @app.route('/submissions/', defaults={'page': 1})
 @app.route('/submissions/<int:page>/')
@@ -228,37 +268,44 @@ def problem(id):
 def submissions_1(page):
     return submissions(page, 'None', 0, 'None', False)
 
+
 @app.route('/submissions/<string:user>:<int:problem>:<string:result>/<int:page>/')
 @cache.cached(timeout=3)
 def submissions(page=1, user="None", problem=0, result="None", rode=False):
     if type(page) == int:
         try:
-            page = 0 if page<1 else page-1
-            sql=""
-            if(user!="None"):
-                user1 = User.query.filter(User.username==user).first()
-                user2 = User.query.filter(User.hj_oj_username==user).first()
-                if user1 is None and user2 is None: raise Exception("User not found.")
+            page = 0 if page <1 else page-1
+            sql = ""
+            if user != "None":
+                user1 = User.query.filter(User.username == user).first()
+                user2 = User.query.filter(User.hj_oj_username == user).first()
+                if user1 is None and user2 is None:
+                    raise Exception("User not found.")
                 if user1 is not None: 
-                    user=user1
+                    user = user1
                 else: 
-                    user=user2
+                    user = user2
                 sql = "user_id=%d" % user.id
-            if(problem!=0):
+            if problem != 0:
                 problem = Problem.query.get(problem)
-                if problem is None: raise Exception("Problem not found.")
-                if sql != "": sql = sql + " and "
-                sql = sql + "problem_id=%d" % problem.id
-            if(result!="None"):
-                if sql != "": sql = sql + " and "
+                if problem is None:
+                    raise Exception("Problem not found.")
+                if sql != "":
+                    sql += " and "
+                sql += "problem_id=%d" % problem.id
+            if result != "None":
+                if sql != "":
+                    sql += " and "
                 if result == "Accepted" or result == "Wrong Answer":
-                    sql = sql + "result = '%s'" % result
+                    sql += "result = '%s'" % result
                 elif result == "Others":
-                    sql = sql + "result != 'Accepted' and result != 'Wrong Answer'"
+                    sql += "result != 'Accepted' and result != 'Wrong Answer'"
                 else:
                     raise Exception("Result filter error.")
-            if sql != "": sql = "WHERE " + sql
-            data = Submission.query.from_statement("SELECT * FROM submission %s ORDER BY id desc LIMIT %d,%d" % (sql,page*10,10) ).all()
+            if sql != "":
+                sql = "WHERE " + sql
+            data = Submission.query.from_statement("SELECT * FROM submission %s ORDER BY id desc LIMIT %d,%d"
+                                                   % (sql, page * 10, 10)).all()
             objects_list = []
             for row in data:
                 d = collections.OrderedDict()
@@ -272,41 +319,47 @@ def submissions(page=1, user="None", problem=0, result="None", rode=False):
                 d['code'] = len(row.code)
                 d['submit_time'] = row.submit_time
                 objects_list.append(d)
-            total = int(db.session.execute("SELECT COUNT(*) FROM submission %s"%sql).first()[0])
+            total = int(db.session.execute("SELECT COUNT(*) FROM submission %s" % sql).first()[0])
             if rode:
-                return {'submissions':objects_list,
-                        'total_page':int(math.ceil(total/10.0)),
-                        'current_page':page+1,
+                return {'submissions': objects_list,
+                        'total_page': int(math.ceil(total/10.0)),
+                        'current_page': page+1,
                         }
             return render_template('submissions.html', 
-                submissions = objects_list,
-                total_page = int(math.ceil(total/10.0)),
-                current_page = page + 1,
-                site_name = app.config['HJ_TS_SITE_NAME']
+                submissions=objects_list,
+                total_page=int(math.ceil(total/10.0)),
+                current_page=page + 1,
+                site_name=app.config['HJ_TS_SITE_NAME']
                 )
         except Exception, e:
             return render_template('exception.html', message=str(e))
         
 
-@app.route('/road/', defaults={'page':1})
+@app.route('/road/', defaults={'page': 1})
 @app.route('/road/<int:page>')
 @cache.cached(timeout=3)
+@login_required
 def road(page):
     info = submissions(page, g.user.username, 0, "None", True)
-    print info
+    count = dict()
+    count['submit_count'] = g.user.submit_count
+    count['acc_count'] = g.user.acc_count
     return render_template('road.html',
+                           count=count,
                            submissions=info['submissions'],
                            total_page=info['total_page'],
                            current_page=info['current_page'],
-                           site_name = app.config['HJ_TS_SITE_NAME'])
+                           site_name=app.config['HJ_TS_SITE_NAME'])
+
 
 @app.route('/forum/', defaults={'page': 1})
 @app.route('/forum/<int:page>')
 @cache.cached(timeout=3)
 def forum(page):
     if type(page) == int:
-        page = 0 if page<1 else page-1
-        data = Forum.query.filter(Forum.father_node==0,Forum.problem==None).order_by(db.desc(Forum.id)).offset(page*10).limit(10).all()
+        page = 0 if page <1 else page-1
+        data = Forum.query.filter(Forum.father_node == 0, Forum.problem == None).order_by(
+            db.desc(Forum.id)).offset(page*10).limit(10).all()
         objects_list = []
         for row in data:
             d = collections.OrderedDict()
@@ -318,14 +371,13 @@ def forum(page):
             d['user_email_hash'] = row.user.email.split('|')[1]
             d['last_reply'] = row.last_reply
             objects_list.append(d)
-        total_page = int(math.ceil(Forum.query.filter(Forum.father_node==0,Forum.problem==None).count()/10.0))
+        total_page = int(math.ceil(Forum.query.filter(Forum.father_node == 0, Forum.problem == None).count()/10.0))
         if total_page == 0: total_page = 1
         return render_template('forum.html', 
-            posts = objects_list,
-            total_page = total_page,
-            current_page = page + 1,
-            site_name = app.config['HJ_TS_SITE_NAME']
-            )
+            posts=objects_list,
+            total_page=total_page,
+            current_page=page + 1,
+            site_name=app.config['HJ_TS_SITE_NAME'])
     return redirect(url_for('index'))
 
 @app.route('/forum/post/<int:id>/', defaults={'page': 1})
@@ -333,21 +385,21 @@ def forum(page):
 @cache.cached(timeout=5)
 def post(id, page):
     if type(page) == int:
-        page = 0 if page<1 else page-1
+        page = 0 if page <1 else page-1
         if type(id) == int:
             id = 1 if id < 1 else id
             p = Forum.query.get(id)
             replys = Forum.query.filter(Forum.father_node == p.id).offset(page*10).limit(10).all()
             total_page = int(math.ceil(Forum.query.filter(Forum.father_node == p.id).count()/10.0))
-            if total_page == 0: total_page = 1
+            if total_page == 0:
+                total_page = 1
             return render_template('post.html',
-                site_name = app.config['HJ_TS_SITE_NAME'],
-                post = p,
-                replys = replys,
-                total_page = total_page,
-                current_page = page + 1,
-                email_hash = p.user.email.split("|")[1]
-                )
+                site_name=app.config['HJ_TS_SITE_NAME'],
+                post=p,
+                replys=replys,
+                total_page=total_page,
+                current_page=page + 1,
+                email_hash=p.user.email.split("|")[1])
 
 
 @app.route('/forum/submit', methods=['POST'])
@@ -361,7 +413,8 @@ def forum_submit():
             title = None
             if father_node == 0:
                 title = request.form['title']
-                if len(title) < 3: raise Exception("Title is too short. 3+ required.")
+                if len(title) < 3:
+                    raise Exception("Title is too short. 3+ required.")
             user = g.user
             time_now = datetime.now()
             content = clean_xss.parsehtml(request.form['content'])
@@ -383,28 +436,27 @@ def forum_submit():
 @app.route('/contests/<int:page>/')
 @cache.cached(timeout=3)
 def contests(page=0):
-    if type(page)==int:
-        page=0 if page<1 else page-1
-        data=Contest.query.order_by(db.desc(Contest.id)).limit(10).offset(page*10).all()
-        objects_list=[]
+    if type(page) == int:
+        page = 0 if page <1 else page-1
+        data = Contest.query.order_by(db.desc(Contest.id)).limit(10).offset(page*10).all()
+        objects_list = []
         for row in data:
-            d=collections.OrderedDict()
-            d['id']=row.id
-            d['title']=row.title
-            d['description']=row.description
-            d['start_time']=row.start_time
-            d['end_time']=row.end_time
-            d['problems']=row.problems
-            d['private']=row.private
-            d['contestants']=row.contestants
+            d = collections.OrderedDict()
+            d['id'] = row.id
+            d['title'] = row.title
+            d['description'] = row.description
+            d['start_time'] = row.start_time
+            d['end_time'] = row.end_time
+            d['problems'] = row.problems
+            d['private'] = row.private
+            d['contestants'] = row.contestants
             objects_list.append(d)
         return render_template("contests.html",
             contests=objects_list,
-            total_page = int(math.ceil(Contest.query.count()/10.0)),
-            current_page = page + 1,
+            total_page=int(math.ceil(Contest.query.count()/10.0)),
+            current_page=page + 1,
             ctime=datetime.now(),
-            site_name = app.config['HJ_TS_SITE_NAME']
-        )
+            site_name=app.config['HJ_TS_SITE_NAME'])
         
     return redirect(url_for('index'))
 
@@ -412,41 +464,45 @@ def contests(page=0):
 @app.route('/contest/')
 @app.route('/contest/<int:cid>/')
 def contest(cid=1):
-    if type(cid)==int:
+    if type(cid) == int:
         try:
-            cont=Contest.query.get(cid)
+            cont = Contest.query.get(cid)
             if cont is None: raise Exception("Contest not found.")
-            if cont.start_time > datetime.now(): raise Exception("Contest has not begun.")
-            if cont.private == True:
+            if cont.start_time > datetime.now():
+                raise Exception("Contest has not begun.")
+            if cont.private is True:
                 contestants = []
                 if cont.contestants is not None and cont.contestants != "":
                     contestants = map(str, cont.contestants.split('|'))
                     print contestants
-                if g.user.is_anonymous() == True:
+                if g.user.is_anonymous() is True:
                     raise Exception("This contest is private. Please login first.")
                 
                 if g.user.username not in contestants:
                     raise Exception("This contest is private and you have not been invited.")
-            problem_list=[]
+            problem_list = []
             if cont.problems is not None and cont.problems != "":
-                problem_list=map(int,cont.problems.split('|'))
-            idlist=[]
-            number_list=range(0,len(problem_list))
+                problem_list = map(int, cont.problems.split('|'))
+            idlist = []
+            number_list = range(0, len(problem_list))
             for item in number_list:
                 idlist.append(chr(ord('A') + item))
-            problems=[]
+            problems = []
             solved=[]
             for item in problem_list:
                 problems.append(Problem.query.get(item))
                 user_id = -1 if g.user.is_anonymous() else g.user.id
-                if int(db.session.execute("SELECT COUNT(*) FROM submission WHERE problem_id = %d and user_id=%d and result='Accepted'"%(item, user_id)).first()[0]) > 0:
+                sql = "SELECT COUNT(*) FROM submission WHERE problem_id = %d and user_id=%d and result='Accepted'"
+                if int(db.session.execute(sql % (item, user_id)).first()[0]) > 0:
                     solved.append(True)
                 else:
                     solved.append(False)
-            totaltime=math.ceil((cont.end_time-cont.start_time).total_seconds()/60)
-            havetime=math.ceil((cont.end_time-datetime.now()).total_seconds()/60)
-            if havetime<0:havetime=0
-            elif havetime>totaltime:havetime=totaltime
+            totaltime = math.ceil((cont.end_time-cont.start_time).total_seconds()/60)
+            havetime = math.ceil((cont.end_time-datetime.now()).total_seconds()/60)
+            if havetime < 0:
+                havetime=0
+            elif havetime > totaltime:
+                havetime = totaltime
             return render_template("contest.html",
                  title=cont.title,
                  start_time=cont.start_time,
@@ -458,13 +514,10 @@ def contest(cid=1):
                  totaltime=totaltime,
                  havetime=havetime,
                  solved=solved,
-                 site_name = app.config['HJ_TS_SITE_NAME']
-                 )
+                 site_name=app.config['HJ_TS_SITE_NAME'])
         except Exception, e:
-            return render_template('exception.html', message = str(e))
+            return render_template('exception.html', message=str(e))
         
-
-
 
 @app.route('/contest/<int:id>/submissions/', defaults={'page': 1})
 @app.route('/contest/<int:id>/submissions/<int:page>')
@@ -472,32 +525,38 @@ def contest(cid=1):
 def contest_submission(id, page):
     if type(page) == int:
         try:
-            page = 0 if page<1 else page-1
+            page = 0 if page <1 else page-1
             cont = Contest.query.get(id)
-            if cont is None: raise Exception("contest not found.")
-            if cont.private == True:
+            if cont is None:
+                raise Exception("contest not found.")
+            if cont.private is True:
                 contestants = []
                 if cont.contestants is not None and cont.contestants != "":
                     contestants = map(str, cont.contestants.split('|'))
-                if g.user.is_anonymous() == True:
+                if g.user.is_anonymous() is True:
                     raise Exception("This contest is private. Please login first.")
                 if g.user.username not in contestants:
                     raise Exception("This contest is private and you have not been invited.")
-            problems=[]
+            problems = []
             if cont.problems is not None and cont.problems != "":
-                problems=map(int,cont.problems.split('|'))
+                problems = map(int,cont.problems.split('|'))
             sql = ""
             for x in problems:
-                if sql != "": sql = sql + " or "
-                sql = sql + "problem_id=%d" % x
-            if sql == "": raise Exception("no problems.")
-            data = Submission.query.from_statement("SELECT * FROM submission WHERE (%s) and submit_time >= '%s' and submit_time <= '%s' order by id desc limit %d,%d" % (sql, cont.start_time, cont.end_time, page*10, 10)).all()
+                if sql != "":
+                    sql += " or "
+                sql += "problem_id=%d" % x
+            if sql == "":
+                raise Exception("no problems.")
+            sentence = "SELECT * FROM submission WHERE (%s) and submit_time >= '%s' " \
+                       "and submit_time <= '%s' order by id desc limit %d,%d"
+            data = Submission.query.from_statement(sentence % (sql, cont.start_time, cont.end_time, page*10, 10)).all()
             objects_list = []
             if data != []:
                 for row in data:
                     d = collections.OrderedDict()
                     d['id'] = row.id
-                    d['problem_title'] = "<a href='/contest/%d/problem/%s'>%s</a>" %(cont.id, chr(ord('A') + problems.index(row.problem_id)), chr(ord('A') + problems.index(row.problem_id)))
+                    d['problem_title'] = "<a href='/contest/%d/problem/%s'>%s</a>" % \
+                                         (cont.id, chr(ord('A') + problems.index(row.problem_id)), chr(ord('A') + problems.index(row.problem_id)))
                     d['username'] = row.user.username
                     d['result'] = row.result
                     d['memory_used'] = row.memory_used
@@ -508,73 +567,80 @@ def contest_submission(id, page):
                     objects_list.append(d)
             total_page = int(db.session.execute("SELECT COUNT(*) FROM submission WHERE %s" % sql).first()[0])
             total_page = int(math.ceil(total_page/10.0))
-            if total_page <= 0: total_page = 1
+            if total_page <= 0:
+                total_page = 1
             return render_template('contest_submission.html', 
-                contest = cont,
-                submissions = objects_list,
-                total_page = total_page,
-                current_page = page + 1,
-                site_name = app.config['HJ_TS_SITE_NAME']
-                )
+                contest=cont,
+                submissions=objects_list,
+                total_page=total_page,
+                current_page=page + 1,
+                site_name=app.config['HJ_TS_SITE_NAME'])
         except Exception, e:
-            return render_template('exception.html', message = str(e))
+            return render_template('exception.html', message=str(e))
+
 
 @app.route('/contest/<int:cid>/problem/<pid>/')
 @cache.cached(timeout=3)
 def contest_problem(cid, pid):
     try:
         cont = Contest.query.get(cid)
-        if cont is None: raise Exception("contest not found.")
-        if cont.private == True:
+        if cont is None:
+            raise Exception("contest not found.")
+        if cont.private is True:
             contestants = []
             if cont.contestants is not None and cont.contestants != "":
                 contestants = map(str, cont.contestants.split('|'))
-            if g.user.is_anonymous() == True:
+            if g.user.is_anonymous() is True:
                 raise Exception("This contest is private. Please login first.")
             if g.user.username not in contestants:
                 raise Exception("This contest is private and you have not been invited.")
-        problems=[]
+        problems = []
         if cont.problems is not None and cont.problems != "":
-            problems=map(int,cont.problems.split('|'))
+            problems = map(int, cont.problems.split('|'))
         if len(pid) == 1: 
             pid = ord(pid) - ord('A')
-            if not 0<=pid<len(problems): raise Exception("problem not found.")
+            if not 0 <= pid < len(problems):
+                raise Exception("problem not found.")
             pid = problems[pid]
         else:
             raise Exception("Problem not found Or Too many problems in one contest")
         problem = Problem.query.get(pid)
         if problem is None: raise Exception("problem not found...")
         return render_template('contest_problem.html', 
-            contest = cont,
-            problem = problem,
-            site_name = app.config['HJ_TS_SITE_NAME']
-            )
+            contest=cont,
+            problem=problem,
+            site_name=app.config['HJ_TS_SITE_NAME'])
     except Exception, e:
-        return render_template('exception.html', message = str(e))
+        return render_template('exception.html', message=str(e))
+
 
 @app.route('/contest/<int:cid>/ranklist/')
 @cache.cached(timeout=15)
 def contest_ranklist(cid):
     try:
         cont = Contest.query.get(cid)
-        if cont is None: raise Exception("contest not found.")
-        if cont.private == True:
+        if cont is None:
+            raise Exception("contest not found.")
+        if cont.private is True:
             contestants = []
             if cont.contestants is not None and cont.contestants != "":
                 contestants = map(str, cont.contestants.split('|'))
-            if g.user.is_anonymous() == True:
+            if g.user.is_anonymous() is True:
                 raise Exception("This contest is private. Please login first.")
             if g.user.username not in contestants:
                 raise Exception("This contest is private and you have not been invited.")
-        problems=[]
+        problems = []
         if cont.problems is not None and cont.problems != "":
-            problems=map(int,cont.problems.split('|'))
+            problems = map(int, cont.problems.split('|'))
         sql = ""
         for x in problems:
-            if sql != "": sql = sql + " or "
-            sql = sql + "problem_id=%d" % x
-        if sql == "": raise Exception("no problems.")
-        data = Submission.query.from_statement("SELECT * FROM submission WHERE (%s) and submit_time >= '%s' and submit_time <= '%s' order by id" % (sql, cont.start_time, cont.end_time)).all()
+            if sql != "":
+                sql += " or "
+            sql += "problem_id=%d" % x
+        if sql == "":
+            raise Exception("no problems.")
+        sentence = "SELECT * FROM submission WHERE (%s) and submit_time >= '%s' and submit_time <= '%s' order by id"
+        data = Submission.query.from_statement(sentence % (sql, cont.start_time, cont.end_time)).all()
         objects_list = {}
         if data != []:
             for row in data:
@@ -591,7 +657,7 @@ def contest_ranklist(cid):
                 else:
                     d = objects_list.get(row.user_id)
 
-                if d['problems'][row.problem_id]['accepted'] == True:
+                if d['problems'][row.problem_id]['accepted'] is True:
                     continue
                 if row.result == "Accepted":
                     d['problems'][row.problem_id]['accepted'] = True
@@ -603,27 +669,28 @@ def contest_ranklist(cid):
             for x in objects_list.values():
                 penalty = 0
                 for p in x['problems'].values():
-                    if p['accepted'] == True:
+                    if p['accepted'] is True:
                         penalty = penalty + (60 * 20 * p['attempt']) + p['accepted_time']
-                        p['accepted_time'] = "%.2d:%.2d:%.2d"%(p['accepted_time']/3600, (p['accepted_time']%3600)/60, p['accepted_time']%60)
-                        x['accepted'] = x['accepted'] + 1
-                x['penalty'] = "%.2d:%.2d:%.2d"%(penalty/3600, (penalty%3600)/60, penalty%60)
+                        p['accepted_time'] = "%.2d:%.2d:%.2d" % \
+                                             (p['accepted_time']/3600, (p['accepted_time'] % 3600)/60, p['accepted_time'] % 60)
+                        x['accepted'] += 1
+                x['penalty'] = "%.2d:%.2d:%.2d" % (penalty/3600, (penalty % 3600)/60, penalty % 60)
 
-            objects_list = sorted(objects_list.values(), cmp=lambda x,y: cmp(x['accepted'],y['accepted']) if cmp(x['accepted'],y['accepted'])!=0 else cmp(y['penalty'],x['penalty']),reverse=True)
+            objects_list = sorted(objects_list.values(), cmp=lambda x, y: cmp(x['accepted'],y['accepted']) if cmp(x['accepted'], y['accepted']) != 0 else cmp(y['penalty'], x['penalty']), reverse=True)
             tmp = objects_list[0]
             rank = 1
             for x in objects_list:
                 if not (x['accepted'] == tmp['accepted'] and x['penalty'] == tmp['penalty']):
-                    rank = rank + 1
+                    rank += 1
                 x['rank'] = rank
         return render_template('contest_ranklist.html', 
-            contest = cont,
-            problems = problems,
-            contestants = objects_list,
-            site_name = app.config['HJ_TS_SITE_NAME']
-            )
+            contest=cont,
+            problems=problems,
+            contestants=objects_list,
+            site_name=app.config['HJ_TS_SITE_NAME'])
     except Exception, e:
-        return render_template('exception.html', message = str(e))
+        return render_template('exception.html', message=str(e))
+
 
 @app.route('/code/<int:id>/')
 @login_required
@@ -634,14 +701,15 @@ def showcode(id):
             id = 1 if id < 1 else id
             p = Submission.query.get(id)
             if p is None: raise Exception('Code not found.')
-            if g.user.is_admin() == False:
-                if p.user_id != g.user.id: raise Exception('You are not the author of the code.')
+            if g.user.is_admin() is False:
+                if p.user_id != g.user.id:
+                    raise Exception('You are not the author of the code.')
             return render_template('code.html',
-                site_name = app.config['HJ_TS_SITE_NAME'],
-                submission = p
-                )
+                site_name=app.config['HJ_TS_SITE_NAME'],
+                submission=p)
         except Exception, e:
-            return render_template('exception.html', message = str(e))
+            return render_template('exception.html', message=str(e))
+
 
 @app.route('/contest/<int:cid>/code/<int:sid>/')
 @login_required
@@ -651,22 +719,46 @@ def showcode_contest(cid, sid):
         sid = 1 if sid < 1 else sid
         cid = 1 if cid < 1 else cid
         cont = Contest.query.get(cid)
-        if cont is None: raise Exception("Contest not found.")
+        if cont is None:
+            raise Exception("Contest not found.")
         p = Submission.query.get(sid)
         if p is None: raise Exception('Code not found.')
-        if g.user.is_admin() == False:
-            if p.user_id != g.user.id: raise Exception('You are not the author of the code.')
+        if g.user.is_admin() is False:
+            if p.user_id != g.user.id:
+                raise Exception('You are not the author of the code.')
         return render_template('contest_code.html',
-            site_name = app.config['HJ_TS_SITE_NAME'],
-            submission = p,
-            contest = cont
-            )
+            site_name=app.config['HJ_TS_SITE_NAME'],
+            submission=p,
+            contest=cont)
     except Exception, e:
-        return render_template('exception.html', message = str(e))
+        return render_template('exception.html', message=str(e))
+
+
+@app.route('/ranklist')
+def ranklist():
+    sql = "select * from user order by acc_count desc limit %s"
+    data = User.query.from_statement(sql % 20).all()
+    obj_list = []
+    i = 1
+    for row in data:
+        d = collections.OrderedDict()
+        d['rank'] = i
+        d['id'] = row.id
+        d['username'] = row.username
+        d['sign'] = row.hj_oj_username
+        d['acc_count'] = row.acc_count
+        d['submit_count'] = row.submit_count
+        obj_list.append(d)
+        i += 1
+    return render_template('ranklist.html',
+                           obj_list=obj_list,
+                           site_name=app.config['HJ_TS_SITE_NAME'])
+    redirect('/ranklist/')
+
 @app.route('/orca.txt')
 def orca():
     return "3cf2d9137c049a63"
-   
+
 @app.route('/')
 @app.route('/index')
 @cache.cached(timeout=5)
@@ -676,23 +768,19 @@ def index():
     data = Submission.query.order_by(db.desc(Submission.id)).offset(0).limit(lenx).all()
     status = []
     for row in data:
-		d = collections.OrderedDict()
-		d['id'] = row.id
-		d['problem_id']=row.problem.id
-		d['problem_title'] = row.problem.title
-		d['username'] = row.user.username
-		d['result'] = row.result
-		d['memory_used'] = row.memory_used
-		d['time_used'] = row.time_used
-		d['compiler'] = row.compiler
-		d['code'] = len(row.code)
-		d['submit_time'] = row.submit_time
-		status.append(d)
-    return render_template("index.html", 
-        news_list = news_list,
-        site_name = app.config['HJ_TS_SITE_NAME'],
-        status=status
-        )
+        d = collections.OrderedDict()
+        d['id'] = row.id
+        d['problem_id']=row.problem.id
+        d['problem_title'] = row.problem.title
+        d['username'] = row.user.username
+        d['result'] = row.result
+        d['submit_time'] = row.submit_time
+        status.append(d)
+
+    return render_template("index.html",
+        news_list=news_list,
+        site_name=app.config['HJ_TS_SITE_NAME'],
+        status=status)
 
 
 

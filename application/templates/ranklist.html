@@ -1,0 +1,64 @@
+{%extends "base.html"%}
+        {%block main%}
+        <section id="content">
+            <div class="container" style="padding-bottom: 30px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel" style="margin-bottom: 0px;">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <i class="glyphicons glyphicons-crown"></i>
+                                    <span>&nbsp;Ranklist</span>
+                                </div>
+                            </div>
+                            <div class="panel-body container" style="padding-bottom: 30px;">
+                                <div class="tab-content padding-none border-none">
+                                    <div id="tab1" class="tab-pane active">
+                                        <table class="table table-striped1 text-center" id="submission_table">
+                                            <thead>
+                                                <tr>
+                                                    <td style="width:1%">Rank</td>
+                                                    <td style="width:1%">Username</td>
+                                                    <td style="width:15%">Sign</td>
+                                                    <td style="width:5%">Solved</td>
+                                                    <td style="width:5%">Submit</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="submission_table_body">
+                                                {% for u in obj_list %}
+                                                <tr>
+                                                    <td style="vertical-align:middle">{{u.rank}}</td>
+                                                    <td style="vertical-align:middle"><a href="/"></a>{{u.username}}</td>
+                                                    <td style="vertical-align:middle">{{u.sign}}</td>
+                                                    <td style="vertical-align:middle">{{u.acc_count}}</td>
+                                                    <td style="vertical-align:middle">{{u.submit_count}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {%endblock%}
+    {%block script%}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            Core.init();
+            HJ();
+
+            // coloring
+            $("#submission_table_body").children().each(function(){
+                var username = $($(this).children()[1]).text();
+                if(username.indexOf("_HJ_")>=0){
+                    username = username.replace('_HJ_', "<img src='/static/img/logos/HJ-small.png' style='height: 14px;margin-top: 2px;vertical-align:top;'>&nbsp;");
+                    $($(this).children()[1]).html(username);
+                }
+            });
+        });
+    </script>
+    {%endblock%}
