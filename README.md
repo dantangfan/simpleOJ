@@ -1,30 +1,25 @@
-使用方法
+User Guide
 ---
 
-##安装
+##Install
 
-####安装Flask和插件
+####Install Flask and requirements
 
 ```
 sudo pip install -r requirements.txt
 ```
 
-####题目
-题目是xml格式的，为了方便数据查看，我把它们换成了文件的格式
-运行
+####About the problems
+problems are download from code.google, and the are xml style. To use this system, we make the problems into files. Run the command below, and you can get a set of problems in your database
 
 ```python
 python create_database.py
 ```
 
-就可以得到相应的题目集合
+####Others
 
-####其他
+We use mysql, SQLAchemy and redis. So, make sure they running before you run this system.
 
-使用了mysql和redis，所以必须保证她们都能跑起来，配置文件在config里面，需要修改
+You also should change all the configures in `./config.py` and `acmjudger/config.py`
 
-发email的程序是用tornado写的，不喜欢可以自己换
-
-##运行
-
-主文件夹下的`restart.sh`和`stop.sh`是用来跑web端程序的，`acmjudger`文件夹下的`restart.sh`和`stop.sh`是用来跑评测程序的
+##Run
